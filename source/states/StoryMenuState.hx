@@ -326,7 +326,7 @@ class StoryMenuState extends MusicBeatState
 				FreeplayState.destroyFreeplayVocals();
 			});
 			
-			#if MODS_ALLOWED
+			#if desktop
 			DiscordClient.loadModRPC();
 			#end
 		} else {
