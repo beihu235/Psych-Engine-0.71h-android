@@ -39,10 +39,10 @@ class Mods
 
 	public static var globalMods:Array<String> = [];
 
-	static public function getGlobalMods()
+	inline static public function getGlobalMods()
 		return globalMods;
 
-	static public function pushGlobalMods() // prob a better way to do this but idc
+	inline static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
 		var path:String = SUtil.getPath() + 'modsList.txt';
@@ -87,7 +87,6 @@ class Mods
 		}
 		return list;
 	}
-	#end
 	
 	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
 	{
