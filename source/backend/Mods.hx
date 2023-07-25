@@ -236,7 +236,8 @@ class Mods
 		}
 		//trace(fileStr);
 
-		File.saveContent('modsList.txt', fileStr);
+		var path:String = SUtil.getPath() + 'modsList.txt';
+		File.saveContent(path, fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end
