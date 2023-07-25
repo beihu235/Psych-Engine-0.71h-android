@@ -1,27 +1,33 @@
-package;
+package backend;
 
 import animateatlas.AtlasFrameMaker;
-import flixel.math.FlxPoint;
+
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
-import openfl.geom.Rectangle;
-import flixel.math.FlxRect;
-import haxe.xml.Access;
-import openfl.system.System;
-import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.FlxGraphic;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
+
+import openfl.display.BitmapData;
+import openfl.display3D.textures.RectangleTexture;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+import openfl.system.System;
+import openfl.geom.Rectangle;
+
 import lime.utils.Assets;
-import flixel.FlxSprite;
+import flash.media.Sound;
+
 #if sys
 import sys.io.File;
 import sys.FileSystem;
 #end
-import flixel.graphics.FlxGraphic;
-import openfl.display.BitmapData;
-import haxe.Json;
+import tjson.TJSON as Json;
 
-import flash.media.Sound;
+
+#if MODS_ALLOWED
+import backend.Mods;
+#end
 
 using StringTools;
 
