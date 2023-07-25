@@ -76,7 +76,7 @@ class Mods
 
 	inline static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
-		var modsFolder:String = mods();
+		var modsFolder:String = Paths.mods();
 		if(FileSystem.exists(modsFolder)) {
 			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
