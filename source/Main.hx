@@ -12,6 +12,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
+import backend.SUtil;
 
 //crash handler stuff
 #if CRASH_HANDLER
@@ -48,6 +49,7 @@ class Main extends Sprite
 	{
 		super();
 
+    SUtil.gameCrashCheck();
 		if (stage != null)
 		{
 			init();
@@ -81,7 +83,7 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-	
+	    SUtil.doTheCheck();
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
 		Controls.instance = new Controls();
 		ClientPrefs.loadDefaultKeys();
