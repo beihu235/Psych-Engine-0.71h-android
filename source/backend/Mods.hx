@@ -34,39 +34,60 @@ class Mods
 		'scripts',
 		'achievements'
 	];
+	
+	
 
-	private static var globalMods:Array<String> = [];
+	public static var globalMods:Array<String> = [];
 
-	inline public static function getGlobalMods()
+	static public function getGlobalMods()
 		return globalMods;
 
-	inline public static function pushGlobalMods() // prob a better way to do this but idc
+	static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		for(mod in parseList().enabled)
+		var path:String = SUtil.getPath() + 'modsList.txt';
+		if(FileSystem.exists(path))
 		{
-			var pack:Dynamic = getPack(mod);
-			if(pack != null && pack.runsGlobally) globalMods.push(mod);
+			var list:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in list)
+			{
+				var dat = i.split("|");
+				if (dat[1] == "1")
+				{
+					var folder = dat[0];
+					var path = Paths.mods(folder + '/pack.json');
+					if(FileSystem.exists(path)) {
+						try{
+							var rawJson:String = File.getContent(path);
+							if(rawJson != null && rawJson.length > 0) {
+								var stuff:Dynamic = Json.parse(rawJson);
+								var global:Bool = Reflect.getProperty(stuff, "runsGlobally");
+								if(global)globalMods.push(dat[0]);
+							}
+						} catch(e:Dynamic){
+							trace(e);
+						}
+					}
+				}
+			}
 		}
 		return globalMods;
 	}
 
-	inline public static function getModDirectories():Array<String>
-	{
+	inline static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
-		#if MODS_ALLOWED
-		var modsFolder:String = Paths.mods();
+		var modsFolder:String = mods();
 		if(FileSystem.exists(modsFolder)) {
-			for (folder in FileSystem.readDirectory(modsFolder))
-			{
+			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
-				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder.toLowerCase()) && !list.contains(folder))
+				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {
 					list.push(folder);
+				}
 			}
 		}
-		#end
 		return list;
 	}
+	#end
 	
 	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
 	{
