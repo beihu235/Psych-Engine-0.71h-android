@@ -4,7 +4,7 @@ import openfl.geom.Rectangle;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import openfl.Assets;
-import tjson.TJSON as Json;
+import haxe.Json;
 import openfl.display.BitmapData;
 import animateatlas.JSONData.AtlasData;
 import animateatlas.JSONData.AnimationData;
@@ -13,14 +13,7 @@ import animateatlas.displayobject.SpriteMovieClip;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFrame;
-
-#if desktop
-import sys.FileSystem;
-import sys.io.File;
-#else
-import js.html.FileSystem;
-import js.html.File;
-#end
+import flixel.util.FlxColor;
 
 class AtlasFrameMaker extends FlxFramesCollection
 {
