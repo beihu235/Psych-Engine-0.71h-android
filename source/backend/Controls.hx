@@ -107,11 +107,11 @@ class Controls
 		
 		if (key == 'accept'){
 		result = (MusicBeatState._virtualpad.buttonA.justPressed == true);
-		if(result) controllerMode = false;
+		if(result) controllerMode = true;
 		}
 		if (key == 'back'){
 		result= (MusicBeatState._virtualpad.buttonB.justPressed == true);
-		if(result) controllerMode = false;
+		if(result) controllerMode = true;
 		}
 		
 		#end
