@@ -5,6 +5,19 @@ import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.mappings.FlxGamepadMapping;
 import flixel.input.keyboard.FlxKey;
 
+#if android
+//import flixel.input.actions.FlxActionInput;
+import android.AndroidControls.AndroidControls;
+import android.FlxVirtualPad;
+
+import flixel.group.FlxGroup;
+import android.FlxHitbox;
+import android.FlxNewHitbox;
+import android.FlxVirtualPad;
+import flixel.ui.FlxButton;
+import android.flixel.FlxButton as FlxNewButton;
+#end
+
 class Controls
 {
 	//Keeping same use cases on stuff for it to be easier to understand/use
@@ -89,6 +102,19 @@ class Controls
 	{
 		var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
 		if(result) controllerMode = false;
+		
+		#if android
+		
+		if (key == 'accept'){
+		var result:Bool = ( _virtualpad.buttonA.justPressed== true);
+		if(result) controllerMode = false;
+		}
+		if (key == 'back'){
+		var result:Bool = ( _virtualpad.buttonB.justPressed== true);
+		if(result) controllerMode = false;
+		}
+		
+		#end
 
 		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
 	}
