@@ -48,6 +48,13 @@ class SaveVariables {
 	public var pauseMusic:String = 'Tea Time';
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
+	
+	public var hitboxmode:String = 'New';
+	public var hitboxExtend = true;
+	public var hitboxLocation:String = 'Bottom';
+	public var hitboxalpha:Float = 0.2; //someone request this lol
+	public var VirtualPadAlpha:Float = 0.75;
+	
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
