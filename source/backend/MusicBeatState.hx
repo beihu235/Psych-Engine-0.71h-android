@@ -21,7 +21,7 @@ import flixel.FlxCamera;
 import flixel.FlxBasic;
 
 #if android
-import flixel.input.actions.FlxActionInput;
+//import flixel.input.actions.FlxActionInput;
 import android.AndroidControls.AndroidControls;
 import android.FlxVirtualPad;
 
@@ -50,8 +50,8 @@ class MusicBeatState extends FlxUIState
 	}
 	
 	#if android
-	var _virtualpad:FlxVirtualPad;
-	var androidc:AndroidControls;
+	public static var _virtualpad:FlxVirtualPad;
+	public static var androidc:AndroidControls;
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end

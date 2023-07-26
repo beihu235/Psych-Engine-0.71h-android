@@ -18,7 +18,7 @@ import flixel.ui.FlxButton;
 import android.flixel.FlxButton as FlxNewButton;
 #end
 
-class Controls extends MusicBeatState
+class Controls
 {
 	//Keeping same use cases on stuff for it to be easier to understand/use
 	//I'd have removed it but this makes it a lot less annoying to use in my opinion
@@ -106,11 +106,11 @@ class Controls extends MusicBeatState
 		#if android
 		
 		if (key == 'accept'){
-		var result:Bool = ( _virtualpad.buttonA.justPressed== true);
+		var result:Bool = ( MusicBeatState._virtualpad.buttonA.justPressed== true);
 		if(result) controllerMode = false;
 		}
 		if (key == 'back'){
-		var result:Bool = ( _virtualpad.buttonB.justPressed== true);
+		var result:Bool = ( MusicBeatState._virtualpad.buttonB.justPressed== true);
 		if(result) controllerMode = false;
 		}
 		
