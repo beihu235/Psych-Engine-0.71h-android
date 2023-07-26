@@ -8,7 +8,7 @@ import flixel.input.keyboard.FlxKey;
 #if android
 //import flixel.input.actions.FlxActionInput;
 import android.AndroidControls.AndroidControls;
-import android.FlxVirtualPad;
+//import android.FlxVirtualPad;
 
 import flixel.group.FlxGroup;
 import android.FlxHitbox;
@@ -18,7 +18,7 @@ import flixel.ui.FlxButton;
 import android.flixel.FlxButton as FlxNewButton;
 #end
 
-class Controls
+class Controls extends MusicBeatState
 {
 	//Keeping same use cases on stuff for it to be easier to understand/use
 	//I'd have removed it but this makes it a lot less annoying to use in my opinion
