@@ -100,17 +100,17 @@ class Controls
 	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
 	public function justPressed(key:String)
 	{
-		var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
+		//var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
+		//if(result) controllerMode = false;
 		
 		#if android
 		
 		if (key == 'accept'){
-		var result:Bool = ( MusicBeatState._virtualpad.buttonA.justPressed== true);
+		var result:Bool = MusicBeatState._virtualpad.buttonA.justPressed;
 		if(result) controllerMode = false;
 		}
 		if (key == 'back'){
-		var result:Bool = ( MusicBeatState._virtualpad.buttonB.justPressed== true);
+		var result:Bool = MusicBeatState._virtualpad.buttonB.justPressed;
 		if(result) controllerMode = false;
 		}
 		
