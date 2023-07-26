@@ -42,7 +42,7 @@ class AndroidControlsMenu extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.globalAntialiasing;
 		add(bg);
 
 		var titleText:Alphabet = new Alphabet(75, 60, "Android Controls", true);
@@ -51,11 +51,11 @@ class AndroidControlsMenu extends MusicBeatState
 		titleText.alpha = 0.4;
 		add(titleText);
 
-		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.globalAntialiasing);
 		vpad.alpha = 0;
 		add(vpad);
 
-		hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
+		hbox = new FlxHitbox(0.75, ClientPrefs.data.globalAntialiasing);
 		hbox.visible = false;
 		add(hbox);
 		
@@ -160,20 +160,20 @@ class AndroidControlsMenu extends MusicBeatState
 		{
 				case 'Pad-Right':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.globalAntialiasing);
 					add(vpad);
 				case 'Pad-Left':
 					remove(vpad);
-					vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(FULL, NONE, 0.75, ClientPrefs.data.globalAntialiasing);
 					add(vpad);
 				case 'Pad-Custom':
 					remove(vpad);
-					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.globalAntialiasing);
 					add(vpad);
 					loadcustom();
 				case 'Duo':
 					remove(vpad);
-					vpad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.globalAntialiasing);
+					vpad = new FlxVirtualPad(DUO, NONE, 0.75, ClientPrefs.data.globalAntialiasing);
 					add(vpad);
 				case 'Hitbox':
 					vpad.alpha = 0;
@@ -189,7 +189,7 @@ class AndroidControlsMenu extends MusicBeatState
 		}
 		else
 		{
-		if(ClientPrefs.hitboxmode != 'New'){
+		if(ClientPrefs.data.hitboxmode != 'New'){
 			hbox.visible = true;
 		     }else{
 		       newhbox.visible = true;
