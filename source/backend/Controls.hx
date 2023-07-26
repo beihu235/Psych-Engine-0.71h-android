@@ -102,15 +102,15 @@ class Controls
 	{
 		//var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
 		//if(result) controllerMode = false;
-		
+		var result:Bool = false;
 		#if android
 		
 		if (key == 'accept'){
-		var result:Bool = (MusicBeatState._virtualpad.buttonA.justPressed == true);
+		result = (MusicBeatState._virtualpad.buttonA.justPressed == true);
 		if(result) controllerMode = false;
 		}
 		if (key == 'back'){
-		var result:Bool = (MusicBeatState._virtualpad.buttonB.justPressed == true);
+		result= (MusicBeatState._virtualpad.buttonB.justPressed == true);
 		if(result) controllerMode = false;
 		}
 		
