@@ -2,6 +2,7 @@ package states;
 
 import backend.WeekData;
 import backend.Achievements;
+import backend.MusicBeatState;
 
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
