@@ -2,7 +2,7 @@ package states;
 
 import backend.WeekData;
 import backend.Achievements;
-import states.MainMenuState;
+//import states.MainMenuState;
 
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
@@ -253,7 +253,7 @@ class MainMenuState extends MusicBeatState
 		
 			
 			#if (desktop || android)
-			else if (controls.justPressed('debug_1') #if android || _virtualpad.buttonE.justPressed #end)
+			else if (controls.justPressed('debug_1') #if android || MusicBeatState._virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
