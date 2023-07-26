@@ -52,8 +52,8 @@ class MusicBeatState extends FlxUIState
 	#if android
 	public static var _virtualpad:FlxVirtualPad;
 	public static var androidc:AndroidControls;
-	var trackedinputsUI:Array<FlxActionInput> = [];
-	var trackedinputsNOTES:Array<FlxActionInput> = [];
+	//var trackedinputsUI:Array<FlxActionInput> = [];
+	//var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
 	
 	#if android
