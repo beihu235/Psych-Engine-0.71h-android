@@ -100,8 +100,8 @@ class Controls
 	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
 	public function justPressed(key:String)
 	{
-		var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
+		//var result:Bool = (FlxG.keys.anyJustPressed(keyboardBinds[key]) == true);
+		//if(result) controllerMode = false;
 		
 		#if android
 		
