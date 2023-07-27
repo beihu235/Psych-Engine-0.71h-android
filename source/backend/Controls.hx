@@ -106,13 +106,14 @@ class Controls
 		#if android
 		
 		if (key == 'accept'){
-		result = (MusicBeatState._virtualpad.buttonA.justPressed == true);
+		result = ((MusicBeatState._virtualpad.buttonA.justPressed || MusicBeatSubstate._virtualpad.buttonA.justPressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'back'){
-		result= (MusicBeatState._virtualpad.buttonB.justPressed == true);
+		result= ((MusicBeatState._virtualpad.buttonB.justPressed || MusicBeatSubstate._virtualpad.buttonB.justPressed) == true);
 		if(result) controllerMode = true;
 		}
+		
 		if (key == 'ui_up'){
 		result = (MusicBeatState._virtualpad.buttonUp.justPressed == true);
 		if(result) controllerMode = true;
@@ -129,20 +130,93 @@ class Controls
 		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
 		if(result) controllerMode = true;
 		}
+		
+		if (key == 'note_up'){
+		result = (MusicBeatState.virtualpad.buttonUp.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_down'){
+		result= (MusicBeatState.virtualpad.buttonDown.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_left'){
+		result = (MusicBeatState.virtualpad.buttonLeft.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_right'){
+		result= (MusicBeatState.virtualpad.buttonRight.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		
+		#end
+		
 		if (FlxG.keys.anyJustPressed(keyboardBinds[key])){
 		result = true;
 		controllerMode = false;
 		}
 		
-		#end
+		
 
 		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
 	}
 
 	public function pressed(key:String)
 	{
-		var result:Bool = (FlxG.keys.anyPressed(keyboardBinds[key]) == true);
-		if(result) controllerMode = false;
+		//var result:Bool = (FlxG.keys.anyPressed(keyboardBinds[key]) == true);
+		//if(result) controllerMode = false;
+		
+		var result:Bool = false;
+		#if android
+		
+		if (key == 'accept'){
+		result = ((MusicBeatState._virtualpad.buttonA.Pressed || MusicBeatSubstate._virtualpad.buttonA.Pressed) == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'back'){
+		result= ((MusicBeatState._virtualpad.buttonB.Pressed || MusicBeatSubstate._virtualpad.buttonB.Pressed) == true);
+		if(result) controllerMode = true;
+		}
+		
+		if (key == 'ui_up'){
+		result = (MusicBeatState._virtualpad.buttonUp.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_down'){
+		result= (MusicBeatState._virtualpad.buttonDown.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_left'){
+		result = (MusicBeatState._virtualpad.buttonLeft.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_right'){
+		result= (MusicBeatState._virtualpad.buttonRight.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		
+		if (key == 'note_up'){
+		result = (MusicBeatState.virtualpad.buttonUp.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_down'){
+		result= (MusicBeatState.virtualpad.buttonDown.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_left'){
+		result = (MusicBeatState.virtualpad.buttonLeft.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'note_right'){
+		result= (MusicBeatState.virtualpad.buttonRight.Pressed == true);
+		if(result) controllerMode = true;
+		}
+		
+		#end
+		
+		if (FlxG.keys.anyPressed(keyboardBinds[key])){
+		result = true;
+		controllerMode = false;
+		}
 
 		return result || _myGamepadPressed(gamepadBinds[key]) == true;
 	}

@@ -307,7 +307,7 @@ class Paths
 				return File.getContent(levelPath);
 		}
 		#end
-		return Assets.getText(SUtil.getPath() + getPath(key, TEXT));
+		return Assets.getText(getPath(key, TEXT));
 	}
 
 	inline static public function font(key:String)
