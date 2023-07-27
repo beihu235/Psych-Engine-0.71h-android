@@ -113,6 +113,22 @@ class Controls
 		result= (MusicBeatState._virtualpad.buttonB.justPressed == true);
 		if(result) controllerMode = true;
 		}
+		if (key == 'ui_up'){
+		result = (MusicBeatState._virtualpad.buttonUp.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_down'){
+		result= (MusicBeatState._virtualpad.buttonDown.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_left'){
+		result = (MusicBeatState._virtualpad.buttonLeft.justPressed == true);
+		if(result) controllerMode = true;
+		}
+		if (key == 'ui_right'){
+		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
+		if(result) controllerMode = true;
+		}
 		
 		#end
 
