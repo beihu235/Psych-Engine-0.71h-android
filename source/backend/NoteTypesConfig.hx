@@ -17,7 +17,7 @@ class NoteTypesConfig
 	{
 		if(noteTypesData.exists(name)) return noteTypesData.get(name);
 
-		var str:String = SUtil.getPath() + Paths.getTextFromFile('custom_notetypes/$name.txt');
+		var str:String = Paths.getTextFromFile('custom_notetypes/$name.txt');
 		if(str == null || !str.contains(':') || !str.contains('=')) noteTypesData.set(name, null);
 
 		var parsed:Array<NoteTypeProperty> = [];
