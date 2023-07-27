@@ -132,19 +132,19 @@ class Controls
 		}
 		
 		if (key == 'note_up'){
-		result = (MusicBeatState.virtualpad.buttonUp.justPressed == true);
+		result = (MusicBeatState._virtualpad.buttonUp.justPressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_down'){
-		result= (MusicBeatState.virtualpad.buttonDown.justPressed == true);
+		result= (MusicBeatState._virtualpad.buttonDown.justPressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_left'){
-		result = (MusicBeatState.virtualpad.buttonLeft.justPressed == true);
+		result = (MusicBeatState._virtualpad.buttonLeft.justPressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_right'){
-		result= (MusicBeatState.virtualpad.buttonRight.justPressed == true);
+		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
 		if(result) controllerMode = true;
 		}
 		
@@ -169,45 +169,45 @@ class Controls
 		#if android
 		
 		if (key == 'accept'){
-		result = ((MusicBeatState._virtualpad.buttonA.Pressed || MusicBeatSubstate._virtualpad.buttonA.Pressed) == true);
+		result = ((MusicBeatState._virtualpad.buttonA.pressed || MusicBeatSubstate._virtualpad.buttonA.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'back'){
-		result= ((MusicBeatState._virtualpad.buttonB.Pressed || MusicBeatSubstate._virtualpad.buttonB.Pressed) == true);
+		result= ((MusicBeatState._virtualpad.buttonB.pressed || MusicBeatSubstate._virtualpad.buttonB.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		
 		if (key == 'ui_up'){
-		result = (MusicBeatState._virtualpad.buttonUp.Pressed == true);
+		result = (MusicBeatState._virtualpad.buttonUp.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_down'){
-		result= (MusicBeatState._virtualpad.buttonDown.Pressed == true);
+		result= (MusicBeatState._virtualpad.buttonDown.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_left'){
-		result = (MusicBeatState._virtualpad.buttonLeft.Pressed == true);
+		result = (MusicBeatState._virtualpad.buttonLeft.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_right'){
-		result= (MusicBeatState._virtualpad.buttonRight.Pressed == true);
+		result= (MusicBeatState._virtualpad.buttonRight.pressed == true);
 		if(result) controllerMode = true;
 		}
 		
 		if (key == 'note_up'){
-		result = (MusicBeatState.virtualpad.buttonUp.Pressed == true);
+		result = (MusicBeatState._virtualpad.buttonUp.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_down'){
-		result= (MusicBeatState.virtualpad.buttonDown.Pressed == true);
+		result= (MusicBeatState._virtualpad.buttonDown.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_left'){
-		result = (MusicBeatState.virtualpad.buttonLeft.Pressed == true);
+		result = (MusicBeatState._virtualpad.buttonLeft.pressed == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'note_right'){
-		result= (MusicBeatState.virtualpad.buttonRight.Pressed == true);
+		result= (MusicBeatState._virtualpad.buttonRight.pressed == true);
 		if(result) controllerMode = true;
 		}
 		
