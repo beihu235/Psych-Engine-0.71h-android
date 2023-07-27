@@ -7,6 +7,7 @@ import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
+import beakend.MusicBeatState;
 
 import states.StoryMenuState;
 import states.FreeplayState;
@@ -67,8 +68,8 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(camFollow);
 		
 		#if android
-		addVirtualPad(NONE, A_B);
-		addPadCamera();
+		MusicBeatState.addVirtualPad(NONE, A_B);
+		MusicBeatState.addPadCamera();
 		#end
 	}
 
