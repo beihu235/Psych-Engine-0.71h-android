@@ -115,19 +115,19 @@ class Controls
 		}
 		
 		if (key == 'ui_up'){
-		result = (MusicBeatState._virtualpad.buttonUp.justPressed == true);
+		result = ((MusicBeatState._virtualpad.buttonUp.justPressed || MusicBeatSubstate._virtualpad.buttonUp.justPressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_down'){
-		result= (MusicBeatState._virtualpad.buttonDown.justPressed == true);
+		result= ((MusicBeatState._virtualpad.buttonDown.justPressed || MusicBeatSubstate._virtualpad.buttonDown.justPressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_left'){
-		result = (MusicBeatState._virtualpad.buttonLeft.justPressed == true);
+		result = ((MusicBeatState._virtualpad.buttonLeft.justPressed || MusicBeatSubstate._virtualpad.buttonLeft.justPressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_right'){
-		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
+		result= ((MusicBeatState._virtualpad.buttonRight.justPressed || MusicBeatSubstate._virtualpad.buttonRight.justPressed) == true);
 		if(result) controllerMode = true;
 		}
 		
@@ -178,19 +178,19 @@ class Controls
 		}
 		
 		if (key == 'ui_up'){
-		result = (MusicBeatState._virtualpad.buttonUp.pressed == true);
+		result = ((MusicBeatState._virtualpad.buttonUp.pressed || MusicBeatSubstate._virtualpad.buttonUp.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_down'){
-		result= (MusicBeatState._virtualpad.buttonDown.pressed == true);
+		result= ((MusicBeatState._virtualpad.buttonDown.pressed || MusicBeatSubstate._virtualpad.buttonDown.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_left'){
-		result = (MusicBeatState._virtualpad.buttonLeft.pressed == true);
+		result = ((MusicBeatState._virtualpad.buttonLeft.pressed || MusicBeatSubstate._virtualpad.buttonLeft.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		if (key == 'ui_right'){
-		result= (MusicBeatState._virtualpad.buttonRight.pressed == true);
+		result= ((MusicBeatState._virtualpad.buttonRight.pressed || MusicBeatSubstate._virtualpad.buttonRight.pressed) == true);
 		if(result) controllerMode = true;
 		}
 		
