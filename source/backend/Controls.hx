@@ -129,6 +129,10 @@ class Controls
 		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
 		if(result) controllerMode = true;
 		}
+		if (FlxG.keys.anyJustPressed(keyboardBinds[key])){
+		result = true;
+		controllerMode = false;
+		}
 		
 		#end
 
