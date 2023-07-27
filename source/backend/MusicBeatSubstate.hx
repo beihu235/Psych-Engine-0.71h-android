@@ -42,7 +42,7 @@ class MusicBeatSubstate extends FlxSubState
 		
     #if android
 	public static var _virtualpad:FlxVirtualPad;
-	public static var androidc:AndroidControls;
+	//public static var androidc:AndroidControls;
 	//var trackedinputsUI:Array<FlxActionInput> = [];
 	//var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
@@ -52,6 +52,7 @@ class MusicBeatSubstate extends FlxSubState
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
 		Controls.checkState = false;
+		Controls.CheckPress = true;
 		//controls.setVirtualPadUI(_virtualpad, DPad, Action);
 		//trackedinputsUI = controls.trackedinputsUI;
 		//controls.trackedinputsUI = [];
@@ -62,6 +63,12 @@ class MusicBeatSubstate extends FlxSubState
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
+	}
+	#end
+	
+	#if android
+	public function noCheckPress() {
+		Controls.CheckPress = false;
 	}
 	#end
 	

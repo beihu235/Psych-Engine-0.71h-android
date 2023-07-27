@@ -64,16 +64,25 @@ class MusicBeatState extends FlxUIState
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
 		Controls.checkState = true;
+		Controls.CheckPress = true;
 		//controls.setVirtualPadUI(_virtualpad, DPad, Action);
 		//trackedinputsUI = controls.trackedinputsUI;
 		//controls.trackedinputsUI = [];
 	}
 	#end
+	
+
 
 	#if android
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
+	}
+	#end
+	
+	#if android
+	public function noCheckPress() {
+		Controls.CheckPress = false;
 	}
 	#end
 	
