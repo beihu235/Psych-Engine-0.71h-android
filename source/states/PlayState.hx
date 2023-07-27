@@ -301,6 +301,13 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
+		
+		#if android
+		addAndroidControls();
+		androidc.visible = true;
+		androidc.alpha = 0.000001;
+		
+		#end
 
 		persistentUpdate = true;
 		persistentDraw = true;
