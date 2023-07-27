@@ -94,6 +94,8 @@ class Controls
 	private function get_BACK() return justPressed('back');
 	private function get_PAUSE() return justPressed('pause');
 	private function get_RESET() return justPressed('reset');
+	
+	public static var checkState:Bool = true;
 
 	//Gamepad & Keyboard stuff
 	public var keyboardBinds:Map<String, Array<FlxKey>>;
@@ -105,7 +107,7 @@ class Controls
 		var result:Bool = false;
 		#if android
 		
-		if (MusicBeatState._virtualpad != null){
+		if (checkState){
 		    if (key == 'accept'){
 		    result = (MusicBeatState._virtualpad.buttonA.justPressed == true);
 		    if(result) controllerMode = true;
@@ -133,7 +135,7 @@ class Controls
     		}
 		}
 		
-		else if (MusicBeatSubstate._virtualpad != null){
+		else{
 		    if (key == 'accept'){
 		    result = (MusicBeatSubstate._virtualpad.buttonA.justPressed == true);
 		    if(result) controllerMode = true;
@@ -201,7 +203,7 @@ class Controls
 		var result:Bool = false;
 		#if android
 		
-		if (MusicBeatState._virtualpad != null){
+		if (checkState){
 		    if (key == 'accept'){
 		    result = (MusicBeatState._virtualpad.buttonA.pressed == true);
 		    if(result) controllerMode = true;
@@ -229,7 +231,7 @@ class Controls
     		}
 		}
 		
-		else if (MusicBeatSubstate._virtualpad != null){
+		else{
 		    if (key == 'accept'){
 		    result = (MusicBeatSubstate._virtualpad.buttonA.pressed == true);
 		    if(result) controllerMode = true;
