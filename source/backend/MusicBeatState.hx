@@ -44,6 +44,9 @@ class MusicBeatState extends FlxUIState
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
 	public var controls(get, never):Controls;
+	
+	private var checkHitbox:Bool = true;
+	
 	private function get_controls()
 	{
 		return Controls.instance;
@@ -70,6 +73,44 @@ class MusicBeatState extends FlxUIState
 	public function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
+	}
+	#end
+	
+	#if android
+	public function addAndroidControls() {
+		androidc = new AndroidControls();
+
+		switch (androidc.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
+				checkHitbox = false;
+			case DUO:
+				controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
+				checkHitbox = false;
+			case HITBOX:
+				controls.setNewHitBox(androidc.newhbox);
+				checkHitbox = true;
+			default:
+		}
+
+		var camcontrol = new flixel.FlxCamera();
+		FlxG.cameras.add(camcontrol, false);
+		camcontrol.bgColor.alpha = 0;
+		androidc.cameras = [camcontrol];
+
+		androidc.visible = false;
+
+		add(androidc);
+	}
+	#end
+
+	#if android
+        public function addPadCamera() {
+		var camcontrol = new flixel.FlxCamera();
+		camcontrol.bgColor.alpha = 0;
+		FlxG.cameras.add(camcontrol, false);
+		_virtualpad.cameras = [camcontrol];
 	}
 	#end
 
