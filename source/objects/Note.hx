@@ -177,7 +177,8 @@ class Note extends FlxSprite
 				case 'GF Sing':
 					gfNote = true;
 			}
-			if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
+			if (value != null && value.length > 1 && Paths.fileExists('custom notetypes/$value.txt', TEXT)) NoteTypesConfig.applyNoteTypeData(this, value); //uhh Prevent txt issue
+			//if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
 			if (hitsound != 'hitsound' && ClientPrefs.data.hitsoundVolume > 0) Paths.sound(hitsound); //precache new sound for being idiot-proof
 			noteType = value;
 		}
