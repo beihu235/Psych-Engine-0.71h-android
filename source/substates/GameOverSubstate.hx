@@ -7,7 +7,7 @@ import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
-import beakend.MusicBeatState;
+import backend.MusicBeatState;
 
 import states.StoryMenuState;
 import states.FreeplayState;
