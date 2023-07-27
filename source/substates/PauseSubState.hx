@@ -3,6 +3,7 @@ package substates;
 import backend.WeekData;
 import backend.Highscore;
 import backend.Song;
+import backend.MusicBeatState;
 
 import flixel.addons.transition.FlxTransitionableState;
 
@@ -11,6 +12,7 @@ import flixel.util.FlxStringUtil;
 import states.StoryMenuState;
 import states.FreeplayState;
 import options.OptionsState;
+
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -130,13 +132,13 @@ class PauseSubState extends MusicBeatSubstate
 			#if android
 		if (PlayState.chartingMode)
 		{
-		        addVirtualPad(FULL, A);
+		        MusicBeatState.addVirtualPad(FULL, A);
 		}
 		else
 		{
-		        addVirtualPad(FULL, A);
+		        MusicBeatState.addVirtualPad(FULL, A);
 		}
-		addPadCamera();
+		MusicBeatState.addPadCamera();
 		#end
 	}
 
