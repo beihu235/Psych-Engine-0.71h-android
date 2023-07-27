@@ -3,7 +3,7 @@ package substates;
 import objects.AttachedText;
 import objects.CheckboxThingie;
 import flixel.addons.transition.FlxTransitionableState;
-import beakend.MusicBeatState;
+
 
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
@@ -139,8 +139,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		reloadCheckboxes();
 		
 		#if android
-		MusicBeatState.addVirtualPad(FULL, A_B_C);
-		MusicBeatState.addPadCamera();
+		MusicBeatSubstate.addVirtualPad(FULL, A_B_C);
+		MusicBeatSubstate.addPadCamera();
 		#end
 	}
 
