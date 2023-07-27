@@ -17,6 +17,7 @@ import backend.WeekData;
 import backend.Song;
 import backend.Section;
 import backend.Rating;
+import backend.MusicBeatState;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -305,7 +306,7 @@ class PlayState extends MusicBeatState
 		#if android
 		addAndroidControls();
 		androidc.visible = true;
-		androidc.alpha = 0.000001;
+		//androidc.alpha = 0.000001;
 		
 		#end
 
