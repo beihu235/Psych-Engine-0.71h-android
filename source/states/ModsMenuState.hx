@@ -334,7 +334,11 @@ class ModsMenuState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
 		FlxG.mouse.visible = true;
-
+        
+         #if android
+         addVirtualPad(UP_DOWN, B);
+         #end
+        
 		super.create();
 	}
 
@@ -402,7 +406,7 @@ class ModsMenuState extends MusicBeatState
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
 
-		var path:String = 'modsList.txt';
+		var path:String = SUtil.getPath() + 'modsList.txt';
 		File.saveContent(path, fileStr);
 		Mods.pushGlobalMods();
 	}
