@@ -45,7 +45,7 @@ class MusicBeatState extends FlxUIState
 	private var curDecBeat:Float = 0;
 	public var controls(get, never):Controls;
 	
-	private var checkHitbox:Bool = true;
+	public static var checkHitbox:Bool = true;
 	
 	private function get_controls()
 	{
