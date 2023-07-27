@@ -3,7 +3,7 @@ package substates;
 import objects.AttachedText;
 import objects.CheckboxThingie;
 import flixel.addons.transition.FlxTransitionableState;
-import backend.MusicBeatState;
+import beakend.MusicBeatState;
 
 class GameplayChangersSubstate extends MusicBeatSubstate
 {
@@ -277,7 +277,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+			if(controls.RESET #if android || MusicBeatSubstate._virtualpad.buttonC.justPressed #end)
 			{
 				for (i in 0...optionsArray.length)
 				{
