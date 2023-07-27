@@ -60,7 +60,7 @@ class MusicBeatState extends FlxUIState
 	#end
 	
 	#if android
-	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
+	public static function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
 		//controls.setVirtualPadUI(_virtualpad, DPad, Action);
@@ -70,14 +70,14 @@ class MusicBeatState extends FlxUIState
 	#end
 
 	#if android
-	public function removeVirtualPad() {
+	public static function removeVirtualPad() {
 		//controls.removeFlxInput(trackedinputsUI);
 		remove(_virtualpad);
 	}
 	#end
 	
 	#if android
-	public function addAndroidControls() {
+	public static function addAndroidControls() {
 		androidc = new AndroidControls();
 
 		switch (androidc.mode)
@@ -106,7 +106,7 @@ class MusicBeatState extends FlxUIState
 	#end
 
 	#if android
-        public function addPadCamera() {
+    public static function addPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
