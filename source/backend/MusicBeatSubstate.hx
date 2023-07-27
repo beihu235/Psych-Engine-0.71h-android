@@ -2,6 +2,19 @@ package backend;
 
 import flixel.FlxSubState;
 
+#if android
+//import flixel.input.actions.FlxActionInput;
+import android.AndroidControls.AndroidControls;
+import android.FlxVirtualPad;
+
+import flixel.group.FlxGroup;
+import android.FlxHitbox;
+import android.FlxNewHitbox;
+import android.FlxVirtualPad;
+import flixel.ui.FlxButton;
+import android.flixel.FlxButton as FlxNewButton;
+#end
+
 class MusicBeatSubstate extends FlxSubState
 {
 	public function new()
@@ -22,18 +35,7 @@ class MusicBeatSubstate extends FlxSubState
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 	
-	#if android
-//import flixel.input.actions.FlxActionInput;
-import android.AndroidControls.AndroidControls;
-import android.FlxVirtualPad;
-
-import flixel.group.FlxGroup;
-import android.FlxHitbox;
-import android.FlxNewHitbox;
-import android.FlxVirtualPad;
-import flixel.ui.FlxButton;
-import android.flixel.FlxButton as FlxNewButton;
-#end
+	
 
 	inline function get_controls():Controls
 		return Controls.instance;
