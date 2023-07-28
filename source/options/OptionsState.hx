@@ -14,16 +14,34 @@ class OptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Note Colors':
+			    #if android
+				removeVirtualPad();
+				#end
 				openSubState(new options.NotesSubState());
 			case 'Controls':
+			    #if android
+				removeVirtualPad();
+				#end
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
+			    #if android
+				removeVirtualPad();
+				#end
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
+			    #if android
+				removeVirtualPad();
+				#end
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
+			    #if android
+				removeVirtualPad();
+				#end
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
+			    #if android
+				removeVirtualPad();
+				#end
 				MusicBeatState.switchState(new options.NoteOffsetState());
 		}
 	}
@@ -43,6 +61,21 @@ class OptionsState extends MusicBeatState
 
 		bg.screenCenter();
 		add(bg);
+		
+		#if android
+		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press X to Go In Android Controls Menu', 16);
+			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.borderSize = 1.25;
+			tipText.scrollFactor.set();
+			tipText.antialiasing = ClientPrefs.globalAntialiasing;
+			add(tipText);
+			tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
+			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			tipText.borderSize = 1.25;
+			tipText.scrollFactor.set();
+			tipText.antialiasing = ClientPrefs.globalAntialiasing;
+			add(tipText);
+		#end	
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);

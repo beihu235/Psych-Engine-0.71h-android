@@ -163,6 +163,10 @@ class NotesSubState extends MusicBeatSubstate
 		FlxG.mouse.visible = !controls.controllerMode;
 		controllerPointer.visible = controls.controllerMode;
 		_lastControllerMode = controls.controllerMode;
+		
+		#if android
+		addVirtualPad(FULL, A_B_C);
+		#end
 	}
 
 	function updateTip()
@@ -182,7 +186,12 @@ class NotesSubState extends MusicBeatSubstate
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			close();
+			#if android
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxG.resetState();
+				#else
+				close();
+				#end
 			return;
 		}
 
@@ -462,7 +471,7 @@ class NotesSubState extends MusicBeatSubstate
 				}
 			} 
 		}
-		else if(controls.RESET && hexTypeNum < 0)
+		else if(controls.RESET #if android || _virtualpad.buttonC.justPressed #end && hexTypeNum < 0)
 		{
 			if(FlxG.keys.pressed.SHIFT || FlxG.gamepads.anyJustPressed(LEFT_SHOULDER))
 			{
