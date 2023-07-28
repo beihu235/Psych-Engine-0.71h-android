@@ -67,14 +67,12 @@ import states.stages.objects.*;
 
 #if LUA_ALLOWED
 import psychlua.*;
-import psychlua.HScript;
-//import Hscript as psychlua.Hscript;
+
 #else
 import psychlua.FunkinLua;
 import psychlua.LuaUtils;
 import psychlua.HScript;
 #end
-import psychlua.HScript;
 
 class PlayState extends MusicBeatState
 {
