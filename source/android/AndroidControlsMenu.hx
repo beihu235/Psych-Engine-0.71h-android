@@ -17,7 +17,7 @@ using StringTools;
 class AndroidControlsMenu extends MusicBeatState
 {
 	var vpad:FlxVirtualPad;
-	var hbox:FlxHitbox;
+	//var hbox:FlxHitbox;
 	var newhbox:FlxNewHitbox;
 	var upPozition:FlxText;
 	var downPozition:FlxText;
@@ -54,11 +54,11 @@ class AndroidControlsMenu extends MusicBeatState
 		vpad = new FlxVirtualPad(RIGHT_FULL, NONE, 0.75, ClientPrefs.data.antialiasing);
 		vpad.alpha = 0;
 		add(vpad);
-
+        /*
 		hbox = new FlxHitbox(0.75, ClientPrefs.data.antialiasing);
 		hbox.visible = false;
 		add(hbox);
-		
+		*/
 		newhbox = new FlxNewHitbox();
 		newhbox.visible = false;
 		add(newhbox);
@@ -184,16 +184,14 @@ class AndroidControlsMenu extends MusicBeatState
 
 		if (daChoice != "Hitbox")
 		{
-			hbox.visible = false;
+			//hbox.visible = false;
 			newhbox.visible = false;
 		}
 		else
 		{
-		if(ClientPrefs.data.hitboxmode != 'New'){
-			hbox.visible = true;
-		     }else{
-		       newhbox.visible = true;
-		     }
+		    //hbox.visible = true;
+		    newhbox.visible = true;
+		     
 		}
 
 		if (daChoice != "Pad-Custom")
