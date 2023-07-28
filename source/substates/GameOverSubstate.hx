@@ -6,6 +6,8 @@ import objects.Character;
 import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.math.FlxPoint;
+import flixel.addons.transition.FlxTransitionableState;
+
 
 import states.StoryMenuState;
 import states.FreeplayState;
@@ -31,21 +33,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
-
-		var _song = PlayState.SONG;
-		if(_song != null)
-		{
-			if(_song.gameOverChar != null && _song.gameOverChar.trim().length > 0) characterName = _song.gameOverChar;
-			if(_song.gameOverSound != null && _song.gameOverSound.trim().length > 0) deathSoundName = _song.gameOverSound;
-			if(_song.gameOverLoop != null && _song.gameOverLoop.trim().length > 0) loopSoundName = _song.gameOverLoop;
-			if(_song.gameOverEnd != null && _song.gameOverEnd.trim().length > 0) endSoundName = _song.gameOverEnd;
-		}
 	}
 
 	override function create()
 	{
 		instance = this;
-		PlayState.instance.callOnScripts('onGameOverStart', []);
+		PlayState.instance.callOnLuas('onGameOverStart', []);
 
 		super.create();
 	}
@@ -54,7 +47,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super();
 
-		PlayState.instance.setOnScripts('inGameOver', true);
+		PlayState.instance.setOnLuas('inGameOver', true);
 
 		Conductor.songPosition = 0;
 
@@ -86,7 +79,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		PlayState.instance.callOnScripts('onUpdate', [elapsed]);
+		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 
 		if (controls.ACCEPT)
 		{
@@ -108,7 +101,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				MusicBeatState.switchState(new FreeplayState());
 
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);
+			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 		
 		if (boyfriend.animation.curAnim != null)
@@ -155,7 +148,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
-		PlayState.instance.callOnScripts('onUpdatePost', [elapsed]);
+		PlayState.instance.callOnLuas('onUpdatePost', [elapsed]);
 	}
 
 	var isEnding:Bool = false;
@@ -180,7 +173,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					MusicBeatState.resetState();
 				});
 			});
-			PlayState.instance.callOnScripts('onGameOverConfirm', [true]);
+			PlayState.instance.callOnLuas('onGameOverConfirm', [true]);
 		}
 	}
 
