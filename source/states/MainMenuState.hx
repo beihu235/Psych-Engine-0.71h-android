@@ -2,7 +2,6 @@ package states;
 
 import backend.WeekData;
 import backend.Achievements;
-//import states.MainMenuState;
 
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
@@ -17,7 +16,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.7'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.7.1'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -143,7 +142,7 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 		
-			#if android
+		#if android
 		addVirtualPad(UP_DOWN, A_B_E);
 		#end
 
@@ -250,15 +249,13 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-		
-			
 			#if (desktop || android)
 			else if (controls.justPressed('debug_1') #if android || MusicBeatState._virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
-			#end 
+			#end
 		}
 
 		super.update(elapsed);
