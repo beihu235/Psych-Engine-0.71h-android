@@ -25,7 +25,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import Controls;
+//import Controls;
 import options.BaseOptionsMenu;
 import options.Option;
 import openfl.Lib;
@@ -42,23 +42,20 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Space Extend',
 			"Allow Extend Space Control --Made by NF|Beihu",
 			'hitboxExtend',
-			'bool',
-			true);
+			'bool');
 		  addOption(option);
 		  
 		var option:Option = new Option('Space Location:',
 			"Choose Space Control Location",
 			'hitboxLocation',
 			'string',
-			'Bottom',
 			['Bottom', 'Middle', 'Top']);
 		  addOption(option);  
 		  
 		var option:Option = new Option('Hitbox Alpha:', //mariomaster was here again
 			'Changes Hitbox Alpha',
 			'hitboxalpha',
-			'float',
-			0.2);
+			'float');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -69,8 +66,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
 			'Changes VirtualPad Alpha',
 			'VirtualPadAlpha',
-			'float',
-			0.75);
+			'float');
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.1;
 		option.maxValue = 1;
