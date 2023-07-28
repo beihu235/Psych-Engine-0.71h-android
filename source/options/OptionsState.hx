@@ -69,13 +69,13 @@ class OptionsState extends MusicBeatState
 			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.borderSize = 1.25;
 			tipText.scrollFactor.set();
-			tipText.antialiasing = ClientPrefs.antialiasing;
+			tipText.antialiasing = ClientPrefs.data.antialiasing;
 			add(tipText);
 			tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
 			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			tipText.borderSize = 1.25;
 			tipText.scrollFactor.set();
-			tipText.antialiasing = ClientPrefs.antialiasing;
+			tipText.antialiasing = ClientPrefs.data.antialiasing;
 			add(tipText);
 		#end	
 
