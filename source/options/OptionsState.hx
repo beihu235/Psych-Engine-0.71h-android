@@ -97,7 +97,11 @@ class OptionsState extends MusicBeatState
 
 		changeSelection();
 		ClientPrefs.saveSettings();
-
+        
+        #if android
+		addVirtualPad(UP_DOWN, A_B_X_Y);
+		#end
+        
 		super.create();
 	}
 
@@ -114,7 +118,19 @@ class OptionsState extends MusicBeatState
 		}
 		if (controls.UI_DOWN_P) {
 			changeSelection(1);
+		}		
+		
+		#if android
+		if (MusicBeatState._virtualpad.buttonX.justPressed) {
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new android.AndroidControlsMenu());
 		}
+		if (MusicBeatState._virtualpad.buttonY.justPressed) {
+			removeVirtualPad();
+			openSubState(new android.HitboxSettingsSubState());
+		}
+		#end
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
