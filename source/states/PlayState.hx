@@ -67,7 +67,8 @@ import states.stages.objects.*;
 
 #if LUA_ALLOWED
 import psychlua.*;
-import Hscript as psychlua.Hscript;
+import psychlua.HScript;
+//import Hscript as psychlua.Hscript;
 #else
 import psychlua.FunkinLua;
 import psychlua.LuaUtils;
