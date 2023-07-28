@@ -74,6 +74,7 @@ import psychlua.FunkinLua;
 import psychlua.LuaUtils;
 import psychlua.HScript;
 #end
+import psychlua.HScript;
 
 class PlayState extends MusicBeatState
 {
