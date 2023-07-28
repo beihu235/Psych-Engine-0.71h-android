@@ -4,7 +4,7 @@ import openfl.geom.Rectangle;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import openfl.Assets;
-import haxe.Json;
+import tjson.TJSON as Json;
 import openfl.display.BitmapData;
 import animateatlas.JSONData.AtlasData;
 import animateatlas.JSONData.AnimationData;
@@ -13,7 +13,14 @@ import animateatlas.displayobject.SpriteMovieClip;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFramesCollection;
 import flixel.graphics.frames.FlxFrame;
-import flixel.util.FlxColor;
+
+#if (desktop || android)
+import sys.FileSystem;
+import sys.io.File;
+#else
+import js.html.FileSystem;
+import js.html.File;
+#end
 
 class AtlasFrameMaker extends FlxFramesCollection
 {
@@ -87,9 +94,6 @@ class AtlasFrameMaker extends FlxFramesCollection
 
 		#if MODS_ALLOWED
 		file = Paths.modsImages(key);
-		bitmap = BitmapData.fromFile(file);
-		#end
-		/*
 		if (FileSystem.exists(file))
 			bitmap = BitmapData.fromFile(file);
 		else
@@ -99,7 +103,6 @@ class AtlasFrameMaker extends FlxFramesCollection
 			if (Assets.exists(file, IMAGE))
 				bitmap = Assets.getBitmapData(file);
 		}
-		*/
 
 		if (bitmap != null) return FlxGraphic.fromBitmapData(bitmap, false, file);
 		return null;
