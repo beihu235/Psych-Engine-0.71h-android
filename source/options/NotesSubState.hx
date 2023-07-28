@@ -6,6 +6,7 @@ import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.math.FlxPoint;
+import flixel.addons.transition.FlxTransitionableState;
 import lime.system.Clipboard;
 import flixel.util.FlxGradient;
 import objects.StrumNote;
@@ -471,7 +472,7 @@ class NotesSubState extends MusicBeatSubstate
 				}
 			} 
 		}
-		else if(controls.RESET #if android || _virtualpad.buttonC.justPressed #end && hexTypeNum < 0)
+		else if(controls.RESET #if android || MusicBeatSubstate._virtualpad.buttonC.justPressed #end && hexTypeNum < 0)
 		{
 			if(FlxG.keys.pressed.SHIFT || FlxG.gamepads.anyJustPressed(LEFT_SHOULDER))
 			{

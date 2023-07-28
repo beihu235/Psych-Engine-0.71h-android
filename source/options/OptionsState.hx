@@ -10,6 +10,8 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool = false;
+	
+	var tipText:FlxText;
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
