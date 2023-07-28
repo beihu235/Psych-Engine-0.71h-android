@@ -4,22 +4,6 @@ import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 
-
-//import Conductor.BPMChangeEvent;
-import flixel.FlxG;
-//import flixel.addons.ui.FlxUIState;
-import flixel.math.FlxRect;
-import flixel.util.FlxTimer;
-//import flixel.addons.transition.FlxTransitionableState;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.FlxSprite;
-import flixel.util.FlxColor;
-import flixel.util.FlxGradient;
-//import flixel.FlxState;
-import flixel.FlxCamera;
-import flixel.FlxBasic;
-
 #if android
 //import flixel.input.actions.FlxActionInput;
 import android.AndroidControls.AndroidControls;
@@ -45,7 +29,7 @@ class MusicBeatState extends FlxUIState
 	private var curDecBeat:Float = 0;
 	public var controls(get, never):Controls;
 	
-	private var checkHitbox:Bool = true;
+	public static var checkHitbox:Bool = false;
 	
 	private function get_controls()
 	{
@@ -229,19 +213,15 @@ class MusicBeatState extends FlxUIState
 			return;
 		}
 
-		if(FlxTransitionableState.skipNextTransIn)
-		{
-			FlxG.switchState(nextState);
-		}
+		if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
 		else startTransition(nextState);
+		FlxTransitionableState.skipNextTransIn = false;
 	}
 
 	public static function resetState() {
-		if(FlxTransitionableState.skipNextTransIn)
-		{
-			FlxG.resetState();
-		}
+		if(FlxTransitionableState.skipNextTransIn) FlxG.resetState();
 		else startTransition();
+		FlxTransitionableState.skipNextTransIn = false;
 	}
 
 	// Custom made Trans in
@@ -250,7 +230,6 @@ class MusicBeatState extends FlxUIState
 		if(nextState == null)
 			nextState = FlxG.state;
 
-		FlxTransitionableState.skipNextTransIn = false;
 		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
 		if(nextState == FlxG.state)
 			CustomFadeTransition.finishCallback = function() FlxG.resetState();
