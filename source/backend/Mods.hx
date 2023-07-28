@@ -7,6 +7,7 @@ import sys.io.File;
 import lime.utils.Assets;
 #end
 import tjson.TJSON as Json;
+import backend.SUtil;
 
 typedef ModsList = {
 	enabled:Array<String>,
@@ -90,10 +91,10 @@ class Mods
 	
 	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
 	{
-		if(defaultDirectory == null) defaultDirectory = backend.SUtil.getPath() + Paths.getPreloadPath();
+		if(defaultDirectory == null) defaultDirectory = Paths.getPreloadPath();
 		defaultDirectory = defaultDirectory.trim();
 		if(!defaultDirectory.endsWith('/')) defaultDirectory += '/';
-		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = backend.SUtil.getPath() + 'assets/$defaultDirectory';
+		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = 'assets/$defaultDirectory';
 
 		var mergedList:Array<String> = [];
 		var paths:Array<String> = directoriesWithFile(defaultDirectory, path);
@@ -161,7 +162,7 @@ class Mods
 				#else
 				var rawJson:String = Assets.getText(path);
 				#end
-				if(rawJson != null && rawJson.length > 0) return Json.parse(rawJson);
+				if(rawJson != null && rawJson.length > 0) return SUtil.getPath() + Json.parse(rawJson);
 			} catch(e:Dynamic) {
 				trace(e);
 			}
@@ -201,7 +202,7 @@ class Mods
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
 		try {
-			for (mod in CoolUtil.coolTextFile(backend.SUtil.getPath() + 'modsList.txt'))
+			for (mod in CoolUtil.coolTextFile('modsList.txt'))
 			{
 				var dat:Array<String> = mod.split("|");
 				var folder:String = dat[0];
@@ -236,7 +237,7 @@ class Mods
 		}
 		//trace(fileStr);
 
-		var path:String = backend.SUtil.getPath() + 'modsList.txt';
+		var path:String = SUtil.getPath() + 'modsList.txt';
 		File.saveContent(path, fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
