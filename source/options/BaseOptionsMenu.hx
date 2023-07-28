@@ -3,6 +3,7 @@ package options;
 import objects.CheckboxThingie;
 import objects.AttachedText;
 import options.Option;
+import flixel.addons.transition.FlxTransitionableState;
 
 class BaseOptionsMenu extends MusicBeatSubstate
 {
@@ -119,7 +120,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 
 		if (controls.BACK) {
+			#if android
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.resetState();
+			#else
 			close();
+			#end
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
@@ -212,7 +218,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET)
+			if(controls.RESET  #if android || MusicBeatSubstate._virtualpad.buttonC.justPressed #end)
 			{
 				var leOption:Option = optionsArray[curSelected];
 				leOption.setValue(leOption.defaultValue);
