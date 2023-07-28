@@ -7,7 +7,6 @@ import sys.io.File;
 import lime.utils.Assets;
 #end
 import tjson.TJSON as Json;
-import backend.SUtil;
 
 typedef ModsList = {
 	enabled:Array<String>,
@@ -44,31 +43,10 @@ class Mods
 	inline public static function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		var path:String = SUtil.getPath() + 'modsList.txt';
-		if(FileSystem.exists(path))
+		for(mod in parseList().enabled)
 		{
-			var list:Array<String> = CoolUtil.coolTextFile(path);
-			for (i in list)
-			{
-				var dat = i.split("|");
-				if (dat[1] == "1")
-				{
-					var folder = dat[0];
-					var path = Paths.mods(folder + '/pack.json');
-					if(FileSystem.exists(path)) {
-						try{
-							var rawJson:String = File.getContent(path);
-							if(rawJson != null && rawJson.length > 0) {
-								var stuff:Dynamic = Json.parse(rawJson);
-								var global:Bool = Reflect.getProperty(stuff, "runsGlobally");
-								if(global)globalMods.push(dat[0]);
-							}
-						} catch(e:Dynamic){
-							trace(e);
-						}
-					}
-				}
-			}
+			var pack:Dynamic = getPack(mod);
+			if(pack != null && pack.runsGlobally) globalMods.push(mod);
 		}
 		return globalMods;
 	}
