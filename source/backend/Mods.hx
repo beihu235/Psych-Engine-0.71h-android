@@ -7,7 +7,6 @@ import sys.io.File;
 import lime.utils.Assets;
 #end
 import tjson.TJSON as Json;
-import backend.SUtil;
 
 typedef ModsList = {
 	enabled:Array<String>,
@@ -35,46 +34,66 @@ class Mods
 		'scripts',
 		'achievements'
 	];
+	
+	
 
-	private static var globalMods:Array<String> = [];
+	public static var globalMods:Array<String> = [];
 
-	inline public static function getGlobalMods()
+	inline static public function getGlobalMods()
 		return globalMods;
 
-	inline public static function pushGlobalMods() // prob a better way to do this but idc
+	inline static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		for(mod in parseList().enabled)
+		var path:String = SUtil.getPath() + 'modsList.txt';
+		if(FileSystem.exists(path))
 		{
-			var pack:Dynamic = getPack(mod);
-			if(pack != null && pack.runsGlobally) globalMods.push(mod);
+			var list:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in list)
+			{
+				var dat = i.split("|");
+				if (dat[1] == "1")
+				{
+					var folder = dat[0];
+					var path = Paths.mods(folder + '/pack.json');
+					if(FileSystem.exists(path)) {
+						try{
+							var rawJson:String = File.getContent(path);
+							if(rawJson != null && rawJson.length > 0) {
+								var stuff:Dynamic = Json.parse(rawJson);
+								var global:Bool = Reflect.getProperty(stuff, "runsGlobally");
+								if(global)globalMods.push(dat[0]);
+							}
+						} catch(e:Dynamic){
+							trace(e);
+						}
+					}
+				}
+			}
 		}
 		return globalMods;
 	}
 
-	inline public static function getModDirectories():Array<String>
-	{
+	inline static public function getModDirectories():Array<String> {
 		var list:Array<String> = [];
-		#if MODS_ALLOWED
 		var modsFolder:String = Paths.mods();
 		if(FileSystem.exists(modsFolder)) {
-			for (folder in FileSystem.readDirectory(modsFolder))
-			{
+			for (folder in FileSystem.readDirectory(modsFolder)) {
 				var path = haxe.io.Path.join([modsFolder, folder]);
-				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder.toLowerCase()) && !list.contains(folder))
+				if (sys.FileSystem.isDirectory(path) && !ignoreModFolders.contains(folder) && !list.contains(folder)) {
 					list.push(folder);
+				}
 			}
 		}
-		#end
 		return list;
 	}
 	
 	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
 	{
-		if(defaultDirectory == null) defaultDirectory = Paths.getPreloadPath();
+		if(defaultDirectory == null) defaultDirectory = backend.SUtil.getPath() + Paths.getPreloadPath();
 		defaultDirectory = defaultDirectory.trim();
 		if(!defaultDirectory.endsWith('/')) defaultDirectory += '/';
-		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = SUtil.getPath() + 'assets/$defaultDirectory';
+		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = backend.SUtil.getPath() + 'assets/$defaultDirectory';
 
 		var mergedList:Array<String> = [];
 		var paths:Array<String> = directoriesWithFile(defaultDirectory, path);
@@ -111,18 +130,18 @@ class Mods
 			for(mod in Mods.getGlobalMods())
 			{
 				var folder:String = Paths.mods(mod + '/' + fileToFind);
-				if(FileSystem.exists(folder)) foldersToCheck.push(folder);
+				if(FileSystem.exists(folder)) foldersToCheck.insert(0, folder);
 			}
 
 			// Then "PsychEngine/mods/" main folder
 			var folder:String = Paths.mods(fileToFind);
-			if(FileSystem.exists(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+			if(FileSystem.exists(folder)) foldersToCheck.insert(0, Paths.mods(fileToFind));
 
 			// And lastly, the loaded mod's folder
 			if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
 			{
 				var folder:String = Paths.mods(Mods.currentModDirectory + '/' + fileToFind);
-				if(FileSystem.exists(folder)) foldersToCheck.push(folder);
+				if(FileSystem.exists(folder)) foldersToCheck.insert(0, folder);
 			}
 		}
 		#end
@@ -142,7 +161,7 @@ class Mods
 				#else
 				var rawJson:String = Assets.getText(path);
 				#end
-				if(rawJson != null && rawJson.length > 0) return SUtil.getPath() + Json.parse(rawJson);
+				if(rawJson != null && rawJson.length > 0) return Json.parse(rawJson);
 			} catch(e:Dynamic) {
 				trace(e);
 			}
@@ -161,8 +180,6 @@ class Mods
 			for (mod in CoolUtil.coolTextFile('modsList.txt'))
 			{
 				//trace('Mod: $mod');
-				if(mod.trim().length < 1) continue;
-
 				var dat = mod.split("|");
 				list.all.push(dat[0]);
 				if (dat[1] == "1")
@@ -184,11 +201,11 @@ class Mods
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
 		try {
-			for (mod in CoolUtil.coolTextFile('modsList.txt'))
+			for (mod in CoolUtil.coolTextFile(backend.SUtil.getPath() + 'modsList.txt'))
 			{
 				var dat:Array<String> = mod.split("|");
 				var folder:String = dat[0];
-				if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) && !added.contains(folder))
+				if(FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) && !added.contains(folder))
 				{
 					added.push(folder);
 					list.push([folder, (dat[1] == "1")]);
@@ -201,7 +218,7 @@ class Mods
 		// Scan for folders that aren't on modsList.txt yet
 		for (folder in getModDirectories())
 		{
-			if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) &&
+			if(FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) &&
 			!ignoreModFolders.contains(folder.toLowerCase()) && !added.contains(folder))
 			{
 				added.push(folder);
@@ -217,8 +234,10 @@ class Mods
 			if(fileStr.length > 0) fileStr += '\n';
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
+		//trace(fileStr);
 
-		File.saveContent('modsList.txt', fileStr);
+		var path:String = backend.SUtil.getPath() + 'modsList.txt';
+		File.saveContent(path, fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end
