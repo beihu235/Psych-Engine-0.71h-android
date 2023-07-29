@@ -92,7 +92,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			updateTextFrom(optionsArray[i]);
 		}
 		
-		#if android
+		        #if android
                 addVirtualPad(FULL, A_B_C);
                 #end
 
@@ -129,7 +129,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			#end
 			ClientPrefs.saveSettings();
 			
-			FlxG.sound.play(Paths.sound('cancelMenu'));
+			//FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
 		if(nextAccept <= 0)
@@ -223,14 +223,20 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 			if(controls.RESET #if android || MusicBeatSubstate._virtualpad.buttonC.justPressed #end)
 			{
-				var leOption:Option = optionsArray[curSelected];
-				leOption.setValue(leOption.defaultValue);
-				if(leOption.type != 'bool')
+				for (i in 0...optionsArray.length)
 				{
-					if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
-					updateTextFrom(leOption);
+					var leOption:Option = optionsArray[i];
+					leOption.setValue(leOption.defaultValue);
+					if(leOption.type != 'bool')
+					{
+						if(leOption.type == 'string')
+						{
+							leOption.curOption = leOption.options.indexOf(leOption.getValue());
+						}
+						updateTextFrom(leOption);
+					}
+					leOption.change();
 				}
-				leOption.change();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				reloadCheckboxes();
 			}
