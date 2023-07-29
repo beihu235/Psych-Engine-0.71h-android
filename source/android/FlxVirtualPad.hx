@@ -191,9 +191,9 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonCEUp = createButton(FlxG.width - (44 + 42 * 4) * 3, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
 				dPad.add(add(buttonCEDown = createButton(FlxG.width - (44 + 42 * 4) * 3, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));		
 				dPad.add(add(buttonCEG = createButton(FlxG.width - (44 + 42 * 1) * 3, 25, 44 * 3, 127, "g", 0x00FF00)));
-			case B_E:
-				actions.add(add(buttonE = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "e", 0xFF7D00)));  
-				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "b", 0xFFCB00)));					
+			case B_C:
+				actions.add(add(buttonC = createButton(FlxG.width / 2 - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "c", 0x44FF00)));  
+				actions.add(add(buttonB = createButton(FlxG.width / 2 - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "b", 0xFFCB00)));					
 			case NONE:
 		}
 	}
@@ -282,6 +282,6 @@ enum FlxActionMode {
 	A_B_C_X_Y_Z;
 	FULL;
 	CHART_EDITOR;
-	B_E;
+	B_C;
 	NONE;
 }
