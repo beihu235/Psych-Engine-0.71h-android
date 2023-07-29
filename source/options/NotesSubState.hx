@@ -166,7 +166,7 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		#if android
-		addVirtualPad(FULL, A_B_C);
+		addVirtualPad(FULL, B_C);
 		#end
 	}
 
