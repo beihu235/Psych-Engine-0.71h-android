@@ -19,6 +19,8 @@ import psychlua.LuaUtils.LuaTweenOptions;
 import flixel.addons.display.FlxRuntimeShader;
 #end
 
+import backend.SUtil;
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -1354,7 +1356,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = SUtil.getStorageDirectory() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
