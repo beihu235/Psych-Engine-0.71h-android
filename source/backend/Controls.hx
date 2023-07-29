@@ -87,6 +87,7 @@ class Controls
 	private function get_NOTE_UP_R() return justReleased('note_up');
 	private function get_NOTE_DOWN_R() return justReleased('note_down');
 	private function get_NOTE_LEFT_R() return justReleased('note_left');
+	private function get_NOTE_RIGHT_R() return justReleased('note_right');
 	private function get_SPACE_R() return justReleased('space');
 
 
