@@ -3445,7 +3445,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function initLuaShader(name:String, ?glslVersion:Int = 120)
+	public function initLuaShader(name:String)
 	{
 		if(!ClientPrefs.data.shaders) return false;
 
@@ -3462,7 +3462,7 @@ class PlayState extends MusicBeatState
 
 		for(mod in Mods.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-		
+
 		for (folder in foldersToCheck)
 		{
 			if(FileSystem.exists(folder))
