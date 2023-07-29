@@ -218,7 +218,8 @@ class Mods
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
 
-		File.saveContent(SUtil.getStorageDirectory() + 'modsList.txt', fileStr);
+		var path:String = SUtil.getPath() + 'modsList.txt';
+		File.saveContent(path, fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end
