@@ -7,6 +7,7 @@ import sys.io.File;
 
 import flixel.util.FlxSave;
 import openfl.utils.Assets;
+import flixel.input.keyboard.FlxKey;
 
 //
 // Things to trivialize some dumb stuff like splitting strings on older Lua
