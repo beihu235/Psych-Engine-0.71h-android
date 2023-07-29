@@ -24,12 +24,11 @@ import sys.FileSystem;
 #end
 import tjson.TJSON as Json;
 import haxe.io.Bytes;
-import backend.SUtil;
 
 #if MODS_ALLOWED
 import backend.Mods;
 #end
-
+import backend.SUtil;
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
@@ -425,7 +424,7 @@ class Paths
 
 	inline static public function formatToSongPath(path:String) {
 		var invalidChars = ~/[~&\\;:<>#]/;
-		var hideChars = ~/[.,'"%?!']/;
+		var hideChars = ~/[.,'"%?!]/;
 
 		var path = invalidChars.split(path.replace(' ', '-')).join("-");
 		return hideChars.split(path).join("").toLowerCase();

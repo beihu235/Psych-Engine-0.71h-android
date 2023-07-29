@@ -6,7 +6,7 @@ import sys.io.File;
 #else
 import lime.utils.Assets;
 #end
-
+import backend.SUtil;
 import tjson.TJSON as Json;
 
 typedef ModsList = {
@@ -218,8 +218,7 @@ class Mods
 			fileStr += values[0] + '|' + (values[1] ? '1' : '0');
 		}
 
-		var path:String = SUtil.getPath() + 'modsList.txt';
-		File.saveContent(path, fileStr);
+		File.saveContent(SUtil.getPath() + 'modsList.txt', fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
 		#end
