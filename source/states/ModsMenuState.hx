@@ -2,7 +2,8 @@ package states;
 
 import backend.WeekData;
 import backend.SUtil;
-
+import backend.Mods;
+import backend.Paths;
 #if android
 import android.flixel.FlxButton;
 #else
@@ -65,7 +66,7 @@ class ModsMenuState extends MusicBeatState
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -86,7 +87,7 @@ class ModsMenuState extends MusicBeatState
 			{
 				if(leMods.length > 1 && leMods[0].length > 0) {
 					var modSplit:Array<String> = leMods[i].split('|');
-					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
+					if(!Mods.ignoreModFolders.contains(modSplit[0].toLowerCase()))
 					{
 						addToModsList([modSplit[0], (modSplit[1] == '1')]);
 						//trace(modSplit[1]);
@@ -98,9 +99,9 @@ class ModsMenuState extends MusicBeatState
 		// FIND MOD FOLDERS
 		var boolshit = true;
 		if (FileSystem.exists(SUtil.getPath() + "modsList.txt")){
-			for (folder in Paths.getModDirectories())
+			for (folder in Mods.getModDirectories())
 			{
-				if(!Paths.ignoreModFolders.contains(folder))
+				if(!Mods.ignoreModFolders.contains(folder))
 				{
 					addToModsList([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow
 				}
@@ -590,7 +591,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
+				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, FlxMath.bound(elapsed * 12, 0, 1));
 			}
 
 			if(i == curSelected)
