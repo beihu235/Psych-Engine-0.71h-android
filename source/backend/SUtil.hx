@@ -5,6 +5,7 @@ import android.Tools;
 import android.Permissions;
 import android.PermissionsList;
 #end
+
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
 import openfl.utils.Assets as OpenFlAssets;
@@ -20,8 +21,6 @@ import flash.system.System;
  * ...
  * @author: Saw (M.A. Jigsaw)
  */
-
-using StringTools;
 
 class SUtil
 {
