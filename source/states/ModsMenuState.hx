@@ -65,7 +65,7 @@ class ModsMenuState extends MusicBeatState
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		bg.screenCenter();
 
@@ -78,8 +78,35 @@ class ModsMenuState extends MusicBeatState
 		noModsTxt.screenCenter();
 		visibleWhenNoMods.push(noModsTxt);
 
-		var list:ModsList = Mods.parseList();
-		for (mod in list.all) modsList.push([mod, list.enabled.contains(mod)]);
+		var path:String = SUtil.getPath() + 'modsList.txt';
+		if(FileSystem.exists(path))
+		{
+			var leMods:Array<String> = CoolUtil.coolTextFile(path);
+			for (i in 0...leMods.length)
+			{
+				if(leMods.length > 1 && leMods[0].length > 0) {
+					var modSplit:Array<String> = leMods[i].split('|');
+					if(!Paths.ignoreModFolders.contains(modSplit[0].toLowerCase()))
+					{
+						addToModsList([modSplit[0], (modSplit[1] == '1')]);
+						//trace(modSplit[1]);
+					}
+				}
+			}
+		}
+
+		// FIND MOD FOLDERS
+		var boolshit = true;
+		if (FileSystem.exists(SUtil.getPath() + "modsList.txt")){
+			for (folder in Paths.getModDirectories())
+			{
+				if(!Paths.ignoreModFolders.contains(folder))
+				{
+					addToModsList([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow
+				}
+			}
+		}
+		saveTxt();
 
 		selector = new AttachedSprite();
 		selector.xAdd = -205;
@@ -142,9 +169,14 @@ class ModsMenuState extends MusicBeatState
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
 			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
 			for (i in 0...curSelected) //so it shifts to the top instead of replacing the top one
+			{
 				moveMod(-1, true);
+			}
 
-			if(doRestart) needaReset = true;
+			if(doRestart)
+			{
+				needaReset = true;
+			}
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		});
 		buttonTop.setGraphicSize(80, 50);
@@ -158,7 +190,10 @@ class ModsMenuState extends MusicBeatState
 
 		startX -= 190;
 		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
-			for (i in modsList) i[1] = false;
+			for (i in modsList)
+			{
+				i[1] = false;
+			}
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -181,7 +216,10 @@ class ModsMenuState extends MusicBeatState
 
 		startX -= 190;
 		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
-			for (i in modsList) i[1] = true;
+			for (i in modsList)
+			{
+				i[1] = true;
+			}
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -205,6 +243,61 @@ class ModsMenuState extends MusicBeatState
 		// more buttons
 		var startX:Int = 1100;
 
+
+
+
+		/*
+		installButton = new FlxButton(startX, 620, "Install Mod", function()
+		{
+			installMod();
+		});
+		installButton.setGraphicSize(150, 70);
+		installButton.updateHitbox();
+		installButton.color = FlxColor.GREEN;
+		installButton.label.fieldWidth = 135;
+		installButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
+		setAllLabelsOffset(installButton, 2, 24);
+		add(installButton);
+		startX -= 180;
+
+		removeButton = new FlxButton(startX, 620, "Delete Selected Mod", function()
+		{
+			var path = haxe.io.Path.join([Paths.mods(), modsList[curSelected][0]]);
+			if(FileSystem.exists(path) && FileSystem.isDirectory(path))
+			{
+				trace('Trying to delete directory ' + path);
+				try
+				{
+					FileSystem.deleteFile(path); //FUCK YOU HAXE WHY DONT YOU WORK WAAAAAAAAAAAAH
+
+					var icon = mods[curSelected].icon;
+					var alphabet = mods[curSelected].alphabet;
+					remove(icon);
+					remove(alphabet);
+					icon.destroy();
+					alphabet.destroy();
+					modsList.remove(modsList[curSelected]);
+					mods.remove(mods[curSelected]);
+
+					if(curSelected >= mods.length) --curSelected;
+					changeSelection();
+				}
+				catch(e)
+				{
+					trace('Error deleting directory: ' + e);
+				}
+			}
+		});
+		removeButton.setGraphicSize(150, 70);
+		removeButton.updateHitbox();
+		removeButton.color = FlxColor.RED;
+		removeButton.label.fieldWidth = 135;
+		removeButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
+		setAllLabelsOffset(removeButton, 2, 15);
+		add(removeButton);
+		visibleWhenHasMods.push(removeButton);*/
+
+		///////
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
 		descriptionTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT);
 		descriptionTxt.scrollFactor.set();
@@ -227,7 +320,8 @@ class ModsMenuState extends MusicBeatState
 
 			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true);
 			var scale:Float = Math.min(840 / newMod.alphabet.width, 1);
-			newMod.alphabet.setScale(scale);
+			newMod.alphabet.scaleX = scale;
+			newMod.alphabet.scaleY = scale;
 			newMod.alphabet.y = i * 150;
 			newMod.alphabet.x = 310;
 			add(newMod.alphabet);
@@ -270,13 +364,11 @@ class ModsMenuState extends MusicBeatState
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
-		#if !android
 		FlxG.mouse.visible = true;
-		#end
 
-		#if android
-		addVirtualPad(UP_DOWN, B);
-		#end
+                #if android
+                addVirtualPad(UP_DOWN, B);
+                #end
 
 		super.create();
 	}
@@ -288,6 +380,18 @@ class ModsMenuState extends MusicBeatState
 		}
 		return arr;
 	}*/
+	function addToModsList(values:Array<Dynamic>)
+	{
+		for (i in 0...modsList.length)
+		{
+			if(modsList[i][0] == values[0])
+			{
+				//trace(modsList[i][0], values[0]);
+				return;
+			}
+		}
+		modsList.push(values);
+	}
 
 	function updateButtonToggle()
 	{
@@ -348,7 +452,7 @@ class ModsMenuState extends MusicBeatState
 
 		var path:String = SUtil.getPath() + 'modsList.txt';
 		File.saveContent(path, fileStr);
-		Mods.pushGlobalMods();
+		Paths.pushGlobalMods();
 	}
 
 	var noModsSine:Float = 0;
@@ -367,9 +471,7 @@ class ModsMenuState extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			#if !android
 			FlxG.mouse.visible = false;
-			#end
 			saveTxt();
 			if(needaReset)
 			{
@@ -488,7 +590,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, FlxMath.bound(elapsed * 12, 0, 1));
+				mod.alphabet.y = FlxMath.lerp(mod.alphabet.y, intendedPos, CoolUtil.boundTo(elapsed * 12, 0, 1));
 			}
 
 			if(i == curSelected)
@@ -618,29 +720,53 @@ class ModMetadata
 		this.restart = false;
 
 		//Try loading json
-		var pack:Dynamic = Mods.getPack(folder);
-		if(pack != null) {
-			//using reflects cuz for some odd reason my haxe hates the stuff.var shit
-			if(pack.name != null && pack.name.length > 0)
-			{
-				if(pack.name != 'Name')
-					this.name = pack.name;
-				else
-					this.name = pack.folder;
-			}
+		var path = Paths.mods(folder + '/pack.json');
+		if(FileSystem.exists(path)) {
+			var rawJson:String = File.getContent(path);
+			if(rawJson != null && rawJson.length > 0) {
+				var stuff:Dynamic = Json.parse(rawJson);
+					//using reflects cuz for some odd reason my haxe hates the stuff.var shit
+					var colors:Array<Int> = Reflect.getProperty(stuff, "color");
+					var description:String = Reflect.getProperty(stuff, "description");
+					var name:String = Reflect.getProperty(stuff, "name");
+					var restart:Bool = Reflect.getProperty(stuff, "restart");
 
-			if(pack.description != null && pack.description.length > 0)
-			{
-				if(pack.description != 'Description')
-					this.description = pack.description;
-				else
+				if(name != null && name.length > 0)
+				{
+					this.name = name;
+				}
+				if(description != null && description.length > 0)
+				{
+					this.description = description;
+				}
+				if(name == 'Name')
+				{
+					this.name = folder;
+				}
+				if(description == 'Description')
+				{
 					this.description = "No description provided.";
+				}
+				if(colors != null && colors.length > 2)
+				{
+					this.color = FlxColor.fromRGB(colors[0], colors[1], colors[2]);
+				}
+
+				this.restart = restart;
+				/*
+				if(stuff.name != null && stuff.name.length > 0)
+				{
+					this.name = stuff.name;
+				}
+				if(stuff.description != null && stuff.description.length > 0)
+				{
+					this.description = stuff.description;
+				}
+				if(stuff.color != null && stuff.color.length > 2)
+				{
+					this.color = FlxColor.fromRGB(stuff.color[0], stuff.color[1], stuff.color[2]);
+				}*/
 			}
-
-			if(pack.colors != null && pack.colors.length > 2)
-				this.color = FlxColor.fromRGB(pack.colors[0], pack.colors[1], pack.colors[2]);
-
-			this.restart = pack.restart;
 		}
 	}
 }
