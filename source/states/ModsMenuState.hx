@@ -1,10 +1,14 @@
 package states;
 
 import backend.WeekData;
-import backend.Mods;
 import backend.SUtil;
 
+#if android
+import android.flixel.FlxButton;
+#else
 import flixel.ui.FlxButton;
+#end
+
 import flixel.FlxBasic;
 import openfl.display.BitmapData;
 import flash.geom.Rectangle;
@@ -17,11 +21,6 @@ import sys.FileSystem;
 #end
 
 import objects.AttachedSprite;
-
-/*import haxe.zip.Reader;
-import haxe.zip.Entry;
-import haxe.zip.Uncompress;
-import haxe.zip.Writer;*/
 
 class ModsMenuState extends MusicBeatState
 {
@@ -143,14 +142,9 @@ class ModsMenuState extends MusicBeatState
 		buttonTop = new FlxButton(startX, 0, "TOP", function() {
 			var doRestart:Bool = (mods[0].restart || mods[curSelected].restart);
 			for (i in 0...curSelected) //so it shifts to the top instead of replacing the top one
-			{
 				moveMod(-1, true);
-			}
 
-			if(doRestart)
-			{
-				needaReset = true;
-			}
+			if(doRestart) needaReset = true;
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		});
 		buttonTop.setGraphicSize(80, 50);
@@ -164,10 +158,7 @@ class ModsMenuState extends MusicBeatState
 
 		startX -= 190;
 		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
-			for (i in modsList)
-			{
-				i[1] = false;
-			}
+			for (i in modsList) i[1] = false;
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -190,10 +181,7 @@ class ModsMenuState extends MusicBeatState
 
 		startX -= 190;
 		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
-			for (i in modsList)
-			{
-				i[1] = true;
-			}
+			for (i in modsList) i[1] = true;
 			for (mod in mods)
 			{
 				if (mod.restart)
@@ -217,58 +205,6 @@ class ModsMenuState extends MusicBeatState
 		// more buttons
 		var startX:Int = 1100;
 
-		/*
-		installButton = new FlxButton(startX, 620, "Install Mod", function()
-		{
-			installMod();
-		});
-		installButton.setGraphicSize(150, 70);
-		installButton.updateHitbox();
-		installButton.color = FlxColor.GREEN;
-		installButton.label.fieldWidth = 135;
-		installButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-		setAllLabelsOffset(installButton, 2, 24);
-		add(installButton);
-		startX -= 180;
-
-		removeButton = new FlxButton(startX, 620, "Delete Selected Mod", function()
-		{
-			var path = haxe.io.Path.join([Paths.mods(), modsList[curSelected][0]]);
-			if(FileSystem.exists(path) && FileSystem.isDirectory(path))
-			{
-				trace('Trying to delete directory ' + path);
-				try
-				{
-					FileSystem.deleteFile(path); //FUCK YOU HAXE WHY DONT YOU WORK WAAAAAAAAAAAAH
-
-					var icon = mods[curSelected].icon;
-					var alphabet = mods[curSelected].alphabet;
-					remove(icon);
-					remove(alphabet);
-					icon.destroy();
-					alphabet.destroy();
-					modsList.remove(modsList[curSelected]);
-					mods.remove(mods[curSelected]);
-
-					if(curSelected >= mods.length) --curSelected;
-					changeSelection();
-				}
-				catch(e)
-				{
-					trace('Error deleting directory: ' + e);
-				}
-			}
-		});
-		removeButton.setGraphicSize(150, 70);
-		removeButton.updateHitbox();
-		removeButton.color = FlxColor.RED;
-		removeButton.label.fieldWidth = 135;
-		removeButton.label.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-		setAllLabelsOffset(removeButton, 2, 15);
-		add(removeButton);
-		visibleWhenHasMods.push(removeButton);*/
-
-		///////
 		descriptionTxt = new FlxText(148, 0, FlxG.width - 216, "", 32);
 		descriptionTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT);
 		descriptionTxt.scrollFactor.set();
@@ -334,12 +270,14 @@ class ModsMenuState extends MusicBeatState
 		updatePosition();
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
+		#if !android
 		FlxG.mouse.visible = true;
-        
-         #if android
-         addVirtualPad(UP_DOWN, B);
-         #end
-        
+		#end
+
+		#if android
+		addVirtualPad(UP_DOWN, B);
+		#end
+
 		super.create();
 	}
 
@@ -350,6 +288,7 @@ class ModsMenuState extends MusicBeatState
 		}
 		return arr;
 	}*/
+
 	function updateButtonToggle()
 	{
 		if (modsList[curSelected][1])
@@ -428,7 +367,9 @@ class ModsMenuState extends MusicBeatState
 				colorTween.cancel();
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			#if !android
 			FlxG.mouse.visible = false;
+			#end
 			saveTxt();
 			if(needaReset)
 			{
@@ -679,6 +620,7 @@ class ModMetadata
 		//Try loading json
 		var pack:Dynamic = Mods.getPack(folder);
 		if(pack != null) {
+			//using reflects cuz for some odd reason my haxe hates the stuff.var shit
 			if(pack.name != null && pack.name.length > 0)
 			{
 				if(pack.name != 'Name')
@@ -695,10 +637,9 @@ class ModMetadata
 					this.description = "No description provided.";
 			}
 
-			if(pack.color != null)
-				this.color = FlxColor.fromRGB(pack.color[0] != null ? pack.color[0] : 170,
-											pack.color[1] != null ? pack.color[1] : 0,
-											pack.color[2] != null ? pack.color[2] : 255);
+			if(pack.colors != null && pack.colors.length > 2)
+				this.color = FlxColor.fromRGB(pack.colors[0], pack.colors[1], pack.colors[2]);
+
 			this.restart = pack.restart;
 		}
 	}
