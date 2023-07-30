@@ -13,6 +13,7 @@ import openfl.display.BitmapData;
 import flash.geom.Rectangle;
 import lime.utils.Assets;
 import tjson.TJSON as Json;
+import backend.SUtil;
 
 #if sys
 import sys.io.File;
