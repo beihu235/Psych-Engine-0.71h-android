@@ -28,7 +28,7 @@ import haxe.io.Bytes;
 #if MODS_ALLOWED
 import backend.Mods;
 #end
-import backend.SUtil;
+
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
@@ -100,7 +100,7 @@ class Paths
 		localTrackedAssets = [];
 		#if !html5 openfl.Assets.cache.clear("songs"); #end
 	}
-    static public var currentModDirectory:String = '';
+
 	static public var currentLevel:String;
 	static public function setCurrentLevel(name:String)
 		currentLevel = name.toLowerCase();
