@@ -125,6 +125,7 @@ class HScript extends SScript
 				FunkinLua.luaTrace(msg, parentLua == null, false, FlxColor.RED);
 			}
 		});
+		set('this', this);
 		set('parentLua', parentLua);
 		set('game', PlayState.instance);
 		set('buildTarget', FunkinLua.getBuildTarget());
