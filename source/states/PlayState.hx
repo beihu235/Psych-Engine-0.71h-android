@@ -44,7 +44,6 @@ import states.editors.CharacterEditorState;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
 
-import flixel.system.FlxAssets.FlxShader;
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -430,14 +429,12 @@ class PlayState extends MusicBeatState
 		#end
 
 		// STAGE SCRIPTS
-		#if MODS_ALLOWED
 		#if LUA_ALLOWED
 		startLuasNamed('stages/' + curStage + '.lua');
 		#end
 
-		#if SScript
+		#if HSCRIPT_ALLOWED
 		startHScriptsNamed('stages/' + curStage + '.hx');
-		#end
 		#end
 
 		if (!stageData.hide_girlfriend)
@@ -817,6 +814,7 @@ class PlayState extends MusicBeatState
 		{
 			if(SScript.global.exists(scriptFile))
 				doPush = false;
+
 			if(doPush) initHScript(scriptFile);
 		}
 		#end
@@ -2269,7 +2267,7 @@ class PlayState extends MusicBeatState
 		else
 		{
 			var noMissWeek:String = WeekData.getWeekFileName() + '_nomiss';
-			var achieve:String = checkForAchievement([noMissWeek, 'r_ubad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
+			var achieve:String = checkForAchievement([noMissWeek, 'ur_bad', 'ur_good', 'hype', 'two_keys', 'toastie', 'debugger']);
 			if(achieve != null) {
 				startAchievement(achieve);
 				return false;
@@ -3011,14 +3009,11 @@ class PlayState extends MusicBeatState
 			if(script != null)
 			{
 				script.call('onDestroy');
-				script.active = false;
-				#if (SScript >= "3.0.3")
 				script.destroy();
-				#end
 			}
 
 		while (hscriptArray.length > 0)
-	    hscriptArray.pop();
+			hscriptArray.pop();
 		#end
 
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
@@ -3156,8 +3151,7 @@ class PlayState extends MusicBeatState
 		
 		if(FileSystem.exists(scriptToLoad))
 		{
-			for (script in hscriptArray)
-				if (SScript.global.exists(scriptToLoad)) return false;
+			if (SScript.global.exists(scriptToLoad)) return false;
 	
 			initHScript(scriptToLoad);
 			return true;
@@ -3167,10 +3161,19 @@ class PlayState extends MusicBeatState
 
 	public function initHScript(file:String)
 	{
-		var newScript:HScript = null;
 		try
 		{
-			newScript = new HScript(null, file);
+			var newScript:HScript = new HScript(null, file);
+			@:privateAccess
+			if(newScript.parsingExceptions != null && newScript.parsingExceptions.length > 0)
+			{
+				@:privateAccess
+				for (e in newScript.parsingExceptions)
+					if(e != null)
+						addTextToDebug('ERROR ON LOADING ($file): ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
+				newScript.destroy();
+				return;
+			}
 
 			hscriptArray.push(newScript);
 			if(newScript.exists('onCreate'))
@@ -3182,7 +3185,7 @@ class PlayState extends MusicBeatState
 						if (e != null)
 							addTextToDebug('ERROR ($file: onCreate) - ${e.message.substr(0, e.message.indexOf('\n'))}', FlxColor.RED);
 
-					newScript.active = false;
+					newScript.destroy();
 					hscriptArray.remove(newScript);
 					trace('failed to initialize sscript interp!!! ($file)');
 				}
@@ -3193,9 +3196,10 @@ class PlayState extends MusicBeatState
 		catch(e)
 		{
 			addTextToDebug('ERROR ($file) - ' + e.message.substr(0, e.message.indexOf('\n')), FlxColor.RED);
+			var newScript:HScript = cast (SScript.global.get(file), HScript);
 			if(newScript != null)
 			{
-				newScript.active = false;
+				newScript.destroy();
 				hscriptArray.remove(newScript);
 			}
 		}
@@ -3247,14 +3251,16 @@ class PlayState extends MusicBeatState
 		#end
 		return returnVal;
 	}
-
+	
 	public function callOnHScript(funcToCall:String, args:Array<Dynamic> = null, ?ignoreStops:Bool = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
 		var returnVal:Dynamic = psychlua.FunkinLua.Function_Continue;
+
 		#if HSCRIPT_ALLOWED
 		if(exclusions == null) exclusions = new Array();
 		if(excludeValues == null) excludeValues = new Array();
 		excludeValues.push(psychlua.FunkinLua.Function_Continue);
-		
+
+		var len:Int = hscriptArray.length;
 		if (len < 1)
 			return returnVal;
 		for(i in 0...len)
@@ -3262,37 +3268,33 @@ class PlayState extends MusicBeatState
 			var script:HScript = hscriptArray[i];
 			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
 				continue;
-			
 
 			var myValue:Dynamic = null;
 			try
 			{
 				var callValue = script.call(funcToCall, args);
-				if (!callValue.succeeded)
+				if(!callValue.succeeded)
 				{
 					var e = callValue.exceptions[0];
 					if(e != null)
 						FunkinLua.luaTrace('ERROR (${script.origin}: ${callValue.calledFunction}) - ' + e.message.substr(0, e.message.indexOf('\n')), true, false, FlxColor.RED);
 				}
-                else				
+				else
 				{
-				myValue = callValue.returnValue;
+					myValue = callValue.returnValue;
 					if((myValue == FunkinLua.Function_StopHScript || myValue == FunkinLua.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
 					{
 						returnVal = myValue;
 						break;
 					}
-
+					
 					if(myValue != null && !excludeValues.contains(myValue))
-						returnVal = myValue;	
+						returnVal = myValue;
 				}
-				
-				
 			}
-			
 		}
 		#end
-		
+
 		return returnVal;
 	}
 
