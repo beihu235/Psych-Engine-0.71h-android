@@ -390,7 +390,7 @@ class FunkinLua {
 			{
 				if(!ignoreAlreadyRunning)
 					for (script in game.hscriptArray)
-						if(script.interpName == foundScript)
+							if(script.origin == foundScript)
 						{
 							luaTrace('addHScript: The script "' + foundScript + '" is already running!');
 							return;
@@ -417,7 +417,7 @@ class FunkinLua {
 							return true;
 						}
 			}
-			luaTrace('removeLuaScript: Script $luaFile isn\'t running!', false, false, FlxColor.RED);
+			luaTrace("removeLuaScript: Script $luaFile isn\'t running!", false, false, FlxColor.RED);
 			return false;
 		});
 
@@ -1787,6 +1787,9 @@ class FunkinLua {
 		if(hscript != null)
 		{
 			hscript.active = false;
+			#if (SScript >= "3.0.3")
+			hscript.destroy();
+			#end
 			hscript = null;
 		}
 		#end
