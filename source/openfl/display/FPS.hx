@@ -15,7 +15,10 @@ import openfl.Lib;
 #if openfl
 import openfl.system.System;
 #end
-import sys.Sys;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
 
 
 
