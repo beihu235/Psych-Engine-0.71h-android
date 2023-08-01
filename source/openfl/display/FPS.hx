@@ -15,6 +15,9 @@ import openfl.Lib;
 #if openfl
 import openfl.system.System;
 #end
+import sys.Sys;
+
+
 
 /**
 	The FPS class provides an easy-to-use monitor to display
@@ -83,10 +86,11 @@ class FPS extends TextField
 		{
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
+            var command = Sys.commandOutput("adb shellcat/proc/meminfo");
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			text += "\nMemory: " + memoryMegas + " MB";
+			text += "\nMemory: " + command + " MB";
 			#end
 
 			textColor = 0xFFFFFFFF;
