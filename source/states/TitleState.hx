@@ -2,7 +2,7 @@ package states;
 
 import backend.WeekData;
 import backend.Highscore;
-import backend.AndroidDialogs;
+import backend.AndroidDialogsExtend;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
@@ -80,7 +80,7 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		AndroidDialogs.OpenToast('psych0.71h test\n北狐丶逐梦移植');
+		AndroidDialogsExtend.OpenToast('psych0.71h test\nwhat');
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
