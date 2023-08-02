@@ -80,7 +80,7 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		AndroidDialogs.ShowToast('psych0.71h test\n北狐丶逐梦移植');
+		AndroidDialogs.OpenToast('psych0.71h test\n北狐丶逐梦移植');
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
