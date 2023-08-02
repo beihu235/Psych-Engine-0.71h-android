@@ -240,7 +240,7 @@ class StoryMenuState extends MusicBeatState
 			else if (upP || downP)
 				changeDifficulty();
 
-			if(FlxG.keys.justPressed.CONTROL #if android || MusicBeatState._virtualPad.buttonX.justPressed #end)
+			if(FlxG.keys.justPressed.CONTROL #if android || MusicBeatState._virtualpad.buttonX.justPressed #end)
 			{
 				#if android
 				removeVirtualPad();
@@ -248,7 +248,7 @@ class StoryMenuState extends MusicBeatState
 				persistentUpdate = false;
 				openSubState(new GameplayChangersSubstate());
 			}
-			else if(controls.RESET #if android || MusicBeatState._virtualPad.buttonY.justPressed #end)
+			else if(controls.RESET #if android || MusicBeatState._virtualpad.buttonY.justPressed #end)
 			{
 				#if android
 				removeVirtualPad();
