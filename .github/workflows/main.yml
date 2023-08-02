@@ -61,7 +61,7 @@ jobs:
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install SScript 4.0.1
-          haxelib install androiddialogs
+          haxelib install AndroidDialogs 1.0.0 
           haxelib git hxCodec https://github.com/SPLCoding/hxCodec-but-it-works-xd.git
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
