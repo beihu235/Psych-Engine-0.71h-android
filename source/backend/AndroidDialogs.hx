@@ -5,9 +5,9 @@ package backend;
 import extension.androiddialogs.AndroidDialogs;
 
 class AndroidDialogs{
-    public function ShowToast(showtext:String)
+    public static function OpenToast(showtext:String)
     {
-        AndroidDialogs.ShowToast(showtext, AndroidDialogs.LENGTH_LONG);//or LENGTH_SHORT duration
+        AndroidDialogs.ShowToast(showtext, LENGTH_LONG);//or LENGTH_SHORT duration
     }
 
 
