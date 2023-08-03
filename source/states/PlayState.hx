@@ -17,6 +17,7 @@ import backend.WeekData;
 import backend.Song;
 import backend.Section;
 import backend.Rating;
+import backend.SUtil;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -313,8 +314,8 @@ class PlayState extends MusicBeatState
 		
 		#if android
 		addAndroidControls();
-		MusicBeatState.androidc.visible = true;
-		//androidc.alpha = 0.000001;
+		androidc.visible = true;
+		androidc.alpha = 0.000001;
 		
 		#end
 
@@ -770,7 +771,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			luaFile = Paths.getPreloadPath(luaFile);
+			luaFile = SUtil.getPath() + Paths.getPreloadPath(luaFile);
 			if(FileSystem.exists(luaFile))
 				doPush = true;
 		}
@@ -805,7 +806,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			scriptFile = Paths.getPreloadPath(scriptFile);
+			scriptFile = SUtil.getPath() + Paths.getPreloadPath(scriptFile);
 			if(FileSystem.exists(scriptFile))
 				doPush = true;
 		}
@@ -958,6 +959,12 @@ class PlayState extends MusicBeatState
 			callOnScripts('onStartCountdown');
 			return false;
 		}
+		
+		#if android
+			androidc.visible = true;
+			if (MusicBeatState.checkHitbox != true) androidc.alpha = 1;
+			//
+		#end
 
 		seenCutscene = true;
 		inCutscene = false;
@@ -1259,7 +1266,7 @@ class PlayState extends MusicBeatState
 
 		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
+		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(SUtil.getPath() + file)) {
 		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
@@ -1542,6 +1549,11 @@ class PlayState extends MusicBeatState
 			callOnScripts('onResume');
 			resetRPC(startTimer != null && startTimer.finished);
 		}
+		
+		#if android
+			androidc.y = 0;
+			//androidc.visible = true;
+			#end
 
 		super.closeSubState();
 	}
@@ -1817,6 +1829,10 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
+		#if android
+			androidc.y = 720;
+			//androidc.visible = true;
+		#end
 		if(!cpuControlled)
 		{
 			for (note in playerStrums)
@@ -2249,7 +2265,9 @@ class PlayState extends MusicBeatState
 				return false;
 			}
 		}
-
+        #if android
+		androidc.alpha = 0.00001;
+		#end
 		timeBar.visible = false;
 		timeTxt.visible = false;
 		canPause = false;
@@ -3124,7 +3142,7 @@ class PlayState extends MusicBeatState
 		#if MODS_ALLOWED
 		var luaToLoad:String = Paths.modFolders(luaFile);
 		if(!FileSystem.exists(luaToLoad))
-			luaToLoad = Paths.getPreloadPath(luaFile);
+			luaToLoad = SUtil.getPath() + Paths.getPreloadPath(luaFile);
 		
 		if(FileSystem.exists(luaToLoad))
 		#elseif sys
@@ -3147,7 +3165,7 @@ class PlayState extends MusicBeatState
 	{
 		var scriptToLoad:String = Paths.modFolders(scriptFile);
 		if(!FileSystem.exists(scriptToLoad))
-			scriptToLoad = Paths.getPreloadPath(scriptFile);
+			scriptToLoad = SUtil.getPath() + Paths.getPreloadPath(scriptFile);
 		
 		if(FileSystem.exists(scriptToLoad))
 		{
