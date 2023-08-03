@@ -6,8 +6,6 @@ import objects.NoteSplash;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 
-import backend.SUtil;
-
 class NoteSplashDebugState extends MusicBeatState
 {
 	var config:NoteSplashConfig;
@@ -52,12 +50,11 @@ class NoteSplashDebugState extends MusicBeatState
 			notes.add(note);
 
 			var splash:FlxSprite = new FlxSprite(x, y);
+			splash.antialiasing = ClientPrefs.data.antialiasing;
 			splash.setPosition(splash.x - Note.swagWidth * 0.95, splash.y - Note.swagWidth);
 			splash.shader = note.rgbShader.parent.shader;
-			splash.antialiasing = ClientPrefs.data.antialiasing;
 			splashes.add(splash);
 		}
-
 
 		//
 		var txtx = 60;
@@ -79,8 +76,8 @@ class NoteSplashDebugState extends MusicBeatState
 					curAnim = 1;
 					reloadAnims();
 			}
-
 		};
+		nameInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		add(nameInputText);
 		
 		add(new FlxText(txtx, txty - 84, 0, 'Min/Max Framerate:', 16));
@@ -91,7 +88,6 @@ class NoteSplashDebugState extends MusicBeatState
 		stepperMaxFps = new FlxUINumericStepper(txtx + 60, txty - 60, 1, 26, 1, 60, 0);
 		stepperMaxFps.name = 'max_fps';
 		add(stepperMaxFps);
-
 
 		//
 		offsetsText = new FlxText(300, 150, 680, '', 16);
@@ -108,12 +104,20 @@ class NoteSplashDebugState extends MusicBeatState
 		curAnimText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		curAnimText.scrollFactor.set();
 		add(curAnimText);
-
+		
+		#if android
+		var text:FlxText = new FlxText(0, 520, FlxG.width,
+			"Press B to Reset animation\n
+			Press A twice to save to the loaded Note Splash PNG's folder\n
+			Left/Right change selected note - Arrow Keys to change offset (Hold shift for 10x)\n
+			Z + C/V - Copy & Paste", 16);
+		#else
 		var text:FlxText = new FlxText(0, 520, FlxG.width,
 			"Press SPACE to Reset animation\n
 			Press ENTER twice to save to the loaded Note Splash PNG's folder\n
 			A/D change selected note - Arrow Keys to change offset (Hold shift for 10x)\n
-			Ctrl + C/V - Copy & Paste", 16);
+			Ctrl + C/Y - Copy & Paste", 16);
+		#end
 		text.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.scrollFactor.set();
 		add(text);
@@ -127,6 +131,10 @@ class NoteSplashDebugState extends MusicBeatState
 		changeSelection();
 		super.create();
 		FlxG.mouse.visible = true;
+
+		#if android
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
+		#end
 	}
 
 	var curAnim:Int = 1;
@@ -138,7 +146,7 @@ class NoteSplashDebugState extends MusicBeatState
 		cast(stepperMinFps.text_field, FlxInputText).hasFocus = cast(stepperMaxFps.text_field, FlxInputText).hasFocus = false;
 
 		var notTyping:Bool = !nameInputText.hasFocus;
-		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end && notTyping)
+		if(controls.BACK #if android || FlxG.android.justReleased.BACK #end && notTyping)
 		{
 			MusicBeatState.switchState(new MasterEditorMenu());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -148,8 +156,8 @@ class NoteSplashDebugState extends MusicBeatState
 
 		if(!notTyping) return;
 		
-		if (FlxG.keys.justPressed.A) changeSelection(-1);
-		else if (FlxG.keys.justPressed.D) changeSelection(1);
+		if (FlxG.keys.justPressed.A #if android || MusicBeatState.virtualPad.buttonLeft.justPressed #end) changeSelection(-1);
+		else if (FlxG.keys.justPressed.X #if android || MusicBeatState.virtualPad.buttonRight.justPressed #end) changeSelection(1);
 
 		if(maxAnims < 1) return;
 
@@ -163,7 +171,7 @@ class NoteSplashDebugState extends MusicBeatState
 			if(FlxG.keys.justPressed.UP) movey = 1;
 			else if(FlxG.keys.justPressed.DOWN) movey = -1;
 			
-			if(FlxG.keys.pressed.SHIFT)
+			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState.virtualPad.buttonD.justPressed #end)
 			{
 				movex *= 10;
 				movey *= 10;
@@ -179,16 +187,16 @@ class NoteSplashDebugState extends MusicBeatState
 		}
 
 		// Copy & Paste
-		if(FlxG.keys.pressed.CONTROL)
+		if(FlxG.keys.pressed.CONTROL #if android || MusicBeatState.virtualPad.buttonZ.justPressed #end)
 		{
-			if(FlxG.keys.justPressed.C)
+			if(FlxG.keys.justPressed.C #if android || MusicBeatState.virtualPad.buttonC.justPressed #end)
 			{
 				var arr:Array<Float> = selectedArray();
 				if(copiedArray == null) copiedArray = [0, 0];
 				copiedArray[0] = arr[0];
 				copiedArray[1] = arr[1];
 			}
-			else if(FlxG.keys.justPressed.V && copiedArray != null)
+			else if(FlxG.keys.justPressed.Y #if android || MusicBeatState.virtualPad.buttonV.justPressed #end && copiedArray != null)
 			{
 				var offs:Array<Float> = selectedArray();
 				offs[0] = copiedArray[0];
@@ -207,7 +215,7 @@ class NoteSplashDebugState extends MusicBeatState
 				savedText.visible = false;
 		}
 
-		if(FlxG.keys.justPressed.ENTER)
+		if(FlxG.keys.justPressed.ENTER #if android || MusicBeatState.virtualPad.buttonA.justPressed #end)
 		{
 			savedText.text = 'Press ENTER again to save.';
 			if(pressEnterToSave > 0) //save
@@ -226,10 +234,9 @@ class NoteSplashDebugState extends MusicBeatState
 		}
 
 		// Reset anim & change anim
-		if (FlxG.keys.justPressed.SPACE)
-			changeAnim();
-		else if (FlxG.keys.justPressed.S) changeAnim(-1);
-		else if (FlxG.keys.justPressed.W) changeAnim(1);
+		if (FlxG.keys.justPressed.SPACE #if android || MusicBeatState.virtualPad.buttonB.justPressed #end) changeAnim();
+		else if (FlxG.keys.justPressed.S #if android || MusicBeatState.virtualPad.buttonDown.justPressed #end) changeAnim(-1);
+		else if (FlxG.keys.justPressed.W #if android || MusicBeatState.virtualPad.buttonUp.justPressed #end) changeAnim(1);
 
 		// Force frame
 		var updatedFrame:Bool = false;
