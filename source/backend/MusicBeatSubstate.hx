@@ -35,14 +35,14 @@ class MusicBeatSubstate extends FlxSubState
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 	
-	
+	public static var checkHitbox:Bool = false;
 
 	inline function get_controls():Controls
 		return Controls.instance;
 		
-    #if android
+    	#if android
 	public static var _virtualpad:FlxVirtualPad;
-	//public static var androidc:AndroidControls;
+	public static var androidc:AndroidControls;
 	//var trackedinputsUI:Array<FlxActionInput> = [];
 	//var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
@@ -51,13 +51,15 @@ class MusicBeatSubstate extends FlxSubState
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action, 0.75, ClientPrefs.data.antialiasing);
 		add(_virtualpad);
-		Controls.checkState = false;
+		Controls.checkState = true;
 		Controls.CheckPress = true;
 		//controls.setVirtualPadUI(_virtualpad, DPad, Action);
 		//trackedinputsUI = controls.trackedinputsUI;
 		//controls.trackedinputsUI = [];
 	}
 	#end
+	
+
 
 	#if android
 	public function removeVirtualPad() {
@@ -73,7 +75,36 @@ class MusicBeatSubstate extends FlxSubState
 	#end
 	
 	#if android
-        public function addPadCamera() {
+	public function addAndroidControls() {
+		androidc = new AndroidControls();
+
+		switch (androidc.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				//controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
+				checkHitbox = false;
+			case DUO:
+				//controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
+				checkHitbox = false;
+			case HITBOX:
+				//controls.setNewHitBox(androidc.newhbox);
+				checkHitbox = true;
+			default:
+		}
+
+		var camcontrol = new flixel.FlxCamera();
+		FlxG.cameras.add(camcontrol, false);
+		camcontrol.bgColor.alpha = 0;
+		androidc.cameras = [camcontrol];
+
+		androidc.visible = false;
+
+		add(androidc);
+	}
+	#end
+
+	#if android
+    public function addPadCamera() {
 		var camcontrol = new flixel.FlxCamera();
 		camcontrol.bgColor.alpha = 0;
 		FlxG.cameras.add(camcontrol, false);
