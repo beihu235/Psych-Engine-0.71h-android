@@ -3,6 +3,7 @@ package backend;
 //https://github.com/nicolastuka/AndroidDialogs
 
 import extension.androiddialogs.AndroidDialogs;
+import extension.androiddialogs.CallbackHandler;
 
 class AndroidDialogsExtend{
 
@@ -21,6 +22,7 @@ class AndroidDialogsExtend{
         */
         AndroidDialogs.ShowAlertDialog(Title, Message, ConfirmName, CancelName);
     }
+    
     /*
     function OtherFunctionGetResult():Void
     {
