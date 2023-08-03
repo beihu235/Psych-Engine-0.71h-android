@@ -313,9 +313,9 @@ class PlayState extends MusicBeatState
 		CustomFadeTransition.nextCamera = camOther;
 		
 		#if android
-		addAndroidControls();
-		androidc.visible = true;
-		androidc.alpha = 0.000001;
+		addandroidcontrols();
+		MusicBeatState.androidc.visible = true;
+		MusicBeatState.androidc.alpha = 0.000001;
 		
 		#end
 
@@ -961,8 +961,8 @@ class PlayState extends MusicBeatState
 		}
 		
 		#if android
-			androidc.visible = true;
-			if (MusicBeatState.checkHitbox != true) androidc.alpha = 1;
+			MusicBeatState.androidc.visible = true;
+			if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
 			//
 		#end
 
@@ -1551,8 +1551,8 @@ class PlayState extends MusicBeatState
 		}
 		
 		#if android
-			androidc.y = 0;
-			//androidc.visible = true;
+			MusicBeatState.androidc.y = 0;
+			//MusicBeatState.androidc.visible = true;
 			#end
 
 		super.closeSubState();
@@ -1830,8 +1830,8 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 		}
 		#if android
-			androidc.y = 720;
-			//androidc.visible = true;
+			MusicBeatState.androidc.y = 720;
+			//MusicBeatState.androidc.visible = true;
 		#end
 		if(!cpuControlled)
 		{
@@ -2266,7 +2266,7 @@ class PlayState extends MusicBeatState
 			}
 		}
         #if android
-		androidc.alpha = 0.00001;
+		MusicBeatState.androidc.alpha = 0.00001;
 		#end
 		timeBar.visible = false;
 		timeTxt.visible = false;
