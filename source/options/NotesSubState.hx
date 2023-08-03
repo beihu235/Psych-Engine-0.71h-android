@@ -186,7 +186,7 @@ class NotesSubState extends MusicBeatSubstate
 	override function update(elapsed:Float) {
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
-			FlxG.sound.play(Paths.sound('cancelMenu'));
+			//FlxG.sound.play(Paths.sound('cancelMenu'));
 			#if android
 				FlxTransitionableState.skipNextTransOut = true;
 				FlxG.resetState();
