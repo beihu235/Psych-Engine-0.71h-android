@@ -91,6 +91,7 @@ class ChartingState extends MusicBeatState
 	];
 
 	var _file:FileReference;
+    var postfix:String = '';
 
 	var UI_box:FlxUITabMenu;
 
@@ -3038,13 +3039,14 @@ class ChartingState extends MusicBeatState
 		//var newsong = _song.notes;
 		//	undos.push(newsong);
 		var noteStrum = getStrumTime(dummyArrow.y * (getSectionBeats() / 4), false) + sectionStartTime();
+		var noteData = 0;
 		#if android
 		for (touch in FlxG.touches.list)
 		{
 			noteData = Math.floor((touch.x - GRID_SIZE) / GRID_SIZE);
 		}
 		#else
-		noteData = Math.floor((FlxG.mouse.x - GRID_SIZE) / GRID_SIZE);
+		    noteData = Math.floor((FlxG.mouse.x - GRID_SIZE) / GRID_SIZE);
 		#end
 		var noteSus = 0;
 		var daAlt = false;
@@ -3143,7 +3145,7 @@ class ChartingState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + Difficulty.getString(), song.toLowerCase());
 				}
 			}
-			else PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			else PlayState.SONG = Song.loadFromJson(song.toLowerCase() + postfix, song.toLowerCase());
 			MusicBeatState.resetState();
 		}
 		catch(e)
