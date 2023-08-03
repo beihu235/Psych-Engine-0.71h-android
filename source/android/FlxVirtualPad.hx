@@ -115,10 +115,10 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonLeft = createButton(0, FlxG.height - 81 * 3, 44 * 3, 127, "left", 0xFF00FF)));
 				dPad.add(add(buttonRight = createButton(69 * 3, FlxG.height - 81 * 3, 44 * 3, 127, "right", 0xFF0000)));
 				dPad.add(add(buttonDown = createButton(35 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
-				dPad.add(add(buttonUp = createButton(FlxG.width - 86 * 3, FlxG.height - 66 - 116 * 3, 44 * 3, 127, "up", 0x00FF00)));
-				dPad.add(add(buttonLeft = createButton(FlxG.width - 128 * 3, FlxG.height - 66 - 81 * 3, 44 * 3, 127, "left", 0xFF00FF)));
-				dPad.add(add(buttonRight = createButton(FlxG.width - 44 * 3, FlxG.height - 66 - 81 * 3, 44 * 3, 127, "right", 0xFF0000)));
-				dPad.add(add(buttonDown = createButton(FlxG.width - 86 * 3, FlxG.height - 66 - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
+				dPad.add(add(buttonUp2 = createButton(FlxG.width - 86 * 3, FlxG.height - 66 - 116 * 3, 44 * 3, 127, "up", 0x00FF00)));
+				dPad.add(add(buttonLeft2 = createButton(FlxG.width - 128 * 3, FlxG.height - 66 - 81 * 3, 44 * 3, 127, "left", 0xFF00FF)));
+				dPad.add(add(buttonRight2 = createButton(FlxG.width - 44 * 3, FlxG.height - 66 - 81 * 3, 44 * 3, 127, "right", 0xFF0000)));
+				dPad.add(add(buttonDown2 = createButton(FlxG.width - 86 * 3, FlxG.height - 66 - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
 			case CHART_EDITOR:
 			    //orgAlpha = 0.75;
 				dPad.add(add(buttonUp = createButton(0, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
