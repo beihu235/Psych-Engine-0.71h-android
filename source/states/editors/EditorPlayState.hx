@@ -143,12 +143,24 @@ class EditorPlayState extends MusicBeatSubstate
 		DiscordClient.changePresence('Playtesting on Chart Editor', PlayState.SONG.song, null, true, songLength);
 		#end
 		RecalculateRating();
+		
+		#if android
+		addAndroidControls();
+		#end
+
+		#if android
+		androidc.visible = true;
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
-		if(controls.BACK || FlxG.keys.justPressed.ESCAPE)
-		{
+		if (FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end)
+		{		
+		    #if android
+			androidc.visible = false;
+			#end
+			
 			endSong();
 			super.update(elapsed);
 			return;
