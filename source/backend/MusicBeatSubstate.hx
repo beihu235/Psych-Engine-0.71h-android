@@ -2,7 +2,6 @@ package backend;
 
 import flixel.FlxSubState;
 
-import SUtil;
 
 #if android
 //import flixel.input.actions.FlxActionInput;
