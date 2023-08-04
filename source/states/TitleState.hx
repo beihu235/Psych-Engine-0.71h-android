@@ -70,7 +70,9 @@ class TitleState extends MusicBeatState
 	#end
 
 	var mustUpdate:Bool = false;
-
+    
+    var checkToast:Bool = false;
+    
 	var titleJSON:TitleData;
 
 	public static var updateVersion:String = '';
@@ -80,7 +82,12 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		AndroidDialogsExtend.OpenToast('psych0.71h test\nwhat');
+		if(!checkToast){
+				
+		checkToast = true;
+		AndroidDialogsExtend.OpenToast('psych0.71h android test\nmade by 北狐丶逐梦');
+		
+		}
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
