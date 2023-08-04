@@ -121,7 +121,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: androidBuild-gcc
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: error
   Build-clang:
     runs-on: ubuntu-20.04
@@ -243,5 +243,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: androidBuild-clang
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: error
