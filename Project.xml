@@ -113,6 +113,7 @@
 	<haxelib name="SScript" />
 	<define name="hscriptPos" />
 	<haxelib name="androiddialogs" />
+	<haxelib name="devicelanguage" />
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
