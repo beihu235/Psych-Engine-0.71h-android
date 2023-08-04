@@ -29,7 +29,7 @@ class DialogueBox extends FlxSpriteGroup
 	{
 		super();
 		
-		Controls.CheckPress = false;
+		//Controls.CheckPress = false;
 
 		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFB3DFd8);
 		bgFade.scrollFactor.set();
@@ -156,7 +156,7 @@ class DialogueBox extends FlxSpriteGroup
 			dialogueStarted = true;
 		}
 
-		if(Controls.instance.ACCEPT #if android || justTouched #endT)
+		if(#if desktop FlxG.keys.justPressed.ESCAPE #else justTouched #end)
 		{
 			if (dialogueEnded)
 			{
