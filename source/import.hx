@@ -1,4 +1,4 @@
-
+#if !macro
 //Discord API
 #if desktop
 import backend.Discord;
@@ -21,6 +21,7 @@ import backend.Conductor;
 import backend.BaseStage;
 import backend.Difficulty;
 import backend.Mods;
+import backend.SUtil;
 
 import objects.Alphabet;
 import objects.BGSprite;
@@ -47,3 +48,4 @@ import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 using StringTools;
+#end
