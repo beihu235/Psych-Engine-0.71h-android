@@ -668,10 +668,10 @@ class Controls
         		result = (MusicBeatState.androidc.newhbox.buttonRight.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
-    		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
+    		 /*   if (key == 'space' && ClientPrefs.data.hitboxExtend){
     		    result= (MusicBeatState.androidc.newhbox.buttonSpace.justReleased == true);
         		if(result) {controllerMode = true; return true;}
-    		    }
+    		    }*/
     		}//MusicBeatState.checkHitbox
     		else{
     		    if (MusicBeatState.checkDUO){
