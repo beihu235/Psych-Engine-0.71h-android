@@ -8,6 +8,7 @@ import flixel.util.FlxDestroyUtil;
 import flixel.ui.FlxButton;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
+import android.flixel.FlxButton;
 
 class FlxVirtualPad extends FlxSpriteGroup {
 	//Actions
