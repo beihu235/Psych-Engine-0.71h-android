@@ -665,11 +665,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatState.androidc.newhbox.buttonRight.justReleased == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonRight.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatState.androidc.newhbox.buttonSpace.justReleased == true);
+    		    result = (MusicBeatState.androidc.newhbox.buttonSpace.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatState.checkHitbox
