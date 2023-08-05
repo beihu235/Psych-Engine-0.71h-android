@@ -213,7 +213,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatState._virtualpad.buttonB.justPressed == true);
+    		    result = (MusicBeatState._virtualpad.buttonB.justPressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
 		
@@ -222,7 +222,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_down'){
-        		result= (MusicBeatState._virtualpad.buttonDown.justPressed == true);
+        		result = (MusicBeatState._virtualpad.buttonDown.justPressed == true);
            		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_left'){
@@ -230,7 +230,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_right'){
-        		result= (MusicBeatState._virtualpad.buttonRight.justPressed == true);
+        		result = (MusicBeatState._virtualpad.buttonRight.justPressed == true);
     		    if(result) {controllerMode = true; return true;}
     		        }
 		        }//checkState
@@ -240,7 +240,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonB.justPressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonB.justPressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
 		
@@ -249,7 +249,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_down'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonDown.justPressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonDown.justPressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_left'){
@@ -257,7 +257,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_right'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonRight.justPressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonRight.justPressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
@@ -271,7 +271,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatState.androidc.newhbox.buttonDown.justPressed == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonDown.justPressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -279,11 +279,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatState.androidc.newhbox.buttonRight.justPressed == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonRight.justPressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatState.androidc.newhbox.buttonSpace.justPressed == true);
+    		    result = (MusicBeatState.androidc.newhbox.buttonSpace.justPressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatState.checkHitbox
@@ -294,7 +294,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatState.androidc.vpad.buttonDown.justPressed || MusicBeatState.androidc.vpad.buttonDown2.justPressed) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonDown.justPressed || MusicBeatState.androidc.vpad.buttonDown2.justPressed) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -302,7 +302,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatState.androidc.vpad.buttonRight.justPressed || MusicBeatState.androidc.vpad.buttonRight2.justPressed) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonRight.justPressed || MusicBeatState.androidc.vpad.buttonRight2.justPressed) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatState.checkDUO
@@ -312,7 +312,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatState.androidc.vpad.buttonDown.justPressed == true);
+            		result = (MusicBeatState.androidc.vpad.buttonDown.justPressed == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -320,7 +320,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatState.androidc.vpad.buttonRight.justPressed == true);
+            		result = (MusicBeatState.androidc.vpad.buttonRight.justPressed == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatState.checkDUO
@@ -333,7 +333,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonDown.justPressed == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonDown.justPressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -341,11 +341,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonRight.justPressed == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonRight.justPressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatSubstate.androidc.newhbox.buttonSpace.justPressed == true);
+    		    result = (MusicBeatSubstate.androidc.newhbox.buttonSpace.justPressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatSubstate.checkHitbox
@@ -356,7 +356,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonDown.justPressed || MusicBeatSubstate.androidc.vpad.buttonDown2.justPressed) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonDown.justPressed || MusicBeatSubstate.androidc.vpad.buttonDown2.justPressed) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -364,7 +364,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonRight.justPressed || MusicBeatSubstate.androidc.vpad.buttonRight2.justPressed) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonRight.justPressed || MusicBeatSubstate.androidc.vpad.buttonRight2.justPressed) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatSubstate.checkDUO
@@ -374,7 +374,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonDown.justPressed == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonDown.justPressed == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -382,7 +382,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonRight.justPressed == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonRight.justPressed == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatSubstate.checkDUO
@@ -406,7 +406,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatState._virtualpad.buttonB.pressed == true);
+    		    result = (MusicBeatState._virtualpad.buttonB.pressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
 		
@@ -415,7 +415,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_down'){
-        		result= (MusicBeatState._virtualpad.buttonDown.pressed == true);
+        		result = (MusicBeatState._virtualpad.buttonDown.pressed == true);
            		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_left'){
@@ -423,7 +423,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_right'){
-        		result= (MusicBeatState._virtualpad.buttonRight.pressed == true);
+        		result = (MusicBeatState._virtualpad.buttonRight.pressed == true);
     		    if(result) {controllerMode = true; return true;}
     		        }
 		        }//checkState
@@ -433,7 +433,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonB.pressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonB.pressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
 		
@@ -442,7 +442,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_down'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonDown.pressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonDown.pressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_left'){
@@ -450,7 +450,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_right'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonRight.pressed == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonRight.pressed == true);
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
@@ -464,7 +464,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatState.androidc.newhbox.buttonDown.pressed == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonDown.pressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -472,11 +472,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatState.androidc.newhbox.buttonRight.pressed == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonRight.pressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatState.androidc.newhbox.buttonSpace.pressed == true);
+    		    result = (MusicBeatState.androidc.newhbox.buttonSpace.pressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatState.checkHitbox
@@ -487,7 +487,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatState.androidc.vpad.buttonDown.pressed || MusicBeatState.androidc.vpad.buttonDown2.pressed) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonDown.pressed || MusicBeatState.androidc.vpad.buttonDown2.pressed) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -495,7 +495,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatState.androidc.vpad.buttonRight.pressed || MusicBeatState.androidc.vpad.buttonRight2.pressed) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonRight.pressed || MusicBeatState.androidc.vpad.buttonRight2.pressed) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatState.checkDUO
@@ -505,7 +505,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatState.androidc.vpad.buttonDown.pressed == true);
+            		result = (MusicBeatState.androidc.vpad.buttonDown.pressed == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -513,7 +513,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatState.androidc.vpad.buttonRight.pressed == true);
+            		result = (MusicBeatState.androidc.vpad.buttonRight.pressed == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatState.checkDUO
@@ -526,7 +526,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonDown.pressed == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonDown.pressed == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -534,11 +534,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonRight.pressed == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonRight.pressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatSubstate.androidc.newhbox.buttonSpace.pressed == true);
+    		    result = (MusicBeatSubstate.androidc.newhbox.buttonSpace.pressed == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatSubstate.checkHitbox
@@ -549,7 +549,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonDown.pressed || MusicBeatSubstate.androidc.vpad.buttonDown2.pressed) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonDown.pressed || MusicBeatSubstate.androidc.vpad.buttonDown2.pressed) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -557,7 +557,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonRight.pressed || MusicBeatSubstate.androidc.vpad.buttonRight2.pressed) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonRight.pressed || MusicBeatSubstate.androidc.vpad.buttonRight2.pressed) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatSubstate.checkDUO
@@ -567,7 +567,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonDown.pressed == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonDown.pressed == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -575,7 +575,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonRight.pressed == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonRight.pressed == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatSubstate.checkDUO
@@ -599,7 +599,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatState._virtualpad.buttonB.justReleased == true);
+    		    result = (MusicBeatState._virtualpad.buttonB.justReleased == true);
         		if(result) {controllerMode = true; return true;}
         		}
 		
@@ -608,7 +608,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_down'){
-        		result= (MusicBeatState._virtualpad.buttonDown.justReleased == true);
+        		result = (MusicBeatState._virtualpad.buttonDown.justReleased == true);
            		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_left'){
@@ -616,7 +616,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'ui_right'){
-        		result= (MusicBeatState._virtualpad.buttonRight.justReleased == true);
+        		result = (MusicBeatState._virtualpad.buttonRight.justReleased == true);
     		    if(result) {controllerMode = true; return true;}
     		        }
 		        }//checkState
@@ -626,7 +626,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'back'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonB.justReleased == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonB.justReleased == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
 		
@@ -635,7 +635,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_down'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonDown.justReleased == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonDown.justReleased == true);
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_left'){
@@ -643,7 +643,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'ui_right'){
-    		    result= (MusicBeatSubstate._virtualpad.buttonRight.justReleased == true);
+    		    result = (MusicBeatSubstate._virtualpad.buttonRight.justReleased == true);
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
@@ -657,7 +657,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatState.androidc.newhbox.buttonDown.justReleased == true);
+        		result = (MusicBeatState.androidc.newhbox.buttonDown.justReleased == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -668,10 +668,10 @@ class Controls
         		result = (MusicBeatState.androidc.newhbox.buttonRight.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
-    		 /*   if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatState.androidc.newhbox.buttonSpace.justReleased == true);
+    		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
+    		    result = (MusicBeatState.androidc.newhbox.buttonSpace.justReleased == true);
         		if(result) {controllerMode = true; return true;}
-    		    }*/
+    		    }
     		}//MusicBeatState.checkHitbox
     		else{
     		    if (MusicBeatState.checkDUO){
@@ -680,7 +680,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatState.androidc.vpad.buttonDown.justReleased || MusicBeatState.androidc.vpad.buttonDown2.justReleased) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonDown.justReleased || MusicBeatState.androidc.vpad.buttonDown2.justReleased) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -688,7 +688,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatState.androidc.vpad.buttonRight.justReleased || MusicBeatState.androidc.vpad.buttonRight2.justReleased) == true);
+            		result = ((MusicBeatState.androidc.vpad.buttonRight.justReleased || MusicBeatState.androidc.vpad.buttonRight2.justReleased) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatState.checkDUO
@@ -698,7 +698,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatState.androidc.vpad.buttonDown.justReleased == true);
+            		result = (MusicBeatState.androidc.vpad.buttonDown.justReleased == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -706,7 +706,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatState.androidc.vpad.buttonRight.justReleased == true);
+            		result = (MusicBeatState.androidc.vpad.buttonRight.justReleased == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatState.checkDUO
@@ -719,7 +719,7 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_down'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonDown.justReleased == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonDown.justReleased == true);
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_left'){
@@ -727,11 +727,11 @@ class Controls
         		if(result) {controllerMode = true; return true;}
         		}
         		if (key == 'note_right'){
-        		result= (MusicBeatSubstate.androidc.newhbox.buttonRight.justReleased == true);
+        		result = (MusicBeatSubstate.androidc.newhbox.buttonRight.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		    if (key == 'space' && ClientPrefs.data.hitboxExtend){
-    		    result= (MusicBeatSubstate.androidc.newhbox.buttonSpace.justReleased == true);
+    		    result = (MusicBeatSubstate.androidc.newhbox.buttonSpace.justReleased == true);
         		if(result) {controllerMode = true; return true;}
     		    }
     		}//MusicBeatSubstate.checkHitbox
@@ -742,7 +742,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonDown.justReleased || MusicBeatSubstate.androidc.vpad.buttonDown2.justReleased) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonDown.justReleased || MusicBeatSubstate.androidc.vpad.buttonDown2.justReleased) == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -750,7 +750,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= ((MusicBeatSubstate.androidc.vpad.buttonRight.justReleased || MusicBeatSubstate.androidc.vpad.buttonRight2.justReleased) == true);
+            		result = ((MusicBeatSubstate.androidc.vpad.buttonRight.justReleased || MusicBeatSubstate.androidc.vpad.buttonRight2.justReleased) == true);
             		if(result) {controllerMode = true; return true;}
             		    }		    
         		    }//MusicBeatSubstate.checkDUO
@@ -760,7 +760,7 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_down'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonDown.justReleased == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonDown.justReleased == true);
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_left'){
@@ -768,12 +768,13 @@ class Controls
             		if(result) {controllerMode = true; return true;}
             		}
             		if (key == 'note_right'){
-            		result= (MusicBeatSubstate.androidc.vpad.buttonRight.justReleased == true);
+            		result = (MusicBeatSubstate.androidc.vpad.buttonRight.justReleased == true);
             		if(result) {controllerMode = true; return true;}
         		    }
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!checkState
+	    return false;
 	  //  if (result) return true;
     
     }
