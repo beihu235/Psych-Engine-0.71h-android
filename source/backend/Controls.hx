@@ -147,7 +147,7 @@ class Controls
 		controllerMode = false;
 		}
 
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true#if android || checkAndroidControl_justReleased(key) == true #end;
+		return result || _myGamepadJustReleased(gamepadBinds[key]) == true #if android || checkAndroidControl_justReleased(key) == true #end;
 	}
 
 	public var controllerMode:Bool = false;
@@ -451,7 +451,7 @@ class Controls
     
     }
     
-    private function checkAndroidControl_pressed(key:String):Bool
+    private function checkAndroidControl_justReleased(key:String):Bool
     {
     
     var result:Bool = false;
