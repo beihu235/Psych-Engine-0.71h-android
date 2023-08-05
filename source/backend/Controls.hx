@@ -110,18 +110,14 @@ class Controls
 	public function justPressed(key:String)
 	{
 		
-		var result:Bool = false;
-
-		#if android
-		checkAndroidControl_justPressed();				
-		#end
+		var result:Bool = false;		
 		
 		if (FlxG.keys.anyJustPressed(keyboardBinds[key])){
 		result = true;
 		controllerMode = false;
 		}				
 
-		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadJustPressed(gamepadBinds[key]) == true #if android || checkAndroidControl_justPressed(key) == true #end;
 	}
 
 	public function pressed(key:String)
@@ -129,16 +125,14 @@ class Controls
 		
 		var result:Bool = false;
 		
-		#if android
-		checkAndroidControl_pressed();				
-		#end
+		
 		
 		if (FlxG.keys.anyPressed(keyboardBinds[key])){
 		result = true;
 		controllerMode = false;
 		}
 
-		return result || _myGamepadPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadPressed(gamepadBinds[key]) == true #if android || checkAndroidControl_pressed(key) == true #end;
 	}
 
 	public function justReleased(key:String)
@@ -146,16 +140,14 @@ class Controls
 		
 		var result:Bool = false;
 		
-		#if android
-		checkAndroidControl_justReleased();						
-		#end
+		
 		
 		if (FlxG.keys.anyJustReleased(keyboardBinds[key])){
 		result = true;
 		controllerMode = false;
 		}
 
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true;
+		return result || _myGamepadJustReleased(gamepadBinds[key]) == true#if android || checkAndroidControl_justReleased(key) == true #end;
 	}
 
 	public var controllerMode:Bool = false;
@@ -207,7 +199,10 @@ class Controls
 	
 	#if android
 	
-	private function checkAndroidControl_justPressed(){
+	private function checkAndroidControl_justPressed(key:String):Bool
+	{
+	
+	    var result:Bool = false;
 	
 	    if (CheckPress){
 		    if (checkState){
@@ -325,9 +320,14 @@ class Controls
     		    }
 		    }
 	    }
+	    return false;
+	    if (result) return true;
     }
     
-    private function checkAndroidControl_pressed(){
+    private function checkAndroidControl_pressed(key:String):Bool
+    {
+    
+    var result:Bool = false;
     
         if (CheckPress){
 		    if (checkState){
@@ -446,9 +446,15 @@ class Controls
 		    }
 		}
     
+        return false;
+	    if (result) return true;
+    
     }
     
-    private function checkAndroidControl_pressed(){
+    private function checkAndroidControl_pressed(key:String):Bool
+    {
+    
+    var result:Bool = false;
     
         if (CheckPress){
 		    if (checkState){
@@ -566,6 +572,9 @@ class Controls
     		    }
 		    }
 		}
+		
+		return false;
+	    if (result) return true;
     
     }
     
