@@ -147,7 +147,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	public var allowSwiping:Bool = true;
 
-	#if FLX_MOUSE
+	#if android
 	/**
 	 * Which mouse buttons can trigger the button - by default only the left mouse button.
 	 */
@@ -232,7 +232,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		// Since this is a UI element, the default scrollFactor is (0, 0)
 		scrollFactor.set();
 
-		#if FLX_MOUSE
+		#if android
 		FlxG.stage.addEventListener(MouseEvent.MOUSE_UP, onUpEventListener);
 		#end
 
@@ -284,7 +284,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		currentInput = null;
 		input = null;
 
-		#if FLX_MOUSE
+		#if android
 		FlxG.stage.removeEventListener(MouseEvent.MOUSE_UP, onUpEventListener);
 		#end
 
@@ -301,7 +301,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		if (visible)
 		{
 			// Update the button, but only if at least either mouse or touches are enabled
-			#if FLX_POINTER_INPUT
+			#if android
 			updateButton();
 			#end
 
@@ -335,7 +335,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		}
 	}
 
-	#if FLX_DEBUG
+	#if android
 	/**
 	 * Helper function to draw the debug graphic for the label as well.
 	 */
@@ -408,7 +408,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function checkMouseOverlap():Bool
 	{
 		var overlap = false;
-		#if FLX_MOUSE
+		#if android
 		for (camera in cameras)
 		{
 			for (buttonID in mouseButtons)
@@ -427,7 +427,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	function checkTouchOverlap():Bool
 	{
 		var overlap = false;
-		#if FLX_TOUCH
+		#if android
 		for (camera in cameras)
 		{
 			for (touch in FlxG.touches.list)
@@ -504,7 +504,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 * Using an event listener is necessary for security reasons on flash -
 	 * certain things like opening a new window are only allowed when they are user-initiated.
 	 */
-	#if FLX_MOUSE
+	#if android
 	function onUpEventListener(_):Void
 	{
 		if (visible && exists && active && status == FlxButton.PRESSED)
@@ -542,7 +542,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	 */
 	function onOverHandler():Void
 	{
-		#if FLX_MOUSE
+		#if android
 		// If mouse input is not enabled, this button must ignore over actions
 		// by remaining in the normal state (until mouse input is re-enabled).
 		if (!FlxG.mouse.enabled)
@@ -643,7 +643,7 @@ private class FlxButtonEvent implements IFlxDestroyable
 	 */
 	public var callback:Void->Void;
 
-	#if FLX_SOUND_SYSTEM
+	#if android
 	/**
 	 * The sound to play when this event fires.
 	 */
@@ -658,7 +658,7 @@ private class FlxButtonEvent implements IFlxDestroyable
 	{
 		callback = Callback;
 
-		#if FLX_SOUND_SYSTEM
+		#if android
 		this.sound = sound;
 		#end
 	}
@@ -670,7 +670,7 @@ private class FlxButtonEvent implements IFlxDestroyable
 	{
 		callback = null;
 
-		#if FLX_SOUND_SYSTEM
+		#if android
 		sound = FlxDestroyUtil.destroy(sound);
 		#end
 	}
@@ -683,7 +683,7 @@ private class FlxButtonEvent implements IFlxDestroyable
 		if (callback != null)
 			callback();
 
-		#if FLX_SOUND_SYSTEM
+		#if android
 		if (sound != null)
 			sound.play(true);
 		#end
