@@ -71,7 +71,7 @@ class TitleState extends MusicBeatState
 
 	var mustUpdate:Bool = false;
     
-    var checkToast:Bool = false;
+    public static var checkToast:Bool = false;
     
 	var titleJSON:TitleData;
 
