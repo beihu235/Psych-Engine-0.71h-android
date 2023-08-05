@@ -102,6 +102,7 @@ class MusicBeatState extends FlxUIState
 		androidc.visible = false;
 
 		add(androidc);
+		Controls.checkState = true;
 	}
 	#end
 

@@ -104,8 +104,10 @@ class MusicBeatSubstate extends FlxSubState
 		androidc.cameras = [camcontrol];
 
 		androidc.visible = false;
+		
 
 		add(androidc);
+		Controls.checkState = false;
 	}
 	#end
 
