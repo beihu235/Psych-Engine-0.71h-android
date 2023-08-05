@@ -236,7 +236,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		FlxG.stage.addEventListener(MouseEvent.MOUSE_UP, onUpEventListener);
 		#end
 
-		#if FLX_NO_MOUSE // no need for highlight frame without mouse input
+		#if !android // no need for highlight frame without mouse input
 		statusAnimations[FlxButton.HIGHLIGHT] = "normal";
 		labelAlphas[FlxButton.HIGHLIGHT] = 1;
 		#end
@@ -335,7 +335,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		}
 	}
 
-	#if android
+	#if !android
 	/**
 	 * Helper function to draw the debug graphic for the label as well.
 	 */
