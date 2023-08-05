@@ -37,6 +37,8 @@ class MusicBeatSubstate extends FlxSubState
 	private var controls(get, never):Controls;
 	
 	public static var checkHitbox:Bool = false;
+	public static var checkDUO:Bool = false;
+	
 
 	inline function get_controls():Controls
 		return Controls.instance;
@@ -84,12 +86,15 @@ class MusicBeatSubstate extends FlxSubState
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 				//controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
 				checkHitbox = false;
+				checkDUO = false;
 			case DUO:
 				//controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 				checkHitbox = false;
+				checkDUO = true;
 			case HITBOX:
 				//controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
+				checkDUO = false;
 			default:
 		}
 

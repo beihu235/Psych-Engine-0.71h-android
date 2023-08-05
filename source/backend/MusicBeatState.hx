@@ -32,6 +32,7 @@ class MusicBeatState extends FlxUIState
 	public var controls(get, never):Controls;
 	
 	public static var checkHitbox:Bool = false;
+	public static var checkDUO:Bool = false;
 	
 	private function get_controls()
 	{
@@ -81,12 +82,15 @@ class MusicBeatState extends FlxUIState
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 				//controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
 				checkHitbox = false;
+				checkDUO = false;
 			case DUO:
 				//controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 				checkHitbox = false;
+				checkDUO = true;
 			case HITBOX:
 				//controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
+				checkDUO = false;
 			default:
 		}
 
