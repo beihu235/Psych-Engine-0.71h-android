@@ -1,7 +1,7 @@
 package;
 
-import backend.SUtil;
 import flixel.graphics.FlxGraphic;
+
 import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
@@ -12,6 +12,16 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
+
+//crash handler stuff
+#if CRASH_HANDLER
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
+#end
 
 class Main extends Sprite
 {
@@ -32,17 +42,12 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
-		#if cpp
-		cpp.NativeGc.enable(true);
-		cpp.NativeGc.run(true);
-		#end
 	}
 
 	public function new()
 	{
 		super();
-
-                SUtil.gameCrashCheck();
+		SUtil.gameCrashCheck();
 
 		if (stage != null)
 		{
@@ -69,24 +74,36 @@ class Main extends Sprite
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
+		if (game.zoom == -1.0)
+		{
+			var ratioX:Float = stageWidth / game.width;
+			var ratioY:Float = stageHeight / game.height;
+			game.zoom = Math.min(ratioX, ratioY);
+			game.width = Math.ceil(stageWidth / game.zoom);
+			game.height = Math.ceil(stageHeight / game.zoom);
+		}
 		SUtil.doTheCheck();
 	
-		ClientPrefs.loadDefaultKeys();
 		#if LUA_ALLOWED Lua.set_callbacks_function(cpp.Callable.fromStaticFunction(psychlua.CallbackHandler.call)); #end
-		addChild(new FlxGame(game.width, game.height, game.initialState, game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		Controls.instance = new Controls();
+		ClientPrefs.loadDefaultKeys();
+		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
+		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null)
+		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.data.showFPS;
+		}
+		#end
 
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-
+		
 		#if CRASH_HANDLER
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
@@ -116,4 +133,46 @@ class Main extends Sprite
 			sprite.__cacheBitmapData = null;
 		}
 	}
+
+	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
+	// very cool person for real they don't get enough credit for their work
+	#if CRASH_HANDLER
+	function onCrash(e:UncaughtErrorEvent):Void
+	{
+		var errMsg:String = "";
+		var path:String;
+		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
+		var dateNow:String = Date.now().toString();
+
+		dateNow = dateNow.replace(" ", "_");
+		dateNow = dateNow.replace(":", "'");
+
+		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+
+		for (stackItem in callStack)
+		{
+			switch (stackItem)
+			{
+				case FilePos(s, file, line, column):
+					errMsg += file + " (line " + line + ")\n";
+				default:
+					Sys.println(stackItem);
+			}
+		}
+
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
+
+		if (!FileSystem.exists("./crash/"))
+			FileSystem.createDirectory("./crash/");
+
+		File.saveContent(path, errMsg + "\n");
+
+		Sys.println(errMsg);
+		Sys.println("Crash dump saved in " + Path.normalize(path));
+
+		Application.current.window.alert(errMsg, "Error!");
+		DiscordClient.shutdown();
+		Sys.exit(1);
+	}
+	#end
 }
