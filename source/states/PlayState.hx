@@ -45,7 +45,7 @@ import states.editors.CharacterEditorState;
 import substates.PauseSubState;
 import substates.GameOverSubstate;
 
-import flixel.system.FlxAssets.FlxShader;
+//import flixel.system.FlxAssets.FlxShader;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -3494,7 +3494,12 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function initLuaShader(name:String)
+
+        #if android
+	public function initLuaShader(name:String, ?glslVersion:Int = 100)
+        #else
+        public function initLuaShader(name:String, ?glslVersion:Int = 120)
+        #end
 	{
 		if(!ClientPrefs.data.shaders) return false;
 
@@ -3511,7 +3516,7 @@ class PlayState extends MusicBeatState
 
 		for(mod in Mods.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-
+		
 		for (folder in foldersToCheck)
 		{
 			if(FileSystem.exists(folder))
@@ -3543,7 +3548,7 @@ class PlayState extends MusicBeatState
 		}
 		FlxG.log.warn('Missing shader $name .frag AND .vert files!');
 		#else
-		FlxG.log.warn('This platform doesn\'t support Runtime Shaders!', false, false, FlxColor.RED);
+		FlxG.log.warn('This platform doesn\'t support Runtime Shaders!');
 		#end
 		return false;
 	}
