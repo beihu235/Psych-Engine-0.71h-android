@@ -107,7 +107,7 @@ class MusicBeatSubstate extends FlxSubState
 		
 
 		add(androidc);
-		Controls.checkState = false;
+		Controls.CheckControl = false;
 	}
 	#end
 
