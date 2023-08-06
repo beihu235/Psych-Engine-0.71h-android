@@ -1,9 +1,11 @@
 package lime.utils;
 
 import openfl.Lib;
+/*
 #if android
 import android.widget.Toast;
 #end
+*/
 import haxe.PosInfos;
 import lime.app.Application;
 import lime.system.System;
@@ -61,7 +63,7 @@ class Log
 				catch (e:Dynamic)
 				{
 					#if (android && debug)
-					Toast.makeText("Error!\nClouldn't save the crash log because:\n" + e, Toast.LENGTH_LONG);
+					AndroidDialogsExtend.OpenToast("Error!\nClouldn't save the crash log because:\n" + e);
 					#else
 					println("Error!\nClouldn't save the crash log because:\n" + e);
 					#end
