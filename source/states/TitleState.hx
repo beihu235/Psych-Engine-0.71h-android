@@ -3,6 +3,7 @@ package states;
 import backend.WeekData;
 import backend.Highscore;
 import backend.AndroidDialogsExtend;
+import extension.devicelang.DeviceLanguage;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
@@ -82,10 +83,12 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
+		var lang:String = 'psych0.71h android test\nmade by 北狐丶逐梦' + DeviceLanguage.getLang();
+		
 		if(!checkToast){
 				
 		checkToast = true;
-		AndroidDialogsExtend.OpenToast('psych0.71h android test\nmade by 北狐丶逐梦');
+		AndroidDialogsExtend.OpenToast(lang);
 		
 		}
 		
