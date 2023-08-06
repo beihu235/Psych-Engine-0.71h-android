@@ -4,6 +4,7 @@ import backend.WeekData;
 import backend.Highscore;
 import backend.AndroidDialogsExtend;
 import extension.devicelang.DeviceLanguage;
+import lime.system.JNI;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
