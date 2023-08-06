@@ -23,6 +23,9 @@ import backend.Difficulty;
 import backend.Mods;
 import backend.SUtil;
 
+import backend.AndroidDialogsExtend;
+import extension.devicelang.DeviceLanguage;
+
 import objects.Alphabet;
 import objects.BGSprite;
 
