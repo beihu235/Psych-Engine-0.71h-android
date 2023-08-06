@@ -1,114 +1,126 @@
 package flixel.addons.display;
 
-import flixel.system.FlxAssets.FlxShader;
+#if (FLX_DRAW_QUADS && !flash)
+import flixel.graphics.tile.FlxGraphicsShader;
+#if lime
 import lime.utils.Float32Array;
+#end
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
 import openfl.display.ShaderParameter;
 import openfl.display.ShaderParameterType;
 
+using StringTools;
+
 /**
  * An wrapper for Flixel/OpenFL's shaders, which takes fragment and vertex source
- * in the constructor instead of using macros, so it can be provided data
- * at runtime (for example, when using mods).
- * 
- * HOW TO USE:
- * 1. Create an instance of this class, passing the text of the `.frag` and `.vert` files.
- *    Note that you can set either of these to null (making them both null would make the shader do nothing???).
- * 2. Use `flxSprite.shader = runtimeShader` to apply the shader to the sprite.
- * 3. Use `runtimeShader.setFloat()`, `setBool()`, etc. to modify any uniforms.
+ * in the constructor instead of using macros so it can be provided at runtime.
  * 
  * @author MasterEric
+ * @author Mihai Alexandru (M.A. Jigsaw)
+ * 
  * @see https://github.com/openfl/openfl/blob/develop/src/openfl/utils/_internal/ShaderMacro.hx
  * @see https://dixonary.co.uk/blog/shadertoy
  */
-class FlxRuntimeShader extends FlxShader
+class FlxRuntimeShader extends FlxGraphicsShader
 {
-	// These variables got copied from openfl.display.GraphicsShader
-	// and from flixel.graphics.tile.FlxGraphicsShader,
-	// and probably won't change ever.
-	static final BASE_VERTEX_HEADER:String = "
-		#pragma version
-
-		#pragma precision
-
-		attribute float openfl_Alpha;
+	private static final BASE_VERTEX_HEADER:String = "attribute float openfl_Alpha;
 		attribute vec4 openfl_ColorMultiplier;
 		attribute vec4 openfl_ColorOffset;
 		attribute vec4 openfl_Position;
 		attribute vec2 openfl_TextureCoord;
+
 		varying float openfl_Alphav;
 		varying vec4 openfl_ColorMultiplierv;
 		varying vec4 openfl_ColorOffsetv;
 		varying vec2 openfl_TextureCoordv;
+
 		uniform mat4 openfl_Matrix;
 		uniform bool openfl_HasColorTransform;
-		uniform vec2 openfl_TextureSize;
-	";
-	static final BASE_VERTEX_BODY:String = "
-		openfl_Alphav = openfl_Alpha;
+		uniform vec2 openfl_TextureSize;";
+
+	private static final BASE_VERTEX_BODY:String = "openfl_Alphav = openfl_Alpha;
 		openfl_TextureCoordv = openfl_TextureCoord;
-		if (openfl_HasColorTransform) {
+
+		if (openfl_HasColorTransform)
+		{
 			openfl_ColorMultiplierv = openfl_ColorMultiplier;
 			openfl_ColorOffsetv = openfl_ColorOffset / 255.0;
 		}
-		gl_Position = openfl_Matrix * openfl_Position;
-	";
 
-	static final BASE_FRAGMENT_HEADER:String = "
-		#pragma version
+		gl_Position = openfl_Matrix * openfl_Position;";
 
-		#pragma precision
+	private static final BASE_VERTEX_SOURCE:String = "#pragma header
 
-		varying float openfl_Alphav;
+		attribute float alpha;
+		attribute vec4 colorMultiplier;
+		attribute vec4 colorOffset;
+		uniform bool hasColorTransform;
+
+		void main(void)
+		{
+			#pragma body
+
+			openfl_Alphav = openfl_Alpha * alpha;
+
+			if (hasColorTransform)
+			{
+				openfl_ColorOffsetv = colorOffset / 255.0;
+				openfl_ColorMultiplierv = colorMultiplier;
+			}
+		}";
+
+	private static final BASE_FRAGMENT_HEADER:String = "varying float openfl_Alphav;
 		varying vec4 openfl_ColorMultiplierv;
 		varying vec4 openfl_ColorOffsetv;
 		varying vec2 openfl_TextureCoordv;
+
 		uniform bool openfl_HasColorTransform;
 		uniform vec2 openfl_TextureSize;
 		uniform sampler2D bitmap;
-	"
 
-	#if FLX_DRAW_QUADS
-	// Add on more stuff!
-	+ "
 		uniform bool hasTransform;
 		uniform bool hasColorTransform;
+
 		vec4 flixel_texture2D(sampler2D bitmap, vec2 coord)
 		{
 			vec4 color = texture2D(bitmap, coord);
+
 			if (!hasTransform)
 			{
 				return color;
 			}
+
 			if (color.a == 0.0)
 			{
 				return vec4(0.0, 0.0, 0.0, 0.0);
 			}
+
 			if (!hasColorTransform)
 			{
 				return color * openfl_Alphav;
 			}
+
 			color = vec4(color.rgb / color.a, color.a);
+
 			mat4 colorMultiplier = mat4(0);
 			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
 			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
 			colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
 			colorMultiplier[3][3] = openfl_ColorMultiplierv.w;
+
 			color = clamp(openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
+
 			if (color.a > 0.0)
 			{
 				return vec4(color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
 			}
+
 			return vec4(0.0, 0.0, 0.0, 0.0);
-		}
-	";
-	#else
-	// No additional data.
-	;
-	#end
-	static final BASE_FRAGMENT_BODY:String = "
-		vec4 color = texture2D (bitmap, openfl_TextureCoordv);
+		}";
+
+	private static final BASE_FRAGMENT_BODY:String = "vec4 color = texture2D(bitmap, openfl_TextureCoordv);
+
 		if (color.a == 0.0)
 		{
 			gl_FragColor = vec4 (0.0, 0.0, 0.0, 0.0);
@@ -116,12 +128,15 @@ class FlxRuntimeShader extends FlxShader
 		else if (openfl_HasColorTransform)
 		{
 			color = vec4 (color.rgb / color.a, color.a);
+
 			mat4 colorMultiplier = mat4 (0);
 			colorMultiplier[0][0] = openfl_ColorMultiplierv.x;
 			colorMultiplier[1][1] = openfl_ColorMultiplierv.y;
 			colorMultiplier[2][2] = openfl_ColorMultiplierv.z;
 			colorMultiplier[3][3] = 1.0; // openfl_ColorMultiplierv.w;
+
 			color = clamp (openfl_ColorOffsetv + (color * colorMultiplier), 0.0, 1.0);
+
 			if (color.a > 0.0)
 			{
 				gl_FragColor = vec4 (color.rgb * color.a * openfl_Alphav, color.a * openfl_Alphav);
@@ -134,265 +149,310 @@ class FlxRuntimeShader extends FlxShader
 		else
 		{
 			gl_FragColor = color * openfl_Alphav;
-		}
-	";
+		}";
 
-	#if FLX_DRAW_QUADS
-	static final DEFAULT_FRAGMENT_SOURCE:String = "
-		#pragma header
-		
+	private static final BASE_FRAGMENT_SOURCE:String = "#pragma header
+
 		void main(void)
 		{
 			gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
-		}
-	";
-	#else
-	static final DEFAULT_FRAGMENT_SOURCE:String = "
-		#pragma header
-		void main(void)
-		{
-			#pragma body
-		}
-	";
-	#end
-
-	#if FLX_DRAW_QUADS
-	static final DEFAULT_VERTEX_SOURCE:String = "
-		#pragma header
-		
-		attribute float alpha;
-		attribute vec4 colorMultiplier;
-		attribute vec4 colorOffset;
-		uniform bool hasColorTransform;
-		
-		void main(void)
-		{
-			#pragma body
-			
-			openfl_Alphav = openfl_Alpha * alpha;
-			
-			if (hasColorTransform)
-			{
-				openfl_ColorOffsetv = colorOffset / 255.0;
-				openfl_ColorMultiplierv = colorMultiplier;
-			}
-		}
-	";
-	#else
-	static final DEFAULT_VERTEX_SOURCE:String = "
-		#pragma header
-		void main(void)
-		{
-			#pragma body
-		}
-	";
-	#end
+		}";
 
 	/**
-	 * Constructs a GLSL shader.
+	 * Creates a `FlxRuntimeShader` with specified shader sources.
+	 * If none is provided, it will use the default shader sources.
+	 *
 	 * @param fragmentSource The fragment shader source.
 	 * @param vertexSource The vertex shader source.
-	 * Note you also need to `initialize()` the shader MANUALLY! It can't be done automatically.
 	 */
-	public function new(fragmentSource:String = null, vertexSource:String = null):Void
+	public function new(?fragmentSource:String, ?vertexSource:String):Void
 	{
-		if (fragmentSource != null)
-		{
-			trace('Loading fragment source from argument...');
-			glFragmentSource = processFragmentSource(fragmentSource);
-		}
+		if (fragmentSource != null && fragmentSource.length > 0)
+			glFragmentSource = fragmentSource;
 		else
-		{
-			trace('Loading default fragment source...');
-			glFragmentSource = processFragmentSource(DEFAULT_FRAGMENT_SOURCE);
-		}
+			glFragmentSource = BASE_FRAGMENT_SOURCE;
 
-		if (vertexSource != null)
-		{
-			trace('Loading vertex source from argument...');
-			glVertexSource = processVertexSource(vertexSource);
-		}
+		if (vertexSource != null && vertexSource.length > 0)
+			glVertexSource = vertexSource;
 		else
-		{
-			trace('Loading vertex fragment source...');
-			glVertexSource = processVertexSource(DEFAULT_VERTEX_SOURCE);
-		}
-
-		@:privateAccess
-		{
-			// This tells the shader that the glVertexSource/glFragmentSource have been updated.
-			__glSourceDirty = true;
-		}
+			glVertexSource = BASE_VERTEX_SOURCE;
 
 		super();
 	}
 
 	/**
-	 * Replace the `#pragma header` and `#pragma body` with the fragment shader header and body.
+	 * Modify a float parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
 	 */
-	function processFragmentSource(input:String):String
-		return input.replace("#pragma header", BASE_FRAGMENT_HEADER).replace("#pragma body", BASE_FRAGMENT_BODY);
-
-	/**
-	 * Replace the `#pragma header` and `#pragma body` with the vertex shader header and body.
-	 */
-	function processVertexSource(input:String):String
-		return input.replace("#pragma header", BASE_VERTEX_HEADER).replace("#pragma body", BASE_VERTEX_BODY);
-
-	/**
-	 * The parent function that initializes the shader.
-	 * This is done to add the `#version` shader directive.
-	 */
-	private override function __initGL():Void
+	public function setFloat(name:String, value:Float):Void
 	{
-		if (__glSourceDirty || __paramBool == null)
-		{
-			__glSourceDirty = false;
-			program = null;
+		var prop:ShaderParameter<Float> = Reflect.field(data, name);
 
-			__inputBitmapData = new Array();
-			__paramBool = new Array();
-			__paramFloat = new Array();
-			__paramInt = new Array();
-			__processGLData(glVertexSource, "attribute");
-			__processGLData(glVertexSource, "uniform");
-			__processGLData(glFragmentSource, "uniform");
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader float property $name not found.');
+			return;
 		}
 
-		if (__context != null && program == null)
-		{
-			@:privateAccess
-			var gl = __context.gl;
-
-			var prefix = '';
-
-			#if (js && html5)
-			prefix += (precisionHint == FULL ? "precision mediump float;\n" : "precision lowp float;\n");
-			#else
-			prefix += "#ifdef GL_ES\n"
-				+ (precisionHint == FULL ? "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
-					+ "precision highp float;\n"
-					+ "#else\n"
-					+ "precision mediump float;\n"
-					+ "#endif\n" : "precision lowp float;\n")
-				+ "#endif\n\n";
-			#end
-
-			var vertex = prefix + glVertexSource;
-			var fragment = prefix + glFragmentSource;
-
-			var id = vertex + fragment;
-
-			@:privateAccess
-			if (__context.__programs.exists(id))
-			{
-				@:privateAccess
-				program = __context.__programs.get(id);
-			}
-			else
-			{
-				program = __context.createProgram(GLSL);
-
-				@:privateAccess
-				program.__glProgram = __createGLProgram(vertex, fragment);
-
-				@:privateAccess
-				__context.__programs.set(id, program);
-			}
-
-			if (program != null)
-			{
-				@:privateAccess
-				glProgram = program.__glProgram;
-
-				for (input in __inputBitmapData)
-				{
-					@:privateAccess
-					if (input.__isUniform)
-					{
-						@:privateAccess
-						input.index = gl.getUniformLocation(glProgram, input.name);
-					}
-					else
-					{
-						@:privateAccess
-						input.index = gl.getAttribLocation(glProgram, input.name);
-					}
-				}
-
-				for (parameter in __paramBool)
-				{
-					@:privateAccess
-					if (parameter.__isUniform)
-					{
-						@:privateAccess
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						@:privateAccess
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-
-				for (parameter in __paramFloat)
-				{
-					@:privateAccess
-					if (parameter.__isUniform)
-					{
-						@:privateAccess
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						@:privateAccess
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-
-				for (parameter in __paramInt)
-				{
-					@:privateAccess
-					if (parameter.__isUniform)
-					{
-						@:privateAccess
-						parameter.index = gl.getUniformLocation(glProgram, parameter.name);
-					}
-					else
-					{
-						@:privateAccess
-						parameter.index = gl.getAttribLocation(glProgram, parameter.name);
-					}
-				}
-			}
-		}
-	}
-
-	private var __fieldList:Array<String> = null;
-
-	private function thisHasField(name:String)
-	{
-		// Reflect.hasField(this, name) is REALLY expensive so we use a cache.
-		if (__fieldList == null)
-			__fieldList = Reflect.fields(this).concat(Type.getInstanceFields(Type.getClass(this)));
-
-		return __fieldList.indexOf(name) != -1;
+		prop.value = [value];
 	}
 
 	/**
-	 * The parent function that initializes the shader.
-	 * This is done because some shader fields (such as `bitmap`) have to automatically propagate from the shader,
-	 * but others may not exist or be properties rather than fields.
+	 * Retrieve a float parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
 	 */
-	private override function __processGLData(source:String, storageType:String):Void
+	public function getFloat(name:String):Null<Float>
 	{
-		var position;
-		var name;
-		var type;
+		var prop:ShaderParameter<Float> = Reflect.field(data, name);
 
-		var regex = (storageType == "uniform") ? ~/uniform ([A-Za-z0-9]+) ([A-Za-z0-9_]+)/ : ~/attribute ([A-Za-z0-9]+) ([A-Za-z0-9_]+)/;
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader float property $name not found.');
+			return null;
+		}
 
-		var lastMatch = 0;
+		return prop.value[0];
+	}
+
+	/**
+	 * Modify a float array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setFloatArray(name:String, value:Array<Float>):Void
+	{
+		var prop:ShaderParameter<Float> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader float[] property $name not found.');
+			return;
+		}
+
+		prop.value = value;
+	}
+
+	/**
+	 * Retrieve a float array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 */
+	public function getFloatArray(name:String):Null<Array<Float>>
+	{
+		var prop:ShaderParameter<Float> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader float[] property $name not found.');
+			return null;
+		}
+
+		return prop.value;
+	}
+
+	/**
+	 * Modify an integer parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setInt(name:String, value:Int):Void
+	{
+		var prop:ShaderParameter<Int> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader int property $name not found.');
+			return;
+		}
+
+		prop.value = [value];
+	}
+
+	/**
+	 * Retrieve an integer parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 */
+	public function getInt(name:String):Null<Int>
+	{
+		var prop:ShaderParameter<Int> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader int property $name not found.');
+			return null;
+		}
+
+		return prop.value[0];
+	}
+
+	/**
+	 * Modify an integer array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setIntArray(name:String, value:Array<Int>):Void
+	{
+		var prop:ShaderParameter<Int> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader int[] property $name not found.');
+			return;
+		}
+
+		prop.value = value;
+	}
+
+	/**
+	 * Retrieve an integer array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 */
+	public function getIntArray(name:String):Null<Array<Int>>
+	{
+		var prop:ShaderParameter<Int> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader int[] property $name not found.');
+			return null;
+		}
+
+		return prop.value;
+	}
+
+	/**
+	 * Modify a bool parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setBool(name:String, value:Bool):Void
+	{
+		var prop:ShaderParameter<Bool> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader bool property $name not found.');
+			return;
+		}
+
+		prop.value = [value];
+	}
+
+	/**
+	 * Retrieve a bool parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 */
+	public function getBool(name:String):Null<Bool>
+	{
+		var prop:ShaderParameter<Bool> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader bool property $name not found.');
+			return null;
+		}
+
+		return prop.value[0];
+	}
+
+	/**
+	 * Modify a bool array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setBoolArray(name:String, value:Array<Bool>):Void
+	{
+		var prop:ShaderParameter<Bool> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader bool[] property $name not found.');
+			return;
+		}
+
+		prop.value = value;
+	}
+
+	/**
+	 * Retrieve a bool array parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 */
+	public function getBoolArray(name:String):Null<Array<Bool>>
+	{
+		var prop:ShaderParameter<Bool> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader bool[] property $name not found.');
+			return null;
+		}
+
+		return prop.value;
+	}
+
+	/**
+	 * Modify a bitmap data parameter of the shader.
+	 *
+	 * @param name The name of the parameter to modify.
+	 * @param value The new value to use.
+	 */
+	public function setSampler2D(name:String, value:BitmapData):Void
+	{
+		var prop:ShaderInput<BitmapData> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader sampler2D property $name not found.');
+			return;
+		}
+
+		prop.input = value;
+	}
+
+	/**
+	 * Retrieve a bitmap data parameter of the shader.
+	 *
+	 * @param name The name of the parameter to retrieve.
+	 * @return The value of the parameter.
+	 */
+	public function getSampler2D(name:String):Null<BitmapData>
+	{
+		var prop:ShaderInput<BitmapData> = Reflect.field(data, name);
+
+		if (prop == null)
+		{
+			FlxG.log.warn('Shader sampler2D property $name not found.');
+			return null;
+		}
+
+		return prop.input;
+	}
+
+	// Overrides
+	@:noCompletion private override function __processGLData(source:String, storageType:String):Void
+	{
+		var lastMatch = 0, position, regex, name, type;
+
+		if (storageType == "uniform")
+		{
+			regex = ~/uniform ([A-Za-z0-9]+) ([A-Za-z0-9_]+)/;
+		}
+		else
+		{
+			regex = ~/attribute ([A-Za-z0-9]+) ([A-Za-z0-9_]+)/;
+		}
 
 		@:privateAccess
 		while (regex.matchSub(source, lastMatch))
@@ -401,9 +461,7 @@ class FlxRuntimeShader extends FlxShader
 			name = regex.matched(2);
 
 			if (StringTools.startsWith(name, "gl_"))
-			{
 				continue;
-			}
 
 			var isUniform = (storageType == "uniform");
 
@@ -424,8 +482,13 @@ class FlxRuntimeShader extends FlxShader
 				}
 
 				Reflect.setField(__data, name, input);
-				if (__isGenerated && thisHasField(name))
-					Reflect.setProperty(this, name, input);
+
+				try
+				{
+					if (__isGenerated)
+						Reflect.setField(this, name, input);
+				}
+				catch (e:Dynamic) {}
 			}
 			else if (!Reflect.hasField(__data, name) || Reflect.field(__data, name) == null)
 			{
@@ -491,8 +554,13 @@ class FlxRuntimeShader extends FlxShader
 						}
 
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated && thisHasField(name))
-							Reflect.setProperty(this, name, parameter);
+
+						try
+						{
+							if (__isGenerated)
+								Reflect.setField(this, name, parameter);
+						}
+						catch (e:Dynamic) {}
 
 					case INT, INT2, INT3, INT4:
 						var parameter = new ShaderParameter<Int>();
@@ -503,9 +571,15 @@ class FlxRuntimeShader extends FlxShader
 						parameter.__isUniform = isUniform;
 						parameter.__length = length;
 						__paramInt.push(parameter);
+
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated && thisHasField(name))
-							Reflect.setProperty(this, name, parameter);
+
+						try
+						{
+							if (__isGenerated)
+								Reflect.setField(this, name, parameter);
+						}
+						catch (e:Dynamic) {}
 
 					default:
 						var parameter = new ShaderParameter<Float>();
@@ -537,8 +611,13 @@ class FlxRuntimeShader extends FlxShader
 						}
 
 						Reflect.setField(__data, name, parameter);
-						if (__isGenerated && thisHasField(name))
-							Reflect.setProperty(this, name, parameter);
+
+						try
+						{
+							if (__isGenerated)
+								Reflect.setField(this, name, parameter);
+						}
+						catch (e:Dynamic) {}
 				}
 			}
 
@@ -547,221 +626,26 @@ class FlxRuntimeShader extends FlxShader
 		}
 	}
 
-	/**
-	 * Modify a float parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setFloat(name:String, value:Float):Void
+	@:noCompletion private override function set_glFragmentSource(value:String):String
 	{
-		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader float property ${name} not found.');
-			return;
-		}
-		prop.value = [value];
+		if (value != null)
+			value = value.replace("#pragma header", BASE_FRAGMENT_HEADER).replace("#pragma body", BASE_FRAGMENT_BODY);
+
+		if (value != __glFragmentSource)
+			__glSourceDirty = true;
+
+		return __glFragmentSource = value;
 	}
 
-	/**
-	 * Modify a float array parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setFloatArray(name:String, value:Array<Float>):Void
+	@:noCompletion private override function set_glVertexSource(value:String):String
 	{
-		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader float[] property ${name} not found.');
-			return;
-		}
-		prop.value = value;
-	}
+		if (value != null)
+			value = value.replace("#pragma header", BASE_VERTEX_HEADER).replace("#pragma body", BASE_VERTEX_BODY);
 
-	/**
-	 * Modify an integer parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setInt(name:String, value:Int):Void
-	{
-		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader int property ${name} not found.');
-			return;
-		}
-		prop.value = [value];
-	}
+		if (value != __glVertexSource)
+			__glSourceDirty = true;
 
-	/**
-	 * Modify an integer array parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setIntArray(name:String, value:Array<Int>):Void
-	{
-		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader int[] property ${name} not found.');
-			return;
-		}
-		prop.value = value;
+		return __glVertexSource = value;
 	}
-
-	/**
-	 * Modify a boolean parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setBool(name:String, value:Bool):Void
-	{
-		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader bool property ${name} not found.');
-			return;
-		}
-		prop.value = [value];
-	}
-
-	/**
-	 * Modify a boolean array parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setBoolArray(name:String, value:Array<Bool>):Void
-	{
-		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader bool[] property ${name} not found.');
-			return;
-		}
-		prop.value = value;
-	}
-
-	/**
-	 * Modify a bitmap data parameter of the shader.
-	 * @param name The name of the parameter to modify.
-	 * @param value The new value to use.
-	 */
-	public function setSampler2D(name:String, value:openfl.display.BitmapData):Void
-	{
-		var prop:ShaderInput<openfl.display.BitmapData> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader sampler2D property ${name} not found.');
-			return;
-		}
-		prop.input = value;
-	}
-
-	/**
-	 * Retrieve a float parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getFloat(name:String):Null<Float>
-	{
-		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null || prop.value.length == 0)
-		{
-			trace('[WARN] Shader float property ${name} not found.');
-			return null;
-		}
-		return prop.value[0];
-	}
-
-	/**
-	 * Retrieve a float array parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getFloatArray(name:String):Null<Array<Float>>
-	{
-		var prop:ShaderParameter<Float> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader float[] property ${name} not found.');
-			return null;
-		}
-		return prop.value;
-	}
-
-	/**
-	 * Retrieve an integer parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getInt(name:String):Null<Int>
-	{
-		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null || prop.value.length == 0)
-		{
-			trace('[WARN] Shader int property ${name} not found.');
-			return null;
-		}
-		return prop.value[0];
-	}
-
-	/**
-	 * Retrieve an integer array parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getIntArray(name:String):Null<Array<Int>>
-	{
-		var prop:ShaderParameter<Int> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader int[] property ${name} not found.');
-			return null;
-		}
-		return prop.value;
-	}
-
-	/**
-	 * Retrieve a boolean parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getBool(name:String):Null<Bool>
-	{
-		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null || prop.value.length == 0)
-		{
-			trace('[WARN] Shader bool property ${name} not found.');
-			return null;
-		}
-		return prop.value[0];
-	}
-
-	/**
-	 * Retrieve a boolean array parameter of the shader.
-	 * @param name The name of the parameter to retrieve.
-	 */
-	public function getBoolArray(name:String):Null<Array<Bool>>
-	{
-		var prop:ShaderParameter<Bool> = Reflect.field(this.data, name);
-		@:privateAccess
-		if (prop == null)
-		{
-			trace('[WARN] Shader bool[] property ${name} not found.');
-			return null;
-		}
-		return prop.value;
-	}
-
-	public function toString():String
-		return 'FlxRuntimeShader';
 }
+#end
