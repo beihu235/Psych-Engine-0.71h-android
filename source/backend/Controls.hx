@@ -103,7 +103,7 @@ class Controls
 	
 	public static var checkState:Bool = true;
 	public static var CheckPress:Bool = true;
-
+    public static var CheckControl:Bool = true;
 	//Gamepad & Keyboard stuff
 	public var keyboardBinds:Map<String, Array<FlxKey>>;
 	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
@@ -264,7 +264,7 @@ class Controls
 		}//CheckPress
 		
 		//------------------note
-		if (checkState){
+		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
         		result = (MusicBeatState.androidc.newhbox.buttonUp.justPressed == true);
@@ -325,7 +325,7 @@ class Controls
         		    }
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
-	    }//checkState
+	    }//CheckControl
 	    else{
 	    if (MusicBeatSubstate.checkHitbox){
     		    if (key == 'note_up'){
@@ -387,7 +387,7 @@ class Controls
         		    }
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
-	    }//!checkState
+	    }//!CheckControl
 	    return false;
     }
     
@@ -457,7 +457,7 @@ class Controls
 		}//CheckPress
 		
 		//------------------note
-		if (checkState){
+		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
         		result = (MusicBeatState.androidc.newhbox.buttonUp.pressed == true);
@@ -518,7 +518,7 @@ class Controls
         		    }
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
-	    }//checkState
+	    }//CheckControl
 	    else{
 	    if (MusicBeatSubstate.checkHitbox){
     		    if (key == 'note_up'){
@@ -580,7 +580,7 @@ class Controls
         		    }
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
-	    }//!checkState
+	    }//!CheckControl
         return false;
 	   // if (result) return true;
     
@@ -650,7 +650,7 @@ class Controls
 		}//CheckPress
 		
 		//------------------note
-		if (checkState){
+		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
         		result = (MusicBeatState.androidc.newhbox.buttonUp.justReleased == true);
@@ -711,7 +711,7 @@ class Controls
         		    }
     		    }//!MusicBeatState.checkDUO
     	    }//!MusicBeatState.checkHitbox
-	    }//checkState
+	    }//CheckControl
 	    else{
 	    if (MusicBeatSubstate.checkHitbox){
     		    if (key == 'note_up'){
@@ -773,7 +773,7 @@ class Controls
         		    }
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
-	    }//!checkState
+	    }//!CheckControl
 	    return false;
 	  //  if (result) return true;
     
