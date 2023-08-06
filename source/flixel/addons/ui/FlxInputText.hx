@@ -5,10 +5,8 @@ import flash.errors.Error;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
 import flixel.addons.ui.FlxUI.NamedString;
-
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-
 import flixel.util.FlxDestroyUtil;
 
 /**
@@ -24,6 +22,7 @@ import flixel.util.FlxDestroyUtil;
  * License: Creative Commons Attribution 3.0 United States
  * @link http://creativecommons.org/licenses/by/3.0/us/
  * 
+ * Modified by PlankDev to support cut/copy/paste
  */
 class FlxInputText extends FlxText
 {
@@ -323,7 +322,7 @@ class FlxInputText extends FlxText
 		}
 		#end
 	}
-	
+
 	function mouseOverlapping()
 	{
 		var mousePoint = FlxG.mouse.getScreenPosition(camera);
