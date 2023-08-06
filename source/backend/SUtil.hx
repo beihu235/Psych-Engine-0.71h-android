@@ -76,7 +76,7 @@ class SUtil
 					System.exit(0);
 				}
 				
-				if (!FileSystem.exists(SUtil.getPath() + 'shared/images/noteSkins'))
+				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't update new assets from the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
 					CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
