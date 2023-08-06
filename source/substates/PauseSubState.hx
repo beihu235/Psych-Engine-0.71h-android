@@ -279,7 +279,7 @@ class PauseSubState extends MusicBeatSubstate
 						close();
 					}
 				case 'Chart Editor':
-		            MusicBeatState.switchState(new editors.ChartingState());
+		            LoadingState.loadAndSwitchState(new ChartingState(), false);
 		            PlayState.chartingMode = true;	
 				case 'End Song':
 					close();
