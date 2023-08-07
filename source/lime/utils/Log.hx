@@ -43,7 +43,7 @@ class Log
 		{
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
 
-			if (info.className = 'openfl.display.Shader'){
+			if (info.className == 'openfl.display.Shader'){
 			var textfix:Array<String> = message.trim().split('#ifdef GL_ES');
 			
 			message = textfix[0].trim();
