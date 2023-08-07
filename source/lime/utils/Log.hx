@@ -44,6 +44,10 @@ class Log
 		{
 		*/
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
+			
+			//var checkCrash:Bool = true;
+		if (message != '[openfl.display.Shader] ERROR: Unable to initialize the shader program\nLink failed because of invalid fragment shader.'){
+
 
 			if (info.className == 'openfl.display.Shader'){
 			var textfix:Array<String> = message.trim().split('#ifdef GL_ES');
@@ -80,7 +84,7 @@ class Log
 				}
 				#end
 
-				println(message);
+			//	println(message);
 				Application.current.window.alert(message + '\nDetected Problem!!! Press OK to continue', 'Error!');
 				//System.exit(1);
 				/*
@@ -93,7 +97,7 @@ class Log
 				println(message);
 				#end
 			}			*/
-		//}
+		}
 	}
 
 	public static function info(message:Dynamic, ?info:PosInfos):Void
