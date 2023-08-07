@@ -42,13 +42,14 @@ class Log
 		if (level >= LogLevel.ERROR)
 		{
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
-			for (i in 0...message.length){
-			    if (string.sub(message,i-5,i) == 'GL_ES'){
-			    message = string.sub(message,1,i-1);
-			    break;
-			    }
-			}
 
+			if (info.className = 'openfl.display.Shader'){
+			var textfix:Array<String> = message.trim().split('#ifdef GL_ES');
+			
+			message = textfix[0].trim();
+			
+			}
+			
 			if (throwErrors)
 			{
 				#if sys
