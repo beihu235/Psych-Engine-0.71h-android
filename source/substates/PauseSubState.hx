@@ -11,6 +11,7 @@ import flixel.util.FlxStringUtil;
 import states.StoryMenuState;
 import states.FreeplayState;
 import options.OptionsState;
+import states.editors.ChartingState;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -279,7 +280,7 @@ class PauseSubState extends MusicBeatSubstate
 						close();
 					}
 				case 'Chart Editor':
-		            MusicBeatState.switchState(new states.editors.ChartingState());
+		            MusicBeatState.switchState(new ChartingState());
 		            PlayState.chartingMode = true;
 				case 'End Song':
 					close();
