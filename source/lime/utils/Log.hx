@@ -47,7 +47,7 @@ class Log
 			
 			//var checkCrash:Bool = true;
 		if (message != '[openfl.display.Shader] ERROR: Unable to initialize the shader program\nLink failed because of invalid fragment shader.'){
-
+            // if you delete this shader crash will have two log
 
 			if (info.className == 'openfl.display.Shader'){
 			var textfix:Array<String> = message.trim().split('#ifdef GL_ES');
@@ -85,7 +85,7 @@ class Log
 				#end
 
 			//	println(message);
-				Application.current.window.alert(message + '\nDetected Problem!!! Press OK to continue', 'Error!');
+				Application.current.window.alert(message + '\n\nFind Problem!!! Press OK to continue', 'Error!');
 				//System.exit(1);
 				/*
 			}
