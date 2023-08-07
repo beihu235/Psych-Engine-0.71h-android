@@ -421,7 +421,7 @@ class StoryMenuState extends MusicBeatState
 		PlayState.storyWeek = curWeek;
 
 		Difficulty.loadFromWeek();
-		difficultySelectors.visible = unlocked;
+		//difficultySelectors.visible = unlocked;
 		
 		if(Difficulty.list.contains(Difficulty.getDefault()))
 			curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(Difficulty.getDefault())));
