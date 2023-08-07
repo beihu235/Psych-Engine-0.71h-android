@@ -4,11 +4,13 @@ import flash.geom.Rectangle;
 import flixel.addons.ui.interfaces.IFlxUIClickable;
 import flixel.addons.ui.interfaces.IFlxUIWidget;
 import flixel.addons.ui.interfaces.IHasParams;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.math.FlxMath;
+
+#if android
+import android.flixel.FlxButton;
+#else
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
+#end
+
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxStringUtil;
 import flixel.addons.ui.FlxUIGroup;
@@ -20,19 +22,16 @@ import flixel.addons.ui.FlxUIAssets;
 import flixel.addons.ui.StrNameLabel;
 import flixel.addons.ui.FlxUI;
 
-#if android
-//import flixel.input.actions.FlxActionInput;
-import android.AndroidControls.AndroidControls;
-import android.FlxVirtualPad;
-#end
-
 
 /*
+
 THIS IS AN EDIT OF FlxUIDropDownMenu I'VE MADE BECAUSE I'M TIRED OF IT NOT SUPPORTING SCROLLING UP/DOWN
 BAH!
+
 The differences are the following:
 * Support to scrolling up/down with mouse wheel or arrow keys
 * THe default drop direction is "Down" instead of "Automatic"
+
 */
 
 
@@ -58,6 +57,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 	private var _selectedLabel:String;
 
 	private var currentScroll:Int = 0; //Handles the scrolling
+
 	public var canScroll:Bool = true;
 
 	private function get_selectedId():String
@@ -155,7 +155,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 
 	public var callback:String->Void;
 
-	// private var _ui_control_callback:Bool->FlxUIDropDownMenuCustom->Void;
+	// private var _ui_control_callback:Bool->FlxUIDropDownMenu->Void;
 
 	/**
 	 * This creates a new dropdown menu.
@@ -387,7 +387,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 		return t;
 	}
 
-	/*public function setUIControlCallback(UIControlCallback:Bool->FlxUIDropDownMenuCustom->Void):Void {
+	/*public function setUIControlCallback(UIControlCallback:Bool->FlxUIDropDownMenu->Void):Void {
 		_ui_control_callback = UIControlCallback;
 	}*/
 	public function changeLabelByIndex(i:Int, NewLabel:String):Void
@@ -436,7 +436,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 		#if FLX_MOUSE
 		if (dropPanel.visible)
 		{
-			#if android //thanks gamerbross -saw
+			#if android
 			if(list.length > 1 && canScroll) 
 			{
 				for (swipe in FlxG.swipes)
@@ -481,7 +481,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 				}
 			}
 
-			if (FlxG.mouse.justPressed && !FlxG.mouse.overlaps(this))
+			if (FlxG.mouse.justPressed && !mouseOverlapping())
 			{
 				showList(false);
 			}
@@ -489,6 +489,19 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 		}
 		#end
 	}
+
+	function mouseOverlapping()
+	{
+		var mousePoint = FlxG.mouse.getScreenPosition(camera);
+		var objPoint = this.getScreenPosition(null, camera);
+		if(mousePoint.x >= objPoint.x && mousePoint.y >= objPoint.y &&
+			mousePoint.x < objPoint.x + this.width && mousePoint.y < objPoint.y + this.height)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	override public function destroy():Void
 	{
 		super.destroy();
@@ -544,7 +557,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 	 *
 	 * @param	StringArray		The strings to use as data - used for both label and string ID.
 	 * @param	UseIndexID		Whether to use the integer index of the current string as ID.
-	 * @return	The StrIDLabel array ready to be used in FlxUIDropDownMenuCustom's constructor
+	 * @return	The StrIDLabel array ready to be used in FlxUIDropDownMenu's constructor
 	 */
 	public static function makeStrIdLabelArray(StringArray:Array<String>, UseIndexID:Bool = false):Array<StrNameLabel>
 	{
@@ -563,7 +576,7 @@ class FlxUIDropDownMenu extends FlxUIGroup implements IFlxUIWidget implements IF
 }
 
 /**
- * Header for a FlxUIDropDownMenuCustom
+ * Header for a FlxUIDropDownMenu
  */
 class FlxUIDropDownHeader extends FlxUIGroup
 {
@@ -583,7 +596,7 @@ class FlxUIDropDownHeader extends FlxUIGroup
 	public var button:FlxUISpriteButton;
 
 	/**
-	 * Creates a new dropdown header to be used in a FlxUIDropDownMenuCustom.
+	 * Creates a new dropdown header to be used in a FlxUIDropDownMenu.
 	 *
 	 * @param	Width	Width of the dropdown - only relevant when no back sprite was specified
 	 * @param	Back	Optional sprite to be placed in the background
