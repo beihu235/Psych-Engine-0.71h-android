@@ -238,7 +238,7 @@ class Paths
 		var sound:Sound = returnSound('sounds', key, library);
 		return sound;
 	}
-	
+
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 		return sound(key + FlxG.random.int(min, max), library);
 
@@ -379,8 +379,8 @@ class Paths
 		}
 		return false;
 	}
-    
-    // less optimized but automatic handling
+	
+	 // less optimized but automatic handling
 	static public function getAtlas(key:String, ?library:String = null):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
@@ -393,7 +393,7 @@ class Paths
 		}
 		return getPackerAtlas(key, library);
 	}
-    
+
 	inline static public function getSparrowAtlas(key:String, ?library:String = null, ?allowGPU:Bool = true):FlxAtlasFrames
 	{
 		#if MODS_ALLOWED
