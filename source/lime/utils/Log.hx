@@ -39,8 +39,10 @@ class Log
 
 	public static function error(message:Dynamic, ?info:PosInfos):Void
 	{
+	/*
 		if (level >= LogLevel.ERROR)
 		{
+		*/
 			var message:String = "[" + info.className + "] ERROR: " + Std.string(message);
 
 			if (info.className == 'openfl.display.Shader'){
@@ -49,9 +51,10 @@ class Log
 			message = textfix[0].trim();
 			
 			}
-			
+			/*
 			if (throwErrors)
 			{
+			*/
 				#if sys
 				try
 				{
@@ -78,8 +81,9 @@ class Log
 				#end
 
 				println(message);
-				Application.current.window.alert(message + '\n\nlime/utils/Log Detected!! Press OK to ignore this', 'Error!');
+				Application.current.window.alert(message + '\nDetected Problem!!! Press OK to continue', 'Error!');
 				//System.exit(1);
+				/*
 			}
 			else
 			{
@@ -88,8 +92,8 @@ class Log
 				#else
 				println(message);
 				#end
-			}
-		}
+			}			*/
+		//}
 	}
 
 	public static function info(message:Dynamic, ?info:PosInfos):Void
