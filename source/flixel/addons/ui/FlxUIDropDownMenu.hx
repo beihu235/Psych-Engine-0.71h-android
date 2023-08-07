@@ -20,6 +20,12 @@ import flixel.addons.ui.FlxUIAssets;
 import flixel.addons.ui.StrNameLabel;
 import flixel.addons.ui.FlxUI;
 
+#if android
+//import flixel.input.actions.FlxActionInput;
+import android.AndroidControls.AndroidControls;
+import android.FlxVirtualPad;
+#end
+
 
 /*
 THIS IS AN EDIT OF FlxUIDropDownMenu I'VE MADE BECAUSE I'M TIRED OF IT NOT SUPPORTING SCROLLING UP/DOWN
