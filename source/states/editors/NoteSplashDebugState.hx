@@ -6,6 +6,11 @@ import objects.NoteSplash;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
+
 class NoteSplashDebugState extends MusicBeatState
 {
 	var config:NoteSplashConfig;
@@ -301,9 +306,11 @@ class NoteSplashDebugState extends MusicBeatState
 
 		var pathSplit:Array<String> = (Paths.getPath('images/$texturePath.png', IMAGE, true).split('.png')[0] + '.txt').split(':');
 		//var path:String = pathSplit[pathSplit.length-1].trim();
-		savedText.text = 'Saved to: $path';
+		
 		//sys.io.File.saveContent(path, strToSave);
 		var path:String = SUtil.getPath() + 'assets/shared/images/noteSplashes/list.txt';
+		savedText.text = 'Saved to: $path';
+		
 		File.saveContent(path, strToSave);
        // SUtil.saveContent(path, ".txt", strToSave);
 		//trace(strToSave);
