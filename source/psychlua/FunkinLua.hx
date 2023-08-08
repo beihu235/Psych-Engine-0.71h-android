@@ -19,7 +19,12 @@ import psychlua.LuaUtils.LuaTweenOptions;
 import flixel.addons.display.FlxRuntimeShader;
 #end
 
-import backend.SUtil;
+#if hscript
+import hscript.Parser;
+import hscript.Interp;
+import hscript.Expr;
+#end
+
 
 #if sys
 import sys.FileSystem;
