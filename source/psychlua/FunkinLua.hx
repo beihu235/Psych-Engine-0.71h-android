@@ -411,7 +411,7 @@ class FunkinLua {
 			if(foundScript != null)
 			{
 				if(!ignoreAlreadyRunning)
-					for (luaInstance in game.luaArray)
+					for (luaInstance in PlayState.instance.luaArray)
 						if(luaInstance.scriptName == foundScript)
 						{
 						    PlayState.instance.luaArray.remove(foundScript);
