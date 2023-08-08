@@ -416,12 +416,12 @@ class FunkinLua {
 						{
 						    PlayState.instance.luaArray.remove(foundScript);
 							//luaInstance.stop();
-							trace('Closing script ' + luaInstance.scriptName);
-							return true;
+							//trace('Closing script ' + luaInstance.scriptName);
+							return;
 						}
 			}
 			luaTrace("removeLuaScript: Script $luaFile isn\'t running!", false, false, FlxColor.RED);
-			return false;
+			return;
 		});								
 
 		Lua_helper.add_callback(lua, "loadSong", function(?name:String = null, ?difficultyNum:Int = -1) {
