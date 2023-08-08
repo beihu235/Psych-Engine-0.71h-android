@@ -104,6 +104,7 @@ class Controls
 	public static var checkState:Bool = true;
 	public static var CheckPress:Bool = true;
     public static var CheckControl:Bool = true;
+    public static var CheckKeyboard:Bool = false;
 	//Gamepad & Keyboard stuff
 	public var keyboardBinds:Map<String, Array<FlxKey>>;
 	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
@@ -261,10 +262,10 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		
+		}//CheckPress
 		
 		//------------------note
-		
+		if (!CheckKeyboard){
 		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
@@ -389,7 +390,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
-	    }//CheckPress
+	    }//!CheckKeyboard
 	    return false;
     }
     
@@ -456,9 +457,10 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		
+		}//CheckPress
 		
 		//------------------note
+		if(!CheckKeyboard){
 		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
@@ -583,7 +585,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
-	    }//CheckPress
+	    }//!CheckKeyboard
         return false;
 	   // if (result) return true;
     
@@ -650,9 +652,10 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		
+		}//CheckPress
 		
 		//------------------note
+		if (!CheckKeyboard){
 		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
@@ -777,7 +780,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
-	    }//CheckPress
+	    }//!CheckKeyboard
 	    return false;
 	  //  if (result) return true;
     
