@@ -89,17 +89,22 @@ class MusicBeatSubstate extends FlxSubState
 				//controls.setVirtualPadNOTES(androidc.vpad, FULL, NONE);
 				checkHitbox = false;
 				checkDUO = false;
+				Controls.CheckKeyboard = false;
 			case DUO:
 				//controls.setVirtualPadNOTES(androidc.vpad, DUO, NONE);
 				checkHitbox = false;
 				checkDUO = true;
+				Controls.CheckKeyboard = false;
 			case HITBOX:
 				//controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
 				checkDUO = false;
-			case KEYBOARD:	
-			    Controls.CheckPress = false;
+				Controls.CheckKeyboard = false;
+			//case KEYBOARD:				    
 			default:
+			    checkHitbox = false;
+			    checkDUO = false;
+			    Controls.CheckKeyboard = true;
 		}
 
 		var camcontrol = new flixel.FlxCamera();
