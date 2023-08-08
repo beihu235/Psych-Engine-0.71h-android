@@ -261,9 +261,10 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		}//CheckPress
+		
 		
 		//------------------note
+		
 		if (CheckControl){
     		if (MusicBeatState.checkHitbox){
     		    if (key == 'note_up'){
@@ -388,6 +389,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
+	    }//CheckPress
 	    return false;
     }
     
@@ -454,7 +456,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		}//CheckPress
+		
 		
 		//------------------note
 		if (CheckControl){
@@ -581,6 +583,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
+	    }//CheckPress
         return false;
 	   // if (result) return true;
     
@@ -647,7 +650,7 @@ class Controls
     		    if(result) {controllerMode = true; return true;}
     		    }						
 		    }//!checkState
-		}//CheckPress
+		
 		
 		//------------------note
 		if (CheckControl){
@@ -774,6 +777,7 @@ class Controls
     		    }//!MusicBeatSubstate.checkDUO
     	    }//!MusicBeatSubstate.checkHitbox
 	    }//!CheckControl
+	    }//CheckPress
 	    return false;
 	  //  if (result) return true;
     
