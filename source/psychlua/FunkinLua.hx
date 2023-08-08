@@ -421,41 +421,7 @@ class FunkinLua {
 			}
 			luaTrace("removeLuaScript: Script $luaFile isn\'t running!", false, false, FlxColor.RED);
 			return false;
-		});
-		
-		
-		
-		Lua_helper.add_callback("addHaxeLibrary", function(libName:String, ?libPackage:String = '') {
-			var str:String = '';
-			if(libPackage.length > 0)
-				str = libPackage + '.';
-			else if(libName == null)
-				libName = '';
-
-			var c = Type.resolveClass(str + libName);
-
-			#if (SScript >= "3.0.3")
-			if (c != null)
-				SScript.globalVariables[libName] = c;
-			#end
-
-			#if (SScript >= "3.0.0")
-			if (funk.hscript != null)
-			{
-				try {
-					if (c != null)
-						funk.hscript.set(libName, c);
-				}
-				catch (e:Dynamic) {
-					FunkinLua.luaTrace(funk.hscript.origin + ":" + funk.lastCalledFunction + " - " + e, false, false, FlxColor.RED);
-				}
-			}
-			#else
-			FunkinLua.luaTrace("addHaxeLibrary: HScript isn't supported on this platform!", false, false, FlxColor.RED);
-			#end
-		});
-		#end
-	
+		});								
 
 		Lua_helper.add_callback(lua, "loadSong", function(?name:String = null, ?difficultyNum:Int = -1) {
 			if(name == null || name.length < 1)
