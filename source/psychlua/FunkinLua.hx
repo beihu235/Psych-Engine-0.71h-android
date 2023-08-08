@@ -414,7 +414,8 @@ class FunkinLua {
 					for (luaInstance in game.luaArray)
 						if(luaInstance.scriptName == foundScript)
 						{
-							luaInstance.stop();
+						    PlayState.instance.luaArray.remove(foundScript);
+							//luaInstance.stop();
 							trace('Closing script ' + luaInstance.scriptName);
 							return true;
 						}
