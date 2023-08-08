@@ -76,7 +76,9 @@ class MusicBeatState extends FlxUIState
 	#if android
 	public function addAndroidControls() {
 		androidc = new AndroidControls();
-
+		
+        Controls.CheckPress = true;
+        
 		switch (androidc.mode)
 		{
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
@@ -91,6 +93,8 @@ class MusicBeatState extends FlxUIState
 				//controls.setNewHitBox(androidc.newhbox);
 				checkHitbox = true;
 				checkDUO = false;
+			case KEYBOARD:	
+			    Controls.CheckPress = false;
 			default:
 		}
 
