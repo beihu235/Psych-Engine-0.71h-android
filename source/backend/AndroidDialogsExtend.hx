@@ -9,7 +9,7 @@ class AndroidDialogsExtend{
 
     public static function OpenToast(showtext:String, time:Int)
     {
-        if (time != 1 || time !== 2) time = 1;
+        if (time != 1 || time != 2) time = 1;
 			
         AndroidDialogs.ShowToast(showtext, time);//or LENGTH_SHORT duration
     }
