@@ -47,7 +47,7 @@ class CreditsState extends MusicBeatState
 		var yanqiangLink:String = 'https://b23.tv/FBxHIwT';
 		var Xx_angelkawaii_XLink:String = 'https://space.bilibili.com/1991407094';
 		
-		if (DeviceLanguage.getLang() == 'zh') {
+		if (DeviceLanguage.getLang() != 'zh') {
 		beihuLink = 'https://youtube.com/@beihu235';
 		Xx_angelkawaii_XLink = 'https://www.youtube.com/@angelkawaii9826';
 		}		
