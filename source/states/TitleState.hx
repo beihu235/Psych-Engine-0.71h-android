@@ -90,7 +90,7 @@ class TitleState extends MusicBeatState
 		if(!checkToast){
 				
 		checkToast = true;
-		AndroidDialogsExtend.OpenToast(lang,1);
+		AndroidDialogsExtend.OpenToast(lang,2);
 		
 		}
 		
