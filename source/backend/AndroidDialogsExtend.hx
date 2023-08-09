@@ -9,19 +9,9 @@ class AndroidDialogsExtend{
 
     public static function OpenToast(showtext:String, time:Int)
     {
-        var RealTime:String = '';
-        
-        switch (time)
-			{
-				case 0:
-					   RealTime = 'AndroidDialogs.LENGTH_SHORT';
-				case 1:
-					   RealTime = 'AndroidDialogs.LENGTH_LONG';
-				default:
-				       RealTime = 'AndroidDialogs.LENGTH_SHORT';
-			}    
+        if (time != 1 || time !== 2) time = 1;
 			
-        AndroidDialogs.ShowToast(showtext, RealTime);//or LENGTH_SHORT duration
+        AndroidDialogs.ShowToast(showtext, time);//or LENGTH_SHORT duration
     }
 
     public static function OpenAlert(Title:String, Message:String, ConfirmName:String, CancelName:String)
