@@ -16,7 +16,7 @@ class AndroidDialogsExtend{
 				case 0:
 					   RealTime = AndroidDialogs.LENGTH_SHORT;
 				case 1:
-					   RealTime = AndroidDialogs.LENGTH_LONG
+					   RealTime = AndroidDialogs.LENGTH_LONG;
 				default:
 				       RealTime = AndroidDialogs.LENGTH_SHORT;
 			}    
