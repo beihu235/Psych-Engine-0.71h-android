@@ -7,9 +7,21 @@ import extension.androiddialogs.AndroidDialogs;
 
 class AndroidDialogsExtend{
 
-    public static function OpenToast(showtext:String)
+    public static function OpenToast(showtext:String, time:Int)
     {
-        AndroidDialogs.ShowToast(showtext, AndroidDialogs.LENGTH_LONG);//or LENGTH_SHORT duration
+        var RealTime:String = '';
+        
+        switch (time)
+			{
+				case 0:
+					   RealTime = AndroidDialogs.LENGTH_SHORT;
+				case 1:
+					   RealTime = AndroidDialogs.LENGTH_LONG
+				default:
+				       RealTime = AndroidDialogs.LENGTH_SHORT;
+			}    
+			
+        AndroidDialogs.ShowToast(showtext, RealTime);//or LENGTH_SHORT duration
     }
 
     public static function OpenAlert(Title:String, Message:String, ConfirmName:String, CancelName:String)
