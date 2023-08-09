@@ -44,6 +44,17 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+		    ['Psych Engine Android Team'],
+		    if (DeviceLanguage.getLang() == 'zh') {
+			['beihu',		'beihu',		'Main Android Porter',							'https://b23.tv/LVj0JVk',	'FFC0CB'],
+			['yanqian',     'yanqian',	    'Android Porter\nBug fix',							'https://b23.tv/FBxHIwT',	'7192FD'],
+			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							'https://space.bilibili.com/1991407094',	'FFA2DE'],
+		    }
+		    else{
+		    ['beihu',		'beihu',		'Main Android Porter',							'https://youtube.com/@beihu235',	'FFC0CB'],
+			['yanqian',     'yanqian',	    'Android Porter\nBug fix',							'https://b23.tv/FBxHIwT',	'7192FD'],
+			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							'https://www.youtube.com/@angelkawaii9826',	'FFA2DE'],		    
+		    }
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
 			['Riveren',				'riveren',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/riverennn',		'B42F71'],
