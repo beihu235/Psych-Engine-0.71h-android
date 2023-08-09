@@ -82,8 +82,11 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		var lang:String = 'psych0.71h android test\nmade by 北狐丶逐梦' + DeviceLanguage.getLang();
-		
+		var lang:String = '';
+		if (DeviceLanguage.getLang() == 'zh') 
+		lang = 'psych0.71h 安卓端口测试\nb站-北狐丶逐梦移植\n禁止上传到任何资源网站';
+		else
+		lang = 'psych0.71h android port test\nport by NF|beihu';
 		if(!checkToast){
 				
 		checkToast = true;
