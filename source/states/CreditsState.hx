@@ -42,18 +42,22 @@ class CreditsState extends MusicBeatState
 		#if MODS_ALLOWED
 		for (mod in Mods.parseList().enabled) pushModCreditsToList(mod);
 		#end
-
+			
+		var beihuLink:String = 'https://b23.tv/LVj0JVk';
+		var yanqiangLink:String = 'https://b23.tv/FBxHIwT';
+		var Xx_angelkawaii_XLink:String = 'https://space.bilibili.com/1991407094';
+		
+		if (DeviceLanguage.getLang() == 'zh') {
+		beihuLink = 'https://youtube.com/@beihu235';
+		Xx_angelkawaii_XLink = 'https://www.youtube.com/@angelkawaii9826';
+		}		
+								
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 		    ['Psych Engine Android Team'],
-		    if (DeviceLanguage.getLang() == 'zh') {
-			['beihu',		'beihu',		'Main Android Porter',							'https://b23.tv/LVj0JVk',	'FFC0CB'],
-			['yanqian',     'yanqian',	    'Android Porter\nBug fix',							'https://b23.tv/FBxHIwT',	'7192FD'],
-			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							'https://space.bilibili.com/1991407094',	'FFA2DE'],
-		    }
 		    else{
-		    ['beihu',		'beihu',		'Main Android Porter',							'https://youtube.com/@beihu235',	'FFC0CB'],
-			['yanqian',     'yanqian',	    'Android Porter\nBug fix',							'https://b23.tv/FBxHIwT',	'7192FD'],
-			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							'https://www.youtube.com/@angelkawaii9826',	'FFA2DE'],		    
+		    ['beihu',		'beihu',		'Main Android Porter',							beihuLink,	'FFC0CB'],
+			['yanqiang',     'yanqiang',	    'Android Porter\nBug fix',							yanqiangLink,	'7192FD'],
+			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							Xx_angelkawaii_XLink,	'FFA2DE'],		    
 		    }
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
