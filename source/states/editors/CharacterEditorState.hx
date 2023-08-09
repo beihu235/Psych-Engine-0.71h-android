@@ -1119,20 +1119,20 @@ class CharacterEditorState extends MusicBeatState
 				if(FlxG.camera.zoom < 0.1) FlxG.camera.zoom = 0.1;
 			}
 
-			if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
+			if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L #if android || ( (MusicBeatState._virtualpad.buttonUp.pressed || MusicBeatState._virtualpad.buttonDown.pressed || MusicBeatState._virtualpad.buttonLeft.pressed || MusicBeatState._virtualpad.buttonRight.pressed   ) && MusicBeatState._virtualpad.buttonC.pressed) #end)
 			{
 				var addToCam:Float = 500 * elapsed;
 				if (FlxG.keys.pressed.SHIFT)
 					addToCam *= 4;
 
-				if (FlxG.keys.pressed.I)
+				if (FlxG.keys.pressed.I #if android || (MusicBeatState._virtualpad.buttonUp.pressed && MusicBeatState._virtualpad.buttonC.pressed) #end)
 					camFollow.y -= addToCam;
-				else if (FlxG.keys.pressed.K)
+				else if (FlxG.keys.pressed.K #if android || (MusicBeatState._virtualpad.buttonDown.pressed && MusicBeatState._virtualpad.buttonC.pressed) #end)
 					camFollow.y += addToCam;
 
-				if (FlxG.keys.pressed.J)
+				if (FlxG.keys.pressed.J #if android || (MusicBeatState._virtualpad.buttonLeft.pressed && MusicBeatState._virtualpad.buttonC.pressed) #end)
 					camFollow.x -= addToCam;
-				else if (FlxG.keys.pressed.L)
+				else if (FlxG.keys.pressed.L #if android || (MusicBeatState._virtualpad.buttonRight.pressed && MusicBeatState._virtualpad.buttonC.pressed) #end)
 					camFollow.x += addToCam;
 			}
 
@@ -1167,12 +1167,11 @@ class CharacterEditorState extends MusicBeatState
 					genBoyOffsets();
 				}
 
-				var controlArray:Array<Bool> = 
-				[
-				FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end,
-				FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight.justPressed #end,
-				FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp.justPressed #end,
-				FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown.justPressed #end
+				var controlArray:Array<Bool> = [
+					FlxG.keys.justPressed.LEFT #if android || (MusicBeatState._virtualpad.buttonLeft.justPressed && !MusicBeatState._virtualpad.buttonC.pressed) #end,
+					FlxG.keys.justPressed.RIGHT #if android || (MusicBeatState._virtualpad.buttonRight.justPressed && !MusicBeatState._virtualpad.buttonC.pressed) #end,
+					FlxG.keys.justPressed.UP #if android || (MusicBeatState._virtualpad.buttonUp.justPressed && !MusicBeatState._virtualpad.buttonC.pressed) #end,
+					FlxG.keys.justPressed.DOWN #if android || (MusicBeatState._virtualpad.buttonDown.justPressed && !MusicBeatState._virtualpad.buttonC.pressed) #end
 				];
 
 
