@@ -35,6 +35,15 @@ class DialogueCharacterEditorState extends MusicBeatState
 	\nR - Reset Camera
 	\nH - Toggle Speech Bubble
 	\nSpace - Reset text';
+	
+	#if android 
+	TIP_TEXT_MAIN.text = 
+	'UP,Down,Left,Right(DOWN side) - Move camera (Hold B to move 4x faster)
+	\nX/C - Zoom out/in
+	\nZ - Reset Camera
+	\nY - Toggle Speech Bubble
+	\nA - Reset text';
+	#end
 
 	private static var TIP_TEXT_OFFSET:String =
 	'JKLI - Move camera (Hold Shift to move 4x faster)
@@ -44,6 +53,17 @@ class DialogueCharacterEditorState extends MusicBeatState
 	\nWASD - Move Looping animation offset (Red)
 	\nArrow Keys - Move Idle/Finished animation offset (Blue)
 	\nHold Shift to move offsets 10x faster';
+	
+	#if android 
+	TIP_TEXT_OFFSET.text = 
+	'UP,Down,Left,Right(DOWN side)- Move camera (Hold B to move 4x faster)
+	\nX/C - Zoom out/in
+	\nZ - Reset Camera
+	\nY - Toggle Ghosts
+	\nUP,Down,Left,Right(UP side) - Move Looping animation offset (Red)
+	\nArrow Keys - Move Idle/Finished animation offset (Blue)
+	\nHold B to move offsets 10x faster';
+	#end
 
 	var tipText:FlxText;
 	var offsetLoopText:FlxText;
