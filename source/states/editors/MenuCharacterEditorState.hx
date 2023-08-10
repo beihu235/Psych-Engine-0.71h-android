@@ -57,15 +57,15 @@ class MenuCharacterEditorState extends MusicBeatState
 		txtOffsets.alpha = 0.7;
 		add(txtOffsets);
 
-		var tipText:FlxText = new FlxText(0, 0, FlxG.width,
+		var tipText:FlxText = new FlxText(0, 5, FlxG.width,
 			"Arrow Keys - Change Offset (Hold shift for 10x speed)", 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		tipText.scrollFactor.set();
 		add(tipText);
 		
-		var tipText2:FlxText = new FlxText(0, 16, FlxG.width,
+		var tipText2:FlxText = new FlxText(0, 5 + 16, FlxG.width,
 			"Space - Play \"Start Press\" animation (Boyfriend Character Type)", 16);
-		tipText2.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
+		tipText2.setFormat(Paths.font("vcr.ttf"),  16, FlxColor.WHITE, CENTER);
 		tipText2.scrollFactor.set();
 		add(tipText2);
 		
