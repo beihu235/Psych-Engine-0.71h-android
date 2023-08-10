@@ -129,10 +129,10 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				
 			case MenuCharacterEditor:
 			    //orgAlpha = 0.75;
-				dPad.add(add(buttonUp = createButton(200, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
-				dPad.add(add(buttonDown = createButton(200, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
-				dPad.add(add(buttonLeft = createButton(200 + 42 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "left", 0xFF00FF)));
-				dPad.add(add(buttonRight = createButton(200 + 42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));	
+				dPad.add(add(buttonUp = createButton(220, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
+				dPad.add(add(buttonDown = createButton(220, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
+				dPad.add(add(buttonLeft = createButton(220 + 42 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "left", 0xFF00FF)));
+				dPad.add(add(buttonRight = createButton(220 + 42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));	
 			case NONE:
 		}
 
@@ -196,8 +196,8 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonCEDown = createButton(FlxG.width - (44 + 42 * 4) * 3, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));		
 				dPad.add(add(buttonCEG = createButton(FlxG.width - (44 + 42 * 1) * 3, 25, 44 * 3, 127, "g", 0x00FF00)));
 			case MenuCharacterEditor:
-				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3 - 350, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
-				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3 - 350, FlxG.height - 85 * 3, 44 * 3, 127, "b", 0xFFCB00)));	
+				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3 - 320, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
+				actions.add(add(buttonB = createButton(FlxG.width - 44 * 3 - 320, FlxG.height - 85 * 3, 44 * 3, 127, "b", 0xFFCB00)));	
 			case NOTESTATE:
 			    actions.add(add(buttonE = createButton(42 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "e", 0xFF7D00)));
 				actions.add(add(buttonC = createButton(0, FlxG.height - 125 * 3, 44 * 3, 127, "c", 0x44FF00)));  
