@@ -54,7 +54,7 @@ class CreditsState extends MusicBeatState
 								
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 		    ['Psych Engine Android Team'],
-		    ['beihu',		'beihu',		'Main Android Porter',							beihuLink,	'FFC0CB'],
+		    ['beihu',		'beihu',		'Main Android Porter\nport owner',							beihuLink,	'FFC0CB'],
 			['yanqiang',     'yanqiang',	    'Android Porter\nBug fix',							yanqiangLink,	'7192FD'],
 			['Xx_angelkawaii_X',     'Xx_angelkawaii_X',	    'Bug fix',							Xx_angelkawaii_XLink,	'FFA2DE'],		    
 			[''],
