@@ -77,6 +77,10 @@ class DialogueEditorState extends MusicBeatState
 		addLineText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		addLineText.scrollFactor.set();
 		add(addLineText);
+		
+		#if android
+		addLineText.text = 'Press O to remove the current dialogue line, Press P to add another line after the current one.';
+		#end
 
 		selectedText = new FlxText(10, 32, FlxG.width - 20, '', 8);
 		selectedText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -94,7 +98,7 @@ class DialogueEditorState extends MusicBeatState
 		changeText();
 		
 		#if android
-		addVirtualPad(FULL, A_B_C);
+		addVirtualPad(CHART_EDITOR, CHART_EDITOR);
 		#end
 		
 		super.create();
@@ -125,6 +129,7 @@ class DialogueEditorState extends MusicBeatState
 		tab_group.name = "Dialogue Line";
 
 		characterInputText = new FlxUIInputText(10, 20, 80, DialogueCharacter.DEFAULT_CHARACTER, 8);
+		characterInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(characterInputText);
 
 		speedStepper = new FlxUINumericStepper(10, characterInputText.y + 40, 0.005, 0.05, 0, 0.5, 3);
@@ -137,9 +142,11 @@ class DialogueEditorState extends MusicBeatState
 		};
 
 		soundInputText = new FlxUIInputText(10, speedStepper.y + 40, 150, '', 8);
+		soundInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(soundInputText);
 		
 		lineInputText = new FlxUIInputText(10, soundInputText.y + 35, 200, DEFAULT_TEXT, 8);
+		lineInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(lineInputText);
 
 		var loadButton:FlxButton = new FlxButton(20, lineInputText.y + 25, "Load Dialogue", function() {
@@ -325,7 +332,7 @@ class DialogueEditorState extends MusicBeatState
 				ClientPrefs.toggleVolumeKeys(false);
 				blockInput = true;
 
-				if(FlxG.keys.justPressed.ENTER) {
+				if(FlxG.keys.justPressed.ENTER #if android || MusicBeatState._virtualpad.buttonY.justPressed #end) {
 					if(inputText == lineInputText) {
 						inputText.text += '\\n';
 						inputText.caretIndex += 2;
@@ -339,7 +346,7 @@ class DialogueEditorState extends MusicBeatState
 
 		if(!blockInput) {
 			ClientPrefs.toggleVolumeKeys(true);
-			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonC.justPressed #end) {
+			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonX.justPressed #end) {
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end) {
@@ -420,12 +427,21 @@ class DialogueEditorState extends MusicBeatState
 			}
 			character.playAnim(character.jsonFile.animations[curAnim].anim, daText.finishedText);
 			animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press W or S to scroll';
+			#if android
+		    animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + leLength + ') - Press UP or Down to scroll';
+		    #end
 		} else {
 			animText.text = 'ERROR! NO ANIMATIONS FOUND';
 		}
 		characterAnimSpeed();
+		
+		
 
 		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press A or D to scroll';
+		
+		#if android
+		selectedText.text = 'Line: (' + (curSelected + 1) + ' / ' + dialogueFile.dialogue.length + ') - Press Left or Right to scroll';
+		#end
 	}
 
 	function characterAnimSpeed() {
