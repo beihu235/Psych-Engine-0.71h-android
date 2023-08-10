@@ -133,7 +133,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		box.updateHitbox();
 		hudGroup.add(box);
 
-		tipText = new FlxText(10, 300, FlxG.width - 20, TIP_TEXT_MAIN, 8);
+		tipText = new FlxText(10, 10, FlxG.width - 20, TIP_TEXT_MAIN, 8);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.cameras = [camHUD];
 		tipText.scrollFactor.set();
