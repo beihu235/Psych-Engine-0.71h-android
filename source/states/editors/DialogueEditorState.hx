@@ -79,7 +79,7 @@ class DialogueEditorState extends MusicBeatState
 		add(addLineText);
 		
 		#if android
-		addLineText.text = 'Press O to remove the current dialogue line, Press P to add another line after the current one.';
+		addLineText.text = 'Press A to remove the current dialogue line, Press B to add another line after the current one.';
 		#end
 
 		selectedText = new FlxText(10, 32, FlxG.width - 20, '', 8);
