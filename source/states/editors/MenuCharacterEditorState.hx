@@ -57,7 +57,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		txtOffsets.alpha = 0.7;
 		add(txtOffsets);
 
-		var tipText:FlxText = new FlxText(0, 540, FlxG.width,
+		var tipText:FlxText = new FlxText(0, 0, FlxG.width,
 			"Arrow Keys - Change Offset (Hold shift for 10x speed)
 			\nSpace - Play \"Start Press\" animation (Boyfriend Character Type)", 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
@@ -69,7 +69,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		updateCharTypeBox();
 		
 		#if android
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(MenuCharacterEditor, MenuCharacterEditor);
 		#end
 
 		super.create();
@@ -278,7 +278,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			}
 
 			var shiftMult:Int = 1;
-			if(FlxG.keys.pressed.SHIFT) shiftMult = 10;
+			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonA.pressed #end) shiftMult = 10;
 
 			if(FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end) {
 				characterFile.position[0] += shiftMult;
@@ -297,7 +297,7 @@ class MenuCharacterEditorState extends MusicBeatState
 				updateOffset();
 			}
 
-			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonB.pressed #end && curTypeSelected == 1) {
+			if((FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonB.justPressed #end) && curTypeSelected == 1) {
 				grpWeekCharacters.members[curTypeSelected].animation.play('confirm', true);
 			}
 		}
