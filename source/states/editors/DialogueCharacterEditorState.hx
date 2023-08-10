@@ -150,7 +150,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		updateCharTypeBox();
 		
 		#if android
-		addVirtualPad(DialogueCharacterEditor, A_B_X_Y);
+		addVirtualPad(DialogueCharacterEditor, DialogueCharacterEditor);
 		addPadCamera();
 		#end
 		
@@ -251,10 +251,13 @@ class DialogueCharacterEditorState extends MusicBeatState
 		});
 		
 		animationInputText = new FlxUIInputText(15, 85, 80, '', 8);
+		animationInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(animationInputText);
 		loopInputText = new FlxUIInputText(animationInputText.x, animationInputText.y + 35, 150, '', 8);
+		loopInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(loopInputText);
 		idleInputText = new FlxUIInputText(loopInputText.x, loopInputText.y + 40, 150, '', 8);
+		idleInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(idleInputText);
 		
 		var addUpdateButton:FlxButton = new FlxButton(10, idleInputText.y + 30, "Add/Update", function() {
@@ -356,6 +359,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		tab_group.name = "Character";
 
 		imageInputText = new FlxUIInputText(10, 30, 80, character.jsonFile.image, 8);
+		imageInputText.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(imageInputText);
 		xStepper = new FlxUINumericStepper(imageInputText.x, imageInputText.y + 50, 10, character.jsonFile.position[0], -2000, 2000, 0);
 		yStepper = new FlxUINumericStepper(imageInputText.x + 80, xStepper.y, 10, character.jsonFile.position[1], -2000, 2000, 0);
@@ -577,11 +581,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.pressed.Q  #if android || MusicBeatState._virtualpad.buttonX.justPressed #end && camGame.zoom > 0.1) {
+			if (FlxG.keys.pressed.Q  #if android || MusicBeatState._virtualpad.buttonX.pressed #end && camGame.zoom > 0.1) {
 				camGame.zoom -= elapsed * camGame.zoom;
 				if(camGame.zoom < 0.1) camGame.zoom = 0.1;
 			}
-			if (FlxG.keys.pressed.E #if android || MusicBeatState._virtualpad.buttonC.justPressed #end && camGame.zoom < 1) {
+			if (FlxG.keys.pressed.E #if android || MusicBeatState._virtualpad.buttonC.pressed #end && camGame.zoom < 1) {
 				camGame.zoom += elapsed * camGame.zoom;
 				if(camGame.zoom > 1) camGame.zoom = 1;
 			}
