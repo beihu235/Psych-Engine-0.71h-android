@@ -125,14 +125,23 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				dPad.add(add(buttonUp = createButton(0, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
 				dPad.add(add(buttonDown = createButton(0, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
 				dPad.add(add(buttonLeft = createButton(42 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "left", 0xFF00FF)));
-				dPad.add(add(buttonRight = createButton(42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));				
-				
+				dPad.add(add(buttonRight = createButton(42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));								
 			case MenuCharacterEditor:
 			    //orgAlpha = 0.75;
 				dPad.add(add(buttonUp = createButton(220, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
 				dPad.add(add(buttonDown = createButton(220, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
 				dPad.add(add(buttonLeft = createButton(220 + 42 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "left", 0xFF00FF)));
 				dPad.add(add(buttonRight = createButton(220 + 42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));	
+			case DialogueCharacterEditor:
+			    //orgAlpha = 0.75;
+				dPad.add(add(buttonUp = createButton(0, FlxG.height - 85 * 3, 44 * 3, 127, "up", 0x00FF00)));
+				dPad.add(add(buttonDown = createButton(0, FlxG.height - 45 * 3, 44 * 3, 127, "down", 0x00FFFF)));
+				dPad.add(add(buttonLeft = createButton(42 * 3, FlxG.height - 85 * 3, 44 * 3, 127, "left", 0xFF00FF)));
+				dPad.add(add(buttonRight = createButton(42 * 3, FlxG.height - 45 * 3, 44 * 3, 127, "right", 0xFF0000)));					
+				dPad.add(add(buttonUp2 = createButton(0, FlxG.height - 125 * 3, 44 * 3, 127, "up", 0x00FF00)));
+				dPad.add(add(buttonDown2 = createButton(0, FlxG.height - 125 * 3, 44 * 3, 127, "down", 0x00FFFF)));
+				dPad.add(add(buttonLeft2 = createButton(42 * 3, FlxG.height - 165 * 3, 44 * 3, 127, "left", 0xFF00FF)));
+				dPad.add(add(buttonRight2 = createButton(42 * 3, FlxG.height - 165 * 3, 44 * 3, 127, "right", 0xFF0000)));					
 			case NONE:
 		}
 
@@ -198,6 +207,13 @@ class FlxVirtualPad extends FlxSpriteGroup {
 			case MenuCharacterEditor:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3 - 350, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 				actions.add(add(buttonB = createButton(FlxG.width - 44 * 3 - 350, FlxG.height - 85 * 3, 44 * 3, 127, "b", 0xFFCB00)));	
+			case DialogueCharacterEditor:
+				actions.add(add(buttonX = createButton(FlxG.width - 128 * 3, FlxG.height - 85 * 3 - 500, 44 * 3, 127, "x", 0x99062D)));
+				actions.add(add(buttonY = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3 - 500, 44 * 3, 127, "y", 0x4A35B9)));
+				actions.add(add(buttonZ = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3 - 500, 44 * 3, 127, "z", 0xCCB98E)));
+				actions.add(add(buttonC = createButton(FlxG.width - 128 * 3, FlxG.height - 45 * 3 - 500, 44 * 3, 127, "c", 0x44FF00)));
+				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3 - 500, 44 * 3, 127, "b", 0xFFCB00)));								
+				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3 - 500, 44 * 3, 127, "a", 0xFF0000)));	
 			case NOTESTATE:
 			    actions.add(add(buttonE = createButton(42 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "e", 0xFF7D00)));
 				actions.add(add(buttonC = createButton(0, FlxG.height - 125 * 3, 44 * 3, 127, "c", 0x44FF00)));  
@@ -276,6 +292,7 @@ enum FlxDPadMode {
 	DUO;
 	CHART_EDITOR;
 	MenuCharacterEditor;
+	DialogueCharacterEditor;
 	NONE;
 }
 
@@ -292,6 +309,7 @@ enum FlxActionMode {
 	FULL;
 	CHART_EDITOR;
 	MenuCharacterEditor;
+	DialogueCharacterEditor;
 	NOTESTATE;
 	NONE;
 }
