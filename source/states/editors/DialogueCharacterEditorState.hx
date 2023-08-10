@@ -91,7 +91,7 @@ class DialogueCharacterEditorState extends MusicBeatState
     	\nZ - Reset Camera
        	\nY - Toggle Ghosts
     	\nUP,Down,Left,Right(UP side) - Move Looping animation offset (Red)
-    	\UP,Down,Left,Right(UP side) + press A once (twice to close)- Move Idle/Finished animation offset (Blue)
+    	\nUP,Down,Left,Right(UP side) + press A once (twice to close)- Move Idle/Finished animation offset (Blue)
     	\nHold B to move offsets 10x faster';
     	#end
 		
