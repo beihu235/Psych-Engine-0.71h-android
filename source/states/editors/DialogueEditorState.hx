@@ -98,7 +98,7 @@ class DialogueEditorState extends MusicBeatState
 		changeText();
 		
 		#if android
-		addVirtualPad(CHART_EDITOR, CHART_EDITOR);
+		addVirtualPad(CHART_EDITOR, A_B_X_Y);
 		#end
 		
 		super.create();
