@@ -208,12 +208,12 @@ class FlxVirtualPad extends FlxSpriteGroup {
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3 - 350, FlxG.height - 45 * 3, 44 * 3, 127, "a", 0xFF0000)));
 				actions.add(add(buttonB = createButton(FlxG.width - 44 * 3 - 350, FlxG.height - 85 * 3, 44 * 3, 127, "b", 0xFFCB00)));	
 			case DialogueCharacterEditor:
-				actions.add(add(buttonX = createButton(FlxG.width - 128 * 3, FlxG.height - 85 * 3 - 480, 44 * 3, 127, "x", 0x99062D)));
-				actions.add(add(buttonY = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3 - 480, 44 * 3, 127, "y", 0x4A35B9)));
-				actions.add(add(buttonZ = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3 - 480, 44 * 3, 127, "z", 0xCCB98E)));
-				actions.add(add(buttonC = createButton(FlxG.width - 128 * 3, FlxG.height - 45 * 3 - 480, 44 * 3, 127, "c", 0x44FF00)));
-				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3 - 480, 44 * 3, 127, "b", 0xFFCB00)));								
-				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3 - 480, 44 * 3, 127, "a", 0xFF0000)));	
+				actions.add(add(buttonX = createButton(FlxG.width - 128 * 3, FlxG.height - 85 * 3 - 470, 44 * 3, 127, "x", 0x99062D)));
+				actions.add(add(buttonY = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3 - 470, 44 * 3, 127, "y", 0x4A35B9)));
+				actions.add(add(buttonZ = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3 - 470, 44 * 3, 127, "z", 0xCCB98E)));
+				actions.add(add(buttonC = createButton(FlxG.width - 128 * 3, FlxG.height - 45 * 3 - 470, 44 * 3, 127, "c", 0x44FF00)));
+				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3 - 470, 44 * 3, 127, "b", 0xFFCB00)));								
+				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3 - 470, 44 * 3, 127, "a", 0xFF0000)));	
 			case NOTESTATE:
 			    actions.add(add(buttonE = createButton(42 * 3, FlxG.height - 125 * 3, 44 * 3, 127, "e", 0xFF7D00)));
 				actions.add(add(buttonC = createButton(0, FlxG.height - 125 * 3, 44 * 3, 127, "c", 0x44FF00)));  
