@@ -530,13 +530,13 @@ class DialogueCharacterEditorState extends MusicBeatState
 			//lots of Ifs lol get trolled
 			var offsetAdd:Int = 1;
 			var speed:Float = 300;
-			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonB.justPressed #end) {
+			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonB.pressed #end) {
 				speed = 1200;
 				offsetAdd = 10;
 			}
 
 			var negaMult:Array<Int> = [1, 1, -1, -1];
-			var controlArray:Array<Bool> = [FlxG.keys.pressed.J  #if android || MusicBeatState._virtualpad.buttonLeft2.justPressed #end, FlxG.keys.pressed.I #if android || MusicBeatState._virtualpad.buttonUp2.justPressed #end, FlxG.keys.pressed.L #if android || MusicBeatState._virtualpad.buttonRight2.justPressed #end, FlxG.keys.pressed.K #if android || MusicBeatState._virtualpad.buttonDown2.justPressed #end];
+			var controlArray:Array<Bool> = [FlxG.keys.pressed.J  #if android || MusicBeatState._virtualpad.buttonLeft2.pressed #end, FlxG.keys.pressed.I #if android || MusicBeatState._virtualpad.buttonUp2.pressed #end, FlxG.keys.pressed.L #if android || MusicBeatState._virtualpad.buttonRight2.pressed #end, FlxG.keys.pressed.K #if android || MusicBeatState._virtualpad.buttonDown2.pressed #end];
 			for (i in 0...controlArray.length) {
 				if(controlArray[i]) {
 					if(i % 2 == 1) {
