@@ -543,7 +543,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 		}
 		#if android
 		if(UI_mainbox.selected_tab_id == 'Animations' && MusicBeatState._virtualpad.buttonB.justPressed)
-		CheckPress = true;
+		if (!CheckPress)CheckPress = true;
+		else CheckPress = false;
         #end
         
 		if(!blockInput && !animationDropDown.dropPanel.visible) {
@@ -577,7 +578,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			if(UI_mainbox.selected_tab_id == 'Animations' && curSelectedAnim != null && character.dialogueAnimations.exists(curSelectedAnim)) {
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
-				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.W #if android || MusicBeatState._virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.D #if android || MusicBeatState._virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.S #if android || MusicBeatState._virtualpad.buttonDown.justPressed #end];
+				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A #if android || MusicBeatState._virtualpad.buttonLeft.justPressed && !CheckPress #end, FlxG.keys.justPressed.W #if android || MusicBeatState._virtualpad.buttonUp.justPressed && !CheckPress #end, FlxG.keys.justPressed.D #if android || MusicBeatState._virtualpad.buttonRight.justPressed && !CheckPress #end, FlxG.keys.justPressed.S #if android || MusicBeatState._virtualpad.buttonDown.justPressed && !CheckPress #end];
 				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft.justPressed && CheckPress #end, FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp.justPressed && CheckPress #end, FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight.justPressed && CheckPress #end, FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown.justPressed && CheckPress #end];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
