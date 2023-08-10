@@ -91,7 +91,7 @@ class DialogueCharacterEditorState extends MusicBeatState
     	\nZ - Reset Camera
        	\nY - Toggle Ghosts
     	\nUP,Down,Left,Right(UP side) - Move Looping animation offset (Red)
-    	\nArrow Keys - Move Idle/Finished animation offset (Blue)
+    	\UP,Down,Left,Right(UP side) + press A once (twice to close)- Move Idle/Finished animation offset (Blue)
     	\nHold B to move offsets 10x faster';
     	#end
 		
@@ -133,7 +133,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		box.updateHitbox();
 		hudGroup.add(box);
 
-		tipText = new FlxText(10, 10, FlxG.width - 20, TIP_TEXT_MAIN, 8);
+		tipText = new FlxText(10, 300, FlxG.width - 20, TIP_TEXT_MAIN, 8);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.cameras = [camHUD];
 		tipText.scrollFactor.set();
@@ -513,6 +513,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 	var currentGhosts:Int = 0;
 	var lastTab:String = 'Character';
 	var transitioning:Bool = false;
+	var CheckPress:Bool = false;
 	override function update(elapsed:Float) {
 		MusicBeatState.camBeat = FlxG.camera;
 		if(transitioning) {
@@ -540,7 +541,11 @@ class DialogueCharacterEditorState extends MusicBeatState
 				break;
 			}
 		}
-
+		#if android
+		if(UI_mainbox.selected_tab_id == 'Animations' && MusicBeatState._virtualpad.buttonB.justPressed)
+		CheckPress = true;
+        #end
+        
 		if(!blockInput && !animationDropDown.dropPanel.visible) {
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.SPACE #if android || MusicBeatState._virtualpad.buttonA.justPressed #end && UI_mainbox.selected_tab_id == 'Character') {
@@ -573,7 +578,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 				var moved:Bool = false;
 				var animShit:DialogueAnimArray = character.dialogueAnimations.get(curSelectedAnim);
 				var controlArrayLoop:Array<Bool> = [FlxG.keys.justPressed.A #if android || MusicBeatState._virtualpad.buttonLeft.justPressed #end, FlxG.keys.justPressed.W #if android || MusicBeatState._virtualpad.buttonUp.justPressed #end, FlxG.keys.justPressed.D #if android || MusicBeatState._virtualpad.buttonRight.justPressed #end, FlxG.keys.justPressed.S #if android || MusicBeatState._virtualpad.buttonDown.justPressed #end];
-				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft2.justPressed #end, FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp2.justPressed #end, FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight2.justPressed #end, FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown2.justPressed #end];
+				var controlArrayIdle:Array<Bool> = [FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft.justPressed && CheckPress #end, FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp.justPressed && CheckPress #end, FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight.justPressed && CheckPress #end, FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown.justPressed && CheckPress #end];
 				for (i in 0...controlArrayLoop.length) {
 					if(controlArrayLoop[i]) {
 						if(i % 2 == 1) {
