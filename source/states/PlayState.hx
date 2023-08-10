@@ -962,11 +962,7 @@ class PlayState extends MusicBeatState
 			return false;
 		}
 		
-		#if android
-			MusicBeatState.androidc.visible = true;
-			if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
-			//
-		#end
+		
 
 		seenCutscene = true;
 		inCutscene = false;
@@ -999,6 +995,10 @@ class PlayState extends MusicBeatState
 			}
 			else if (skipCountdown)
 			{
+			    #if android
+			    MusicBeatState.androidc.visible = true;
+			    if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+		        #end
 				setSongTime(0);
 				return true;
 			}
@@ -1028,6 +1028,12 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
+					if (!skipCountdown){
+					    #if android
+			            MusicBeatState.androidc.visible = true;
+			            if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+		                #end
+					}
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 						tick = THREE;
 					case 1:
