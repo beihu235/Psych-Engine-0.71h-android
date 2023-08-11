@@ -114,8 +114,8 @@ class NoteSplashDebugState extends MusicBeatState
 		var text:FlxText = new FlxText(0, 520, FlxG.width,
 			"Press B to Reset animation\n
 			Press A twice to save to the loaded Note Splash PNG's folder\n
-			Left/Right change selected note - Arrow Keys to change offset (Hold shift for 10x)\n
-			Z + C/V - Copy & Paste", 16);
+			Left/Right change selected note - Arrow Keys(right) to change offset (Hold C for 10x)\n
+			Z + C/X - Copy & Paste", 16);
 		#else
 		var text:FlxText = new FlxText(0, 520, FlxG.width,
 			"Press SPACE to Reset animation\n
@@ -254,7 +254,7 @@ class NoteSplashDebugState extends MusicBeatState
 			else if(forceFrame >= maxFrame) forceFrame = maxFrame - 1;
 			//trace('curFrame: $forceFrame');
 			
-			curFrameText.text = 'Force Frame: ${forceFrame+1} / $maxFrame\n(Press Q/E to change)';
+			curFrameText.text = 'Force Frame: ${forceFrame+1} / $maxFrame\n(Press V/D to change)';
 			splashes.forEachAlive(function(spr:FlxSprite) {
 				spr.animation.curAnim.paused = true;
 				spr.animation.curAnim.curFrame = forceFrame;
@@ -376,8 +376,8 @@ class NoteSplashDebugState extends MusicBeatState
 			if(curAnim > maxAnims) curAnim = 1;
 			else if(curAnim < 1) curAnim = maxAnims;
 
-			curAnimText.text = 'Current Animation: $curAnim / $maxAnims\n(Press W/S to change)';
-			curFrameText.text = 'Force Frame Disabled\n(Press Q/E to change)';
+			curAnimText.text = 'Current Animation: $curAnim / $maxAnims\n(Press UP/DOWN(left side) to change)';
+			curFrameText.text = 'Force Frame Disabled\n(Press V/D to change)';
 
 			for (i in 0...maxNotes)
 			{
