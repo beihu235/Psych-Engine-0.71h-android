@@ -2334,6 +2334,11 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
+					
+					#if android		
+                		MusicBeatState.androidc.visible = false;				
+            		#end
+            		
 					MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
@@ -2361,6 +2366,11 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.stop();
 
 					cancelMusicFadeTween();
+					
+					#if android		
+                		MusicBeatState.androidc.visible = false;				
+            		#end
+            		
 					LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
@@ -2374,6 +2384,11 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
+				
+				#if android		
+                		MusicBeatState.androidc.visible = false;				
+            	#end
+				
 				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				changedDifficulty = false;
