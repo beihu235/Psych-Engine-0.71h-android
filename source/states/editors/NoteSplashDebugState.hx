@@ -151,7 +151,7 @@ class NoteSplashDebugState extends MusicBeatState
 		cast(stepperMinFps.text_field, FlxInputText).hasFocus = cast(stepperMaxFps.text_field, FlxInputText).hasFocus = false;
 
 		var notTyping:Bool = !nameInputText.hasFocus;
-		if(controls.BACK #if android || FlxG.android.justReleased.BACK #end && notTyping)
+		if(FlxG.keys.justPressed.ESCAPE #if android || FlxG.android.justReleased.BACK #end && notTyping)
 		{
 			MusicBeatState.switchState(new MasterEditorMenu());
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -170,13 +170,13 @@ class NoteSplashDebugState extends MusicBeatState
 		{
 			var movex = 0;
 			var movey = 0;
-			if(FlxG.keys.justPressed.LEFT) movex = -1;
-			else if(FlxG.keys.justPressed.RIGHT) movex = 1;
+			if(FlxG.keys.justPressed.LEFT #if android || MusicBeatState._virtualpad.buttonLeft2.justPressed #end) movex = -1;
+			else if(FlxG.keys.justPressed.RIGHT #if android || MusicBeatState._virtualpad.buttonRight2.justPressed #end) movex = 1;
 
-			if(FlxG.keys.justPressed.UP) movey = 1;
-			else if(FlxG.keys.justPressed.DOWN) movey = -1;
+			if(FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp2.justPressed #end) movey = 1;
+			else if(FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown2.justPressed #end) movey = -1;
 			
-			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonD.justPressed #end)
+			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
 			{
 				movex *= 10;
 				movey *= 10;
@@ -201,7 +201,7 @@ class NoteSplashDebugState extends MusicBeatState
 				copiedArray[0] = arr[0];
 				copiedArray[1] = arr[1];
 			}
-			else if(FlxG.keys.justPressed.Y #if android || MusicBeatState._virtualpad.buttonV.justPressed #end && copiedArray != null)
+			else if((FlxG.keys.justPressed.Y #if android || MusicBeatState._virtualpad.buttonX.justPressed #end) && copiedArray != null)
 			{
 				var offs:Array<Float> = selectedArray();
 				offs[0] = copiedArray[0];
@@ -245,8 +245,8 @@ class NoteSplashDebugState extends MusicBeatState
 
 		// Force frame
 		var updatedFrame:Bool = false;
-		if(updatedFrame = FlxG.keys.justPressed.Q) forceFrame--;
-		else if(updatedFrame = FlxG.keys.justPressed.E) forceFrame++;
+		if(updatedFrame = FlxG.keys.justPressed.Q #if android || MusicBeatState._virtualpad.buttonV.justPressed #end) forceFrame--;
+		else if(updatedFrame = FlxG.keys.justPressed.E #if android || MusicBeatState._virtualpad.buttonD.justPressed #end) forceFrame++;
 
 		if(updatedFrame)
 		{
