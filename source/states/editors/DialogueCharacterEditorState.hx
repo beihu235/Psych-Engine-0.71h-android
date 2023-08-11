@@ -542,7 +542,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			}
 		}
 		#if android
-		if(UI_mainbox.selected_tab_id == 'Animations' && MusicBeatState._virtualpad.buttonB.justPressed)
+		if(UI_mainbox.selected_tab_id == 'Animations' && MusicBeatState._virtualpad.buttonA.justPressed)
 		if (!CheckPress)CheckPress = true;
 		else CheckPress = false;
         #end
