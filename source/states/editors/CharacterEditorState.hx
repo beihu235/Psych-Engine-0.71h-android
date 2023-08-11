@@ -140,6 +140,16 @@ class CharacterEditorState extends MusicBeatState
 		\nArrow Keys - Move Character Offset
 		\nT - Reset Current Offset
 		\nHold Shift to Move 10x faster\n".split('\n');
+		
+		#if android
+		tipTextArray = "X/Y - Camera Zoom In/Out
+		\nZ - Reset Camera Zoom
+		\nArrow Keys + C - Move Camera
+		\nV/D - Previous/Next Animation
+		\nArrow Keys - Move Character Offset
+		\nA - Reset Current Offset
+		\nHold B to Move 10x faster\n".split('\n');
+		#end
 
 		for (i in 0...tipTextArray.length-1)
 		{
