@@ -176,7 +176,7 @@ class NoteSplashDebugState extends MusicBeatState
 			if(FlxG.keys.justPressed.UP #if android || MusicBeatState._virtualpad.buttonUp2.justPressed #end) movey = 1;
 			else if(FlxG.keys.justPressed.DOWN #if android || MusicBeatState._virtualpad.buttonDown2.justPressed #end) movey = -1;
 			
-			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
+			if(FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonC.Pressed #end)
 			{
 				movex *= 10;
 				movey *= 10;
@@ -192,7 +192,7 @@ class NoteSplashDebugState extends MusicBeatState
 		}
 
 		// Copy & Paste
-		if(FlxG.keys.pressed.CONTROL #if android || MusicBeatState._virtualpad.buttonZ.justPressed #end)
+		if(FlxG.keys.pressed.CONTROL #if android || MusicBeatState._virtualpad.buttonZ.Pressed #end)
 		{
 			if(FlxG.keys.justPressed.C #if android || MusicBeatState._virtualpad.buttonC.justPressed #end)
 			{
