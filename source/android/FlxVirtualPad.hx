@@ -312,6 +312,7 @@ enum FlxDPadMode {
 	CHART_EDITOR;
 	MenuCharacterEditor;
 	DialogueCharacterEditor;
+	NoteSplashDebugState;
 	NONE;
 }
 
@@ -329,6 +330,7 @@ enum FlxActionMode {
 	CHART_EDITOR;
 	MenuCharacterEditor;
 	DialogueCharacterEditor;
+	NoteSplashDebugState;
 	NOTESTATE;
 	NONE;
 }
