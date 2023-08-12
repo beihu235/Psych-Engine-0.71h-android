@@ -110,6 +110,7 @@ class ExtraFunctions
 				case 'left': return PlayState.instance.controls.NOTE_LEFT;
 				case 'down': return PlayState.instance.controls.NOTE_DOWN;
 				case 'up': return PlayState.instance.controls.NOTE_UP;
+				case 'right': return PlayState.instance.controls.NOTE_RIGHT;
 				case 'space': return (PlayState.instance.controls.SPACE || FlxG.keys.pressed.SPACE);//an extra key for convinience
 				default: return PlayState.instance.controls.pressed(name);
 			}
@@ -121,6 +122,7 @@ class ExtraFunctions
 				case 'left': return PlayState.instance.controls.NOTE_LEFT_R;
 				case 'down': return PlayState.instance.controls.NOTE_DOWN_R;
 				case 'up': return PlayState.instance.controls.NOTE_UP_R;
+				case 'right': return PlayState.instance.controls.NOTE_RIGHT_R;
 				case 'space': return (PlayState.instance.controls.SPACE_R || FlxG.keys.justReleased.SPACE);//an extra key for convinience
 				default: return PlayState.instance.controls.justReleased(name);
 			}
