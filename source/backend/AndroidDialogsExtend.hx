@@ -1,6 +1,6 @@
 package backend;
 
-//https://github.com/nicolastuka/AndroidDialogs
+//https://github.com/beihu235/AndroidDialogs
 
 import extension.androiddialogs.AndroidDialogs;
 //import extension.androiddialogs.CallbackHandler;
