@@ -10,8 +10,6 @@ import objects.StrumNote;
 
 import flixel.math.FlxRect;
 
-using StringTools;
-
 typedef EventNote = {
 	strumTime:Float,
 	event:String,
@@ -88,7 +86,6 @@ class Note extends FlxSprite
 		b: -1,
 		a: ClientPrefs.data.splashAlpha
 	};
-
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
@@ -189,8 +186,7 @@ class Note extends FlxSprite
 				case 'GF Sing':
 					gfNote = true;
 			}
-			if (value != null && value.length > 1 && Paths.fileExists('custom notetypes/$value.txt', TEXT)) NoteTypesConfig.applyNoteTypeData(this, value); //uhh Prevent txt issue
-			//if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
+			if (value != null && value.length > 1) NoteTypesConfig.applyNoteTypeData(this, value);
 			if (hitsound != 'hitsound' && ClientPrefs.data.hitsoundVolume > 0) Paths.sound(hitsound); //precache new sound for being idiot-proof
 			noteType = value;
 		}
