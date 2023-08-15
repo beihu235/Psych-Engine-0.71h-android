@@ -701,7 +701,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetG.text = Std.string(color.green);
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
-		UI_songTitle.text = color.toHexString(false, false);;
+		UI_songTitle.text = color.toHexString(false, false);
 		
 		for (letter in alphabetHex.letters) letter.color = color;
 
