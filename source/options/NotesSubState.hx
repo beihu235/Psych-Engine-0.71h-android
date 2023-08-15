@@ -196,7 +196,7 @@ class NotesSubState extends MusicBeatSubstate
 	
 	LengthCheck = UI_songTitle.text;
 	
-		if (controls.BACK) {
+		if (FlxG.keys.justPressed.ESCAPE  #if android || MusicBeatSubstate._virtualpad.buttonB.justPressed #end ) {
 			FlxG.mouse.visible = false;
 			//FlxG.sound.play(Paths.sound('cancelMenu'));
 			#if android
