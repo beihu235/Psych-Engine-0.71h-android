@@ -51,7 +51,7 @@ class NotesSubState extends MusicBeatSubstate
 	var tipTxt:FlxText;
 	
 	var UI_songTitle:FlxUIInputText;
-
+    var LengthCheck:String = '';
 	public function new() {
 		super();
 		
@@ -171,8 +171,8 @@ class NotesSubState extends MusicBeatSubstate
 		
 		UI_songTitle = new FlxUIInputText(300, 10, 70, alphabetHex.text, 8);
 		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
-		blockPressWhileTypingOn.push(UI_songTitle);
-		
+		//blockPressWhileTypingOn.push(UI_songTitle);
+		LengthCheck = UI_songTitle.text;
 		
 		#if android
 		addVirtualPad(CHART_EDITOR, NOTESTATE);
@@ -276,7 +276,7 @@ class NotesSubState extends MusicBeatSubstate
 				hexTypeNum++;
 			else if(FlxG.keys.justPressed.ENTER)
 				hexTypeNum = -1;	
-			else if(UI_songTitle.text.length = 6)
+			else if(LengthCheck.length = 6)
 			{
 				//trace('keyPressed: $keyPressed, lil str: ' + allowedTypeKeys.get(keyPressed));
 			
@@ -699,6 +699,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
 		UI_songTitle.text = alphabetHex.text;
+		LengthCheck = UI_songTitle.text;
 		for (letter in alphabetHex.letters) letter.color = color;
 
 		colorWheel.color = FlxColor.fromHSB(0, 0, color.brightness);
