@@ -49,6 +49,8 @@ class NotesSubState extends MusicBeatSubstate
 	var controllerPointer:FlxSprite;
 	var _lastControllerMode:Bool = false;
 	var tipTxt:FlxText;
+	
+	var UI_songTitle:FlxUIInputText;
 
 	public function new() {
 		super();
@@ -166,7 +168,7 @@ class NotesSubState extends MusicBeatSubstate
 		controllerPointer.visible = controls.controllerMode;
 		_lastControllerMode = controls.controllerMode;
 		
-		var UI_songTitle:FlxUIInputText;
+		
 		UI_songTitle = new FlxUIInputText(300, 10, 70, alphabetHex.text, 8);
 		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		blockPressWhileTypingOn.push(UI_songTitle);
