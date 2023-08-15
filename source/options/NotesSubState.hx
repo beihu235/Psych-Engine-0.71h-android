@@ -193,6 +193,9 @@ class NotesSubState extends MusicBeatSubstate
 		NUMPADSEVEN => '7', NUMPADEIGHT => '8', NUMPADNINE => '9', A => 'A', B => 'B', C => 'C', D => 'D', E => 'E', F => 'F'];
 
 	override function update(elapsed:Float) {
+	
+	LengthCheck = UI_songTitle.text;
+	
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			//FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -699,7 +702,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
 		UI_songTitle.text = alphabetHex.text;
-		LengthCheck = UI_songTitle.text;
+		
 		for (letter in alphabetHex.letters) letter.color = color;
 
 		colorWheel.color = FlxColor.fromHSB(0, 0, color.brightness);
