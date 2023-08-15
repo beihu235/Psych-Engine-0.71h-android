@@ -279,7 +279,7 @@ class NotesSubState extends MusicBeatSubstate
 				hexTypeNum++;
 			else if(FlxG.keys.justPressed.ENTER)
 				hexTypeNum = -1;	
-			else if(LengthCheck.length == 6)
+			if(LengthCheck.length == 6)
 			{
 				//trace('keyPressed: $keyPressed, lil str: ' + allowedTypeKeys.get(keyPressed));
 			
