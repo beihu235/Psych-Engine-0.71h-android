@@ -279,8 +279,8 @@ class NotesSubState extends MusicBeatSubstate
 				hexTypeNum++;
 			else if(FlxG.keys.justPressed.ENTER)
 				hexTypeNum = -1;	
-			else if(LengthCheck.length = 6)
-			{
+		//	else if(LengthCheck.length = 6)
+			//{
 				//trace('keyPressed: $keyPressed, lil str: ' + allowedTypeKeys.get(keyPressed));
 			
 			
@@ -295,7 +295,7 @@ class NotesSubState extends MusicBeatSubstate
 				// move you to next letter
 				hexTypeNum++;
 				changed = true;
-			}
+		//	}
 			
 			
 			var end:Bool = false;
