@@ -50,7 +50,7 @@ class NotesSubState extends MusicBeatSubstate
 	var _lastControllerMode:Bool = false;
 	var tipTxt:FlxText;
 	
-	var UI_songTitle:FlxUIInputText;
+	var AndroidColorGet:FlxUIInputText;
     var LengthCheck:String = '';
 	public function new() {
 		super();
@@ -169,11 +169,11 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		
-		UI_songTitle = new FlxUIInputText(500, 20, 100, '', 30);
-		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
-		//blockPressWhileTypingOn.push(UI_songTitle);
-		LengthCheck = UI_songTitle.text;
-		add(UI_songTitle);
+		AndroidColorGet = new FlxUIInputText(700, 50, 200, '', 30);
+		AndroidColorGet.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
+		//blockPressWhileTypingOn.push(AndroidColorGet);
+		LengthCheck = AndroidColorGet.text;
+		add(AndroidColorGet);
 		#if android
 		addVirtualPad(CHART_EDITOR, NOTESTATE);
 		#end
@@ -194,7 +194,7 @@ class NotesSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 	
-	LengthCheck = UI_songTitle.text;
+	LengthCheck = AndroidColorGet.text;
 	
 		if (FlxG.keys.justPressed.ESCAPE  #if android || MusicBeatSubstate._virtualpad.buttonB.justPressed #end ) {
 			FlxG.mouse.visible = false;
@@ -285,7 +285,7 @@ class NotesSubState extends MusicBeatSubstate
 			
 			
 				var curColor:String = alphabetHex.text;
-				var newColor:String = UI_songTitle.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
+				var newColor:String = AndroidColorGet.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
 
 				var colorHex:FlxColor = FlxColor.fromString('#' + newColor);
 				setShaderColor(colorHex);
@@ -701,7 +701,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetG.text = Std.string(color.green);
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
-		//UI_songTitle.text = color.toHexString(false, false);
+		//AndroidColorGet.text = color.toHexString(false, false);
 		
 		for (letter in alphabetHex.letters) letter.color = color;
 
