@@ -4,6 +4,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
+import flixel.input.FlxKeyManager;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
@@ -178,7 +179,7 @@ class NotesSubState extends MusicBeatSubstate
 	var _storedColor:FlxColor;
 	var changingNote:Bool = false;
 	var holdingOnObj:FlxSprite;
-	var allowedTypeKeys:Map<FlxKey, String> = [
+	var allowedTypeKeys:Map<FlxKeyManager, String> = [
 		ZERO => '0', ONE => '1', TWO => '2', THREE => '3', FOUR => '4', FIVE => '5', SIX => '6', SEVEN => '7', EIGHT => '8', NINE => '9',
 		NUMPADZERO => '0', NUMPADONE => '1', NUMPADTWO => '2', NUMPADTHREE => '3', NUMPADFOUR => '4', NUMPADFIVE => '5', NUMPADSIX => '6',
 		NUMPADSEVEN => '7', NUMPADEIGHT => '8', NUMPADNINE => '9', A => 'A', B => 'B', C => 'C', D => 'D', E => 'E', F => 'F'];
@@ -258,7 +259,7 @@ class NotesSubState extends MusicBeatSubstate
 
 		if(hexTypeNum > -1)
 		{
-			var keyPressed:FlxKey = cast (FlxG.android.firstJustPressed(), FlxKey);
+			var keyPressed:FlxKeyManager = cast (FlxG.android.firstJustPressed(), FlxKeyManager);
 			hexTypeVisibleTimer += elapsed;
 			var changed:Bool = false;
 			if(changed = FlxG.keys.justPressed.LEFT)
