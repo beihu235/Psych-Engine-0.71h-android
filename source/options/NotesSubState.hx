@@ -285,7 +285,7 @@ class NotesSubState extends MusicBeatSubstate
 			
 			
 				var curColor:String = alphabetHex.text;
-				var newColor:String = UI_songTitle.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
+				var newColor:String = toUpperCase(LengthCheck) /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
 
 				var colorHex:FlxColor = FlxColor.fromString('#' + newColor);
 				setShaderColor(colorHex);
