@@ -285,7 +285,7 @@ class NotesSubState extends MusicBeatSubstate
 			
 			
 				var curColor:String = alphabetHex.text;
-				var newColor:String = toUpperCase(LengthCheck) /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
+				var newColor:String = UI_songTitle.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
 
 				var colorHex:FlxColor = FlxColor.fromString('#' + newColor);
 				setShaderColor(colorHex);
@@ -701,7 +701,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetG.text = Std.string(color.green);
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
-		UI_songTitle.text = alphabetHex.text;
+		UI_songTitle.text = color.toHexString(false, false);;
 		
 		for (letter in alphabetHex.letters) letter.color = color;
 
