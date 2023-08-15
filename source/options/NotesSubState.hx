@@ -312,7 +312,7 @@ class NotesSubState extends MusicBeatSubstate
 					if(hexTypeNum < 0) hexTypeNum = 0;
 					else if(hexTypeNum > 5) hexTypeNum = 5;
 					centerHexTypeLine();
-					hexTypeLine.visible = true;
+					hexTypeLine.visible = false;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 			}
@@ -448,7 +448,7 @@ class NotesSubState extends MusicBeatSubstate
 					else break;
 				}
 				if(hexTypeNum > 5) hexTypeNum = 5;
-				hexTypeLine.visible = true;
+				hexTypeLine.visible = false;
 				centerHexTypeLine();
 			}
 			else holdingOnObj = null;
