@@ -57,7 +57,8 @@ class SUtil
 			if (!FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.exists(SUtil.getPath() + 'mods'))
 			{
 				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files to the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
-				CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+                if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+		        else CoolUtil.browserLoad('https://youtu.be/AmoNoYjJgHs?si=LvgXbRRn7eJlwL0w');				
 				System.exit(0);
 			}
 			else
@@ -65,21 +66,24 @@ class SUtil
 				if (!FileSystem.exists(SUtil.getPath() + 'assets'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets folder to the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+					if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+		            else CoolUtil.browserLoad('https://youtu.be/AmoNoYjJgHs?si=LvgXbRRn7eJlwL0w');
 					System.exit(0);
 				}
 
 				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the mods folder to the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+					if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+		            else CoolUtil.browserLoad('https://youtu.be/AmoNoYjJgHs?si=LvgXbRRn7eJlwL0w');
 					System.exit(0);
 				}
 				
 				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins') || !FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSplashes'))//make sure people use 0.71h assets not old shits
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't update new assets to the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
-					CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+					if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
+		            else CoolUtil.browserLoad('https://youtu.be/AmoNoYjJgHs?si=LvgXbRRn7eJlwL0w');
 					System.exit(0);
 				}
 			}
