@@ -169,7 +169,7 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		
-		UI_songTitle = new FlxUIInputText(300, 10, 50, '', 8);
+		UI_songTitle = new FlxUIInputText(500, 20, 100, '', 30);
 		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		//blockPressWhileTypingOn.push(UI_songTitle);
 		LengthCheck = UI_songTitle.text;
