@@ -52,6 +52,7 @@ class NotesSubState extends MusicBeatSubstate
 	
 	var AndroidColorGet:FlxUIInputText;
     var LengthCheck:String = '';
+    var ColorCheck:String = '';
 	public function new() {
 		super();
 		
@@ -128,14 +129,14 @@ class NotesSubState extends MusicBeatSubstate
 		add(colorWheelSelector);
 
 		var txtX = 980;
-		var txtY = 90;
+		var txtY = 90 + 20;
 		alphabetR = makeColorAlphabet(txtX - 100, txtY);
 		add(alphabetR);
 		alphabetG = makeColorAlphabet(txtX, txtY);
 		add(alphabetG);
 		alphabetB = makeColorAlphabet(txtX + 100, txtY);
 		add(alphabetB);
-		alphabetHex = makeColorAlphabet(txtX, txtY - 55);
+		alphabetHex = makeColorAlphabet(txtX, txtY - 75);
 		add(alphabetHex);
 		hexTypeLine = new FlxSprite(0, 20).makeGraphic(5, 62, FlxColor.WHITE);
 		hexTypeLine.visible = false;
@@ -169,9 +170,8 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		
-		AndroidColorGet = new FlxUIInputText(700, 50, 200, '', 30);
+		AndroidColorGet = new FlxUIInputText(980, 50, 180, '', 30);
 		AndroidColorGet.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
-		//blockPressWhileTypingOn.push(AndroidColorGet);
 		LengthCheck = AndroidColorGet.text;
 		add(AndroidColorGet);
 		#if android
@@ -267,22 +267,10 @@ class NotesSubState extends MusicBeatSubstate
 			updateNotes(true);
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 		}
-
-		if(hexTypeNum > -1)
-		{
-			var keyPressed:FlxKey = cast (FlxG.keys.firstJustPressed(), FlxKey);
-			hexTypeVisibleTimer += elapsed;
-			var changed:Bool = false;
-			if(changed = FlxG.keys.justPressed.LEFT)
-				hexTypeNum--;
-			else if(changed = FlxG.keys.justPressed.RIGHT)
-				hexTypeNum++;
-			else if(FlxG.keys.justPressed.ENTER)
-				hexTypeNum = -1;	
-			if(LengthCheck.length == 6)
+		
+		if(LengthCheck.length == 6 && ColorCheck != LengthCheck)
 			{
-				//trace('keyPressed: $keyPressed, lil str: ' + allowedTypeKeys.get(keyPressed));
-			
+			    ColorCheck = LengthCheck;
 			
 				var curColor:String = alphabetHex.text;
 				var newColor:String = AndroidColorGet.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
@@ -296,6 +284,19 @@ class NotesSubState extends MusicBeatSubstate
 				//hexTypeNum++;
 				//changed = true;
 			}
+
+		if(hexTypeNum > -1)
+		{
+			var keyPressed:FlxKey = cast (FlxG.keys.firstJustPressed(), FlxKey);
+			hexTypeVisibleTimer += elapsed;
+			var changed:Bool = false;
+			if(changed = FlxG.keys.justPressed.LEFT)
+				hexTypeNum--;
+			else if(changed = FlxG.keys.justPressed.RIGHT)
+				hexTypeNum++;
+			else if(FlxG.keys.justPressed.ENTER)
+				hexTypeNum = -1;	
+			
 			
 			
 			var end:Bool = false;
@@ -316,7 +317,7 @@ class NotesSubState extends MusicBeatSubstate
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.6);
 			}
-			if(!end) hexTypeLine.visible = Math.floor(hexTypeVisibleTimer * 2) % 2 == 0;
+			if(!end) hexTypeLine.visible = false;
 		}
 		else
 		{
@@ -701,7 +702,7 @@ class NotesSubState extends MusicBeatSubstate
 		alphabetG.text = Std.string(color.green);
 		alphabetB.text = Std.string(color.blue);
 		alphabetHex.text = color.toHexString(false, false);
-		//AndroidColorGet.text = color.toHexString(false, false);
+		
 		
 		for (letter in alphabetHex.letters) letter.color = color;
 
