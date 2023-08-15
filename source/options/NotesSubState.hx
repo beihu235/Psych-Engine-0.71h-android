@@ -136,7 +136,7 @@ class NotesSubState extends MusicBeatSubstate
 		add(alphabetG);
 		alphabetB = makeColorAlphabet(txtX + 100, txtY);
 		add(alphabetB);
-		alphabetHex = makeColorAlphabet(txtX, txtY - 75);
+		alphabetHex = makeColorAlphabet(txtX, txtY - 35);
 		add(alphabetHex);
 		hexTypeLine = new FlxSprite(0, 20).makeGraphic(5, 62, FlxColor.WHITE);
 		hexTypeLine.visible = false;
@@ -170,7 +170,7 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		
-		AndroidColorGet = new FlxUIInputText(980, 50, 180, '', 30);
+		AndroidColorGet = new FlxUIInputText(930, 20, 150, '', 30);
 		AndroidColorGet.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		LengthCheck = AndroidColorGet.text;
 		add(AndroidColorGet);
