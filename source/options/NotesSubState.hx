@@ -5,6 +5,7 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.addons.ui.FlxUIInputText;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.system.Clipboard;
