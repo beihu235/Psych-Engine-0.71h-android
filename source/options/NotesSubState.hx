@@ -293,7 +293,7 @@ class NotesSubState extends MusicBeatSubstate
 				updateColors();
 				
 				// move you to next letter
-				hexTypeNum++;
+				//hexTypeNum++;
 				changed = true;
 		//	}
 			
