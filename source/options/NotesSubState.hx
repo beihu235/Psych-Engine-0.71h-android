@@ -5,7 +5,6 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.addons.ui.FlxUIInputText;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.system.Clipboard;
@@ -259,7 +258,7 @@ class NotesSubState extends MusicBeatSubstate
 
 		if(hexTypeNum > -1)
 		{
-			var keyPressed:FlxKey = cast (FlxG.keys.firstJustPressed(), FlxKey);
+			var keyPressed:FlxKey = cast (FlxG.android.firstJustPressed(), FlxKey);
 			hexTypeVisibleTimer += elapsed;
 			var changed:Bool = false;
 			if(changed = FlxG.keys.justPressed.LEFT)
