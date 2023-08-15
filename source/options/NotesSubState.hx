@@ -4,7 +4,6 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.input.keyboard.FlxKey;
-//import flixel.input.FlxKeyManager;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.math.FlxPoint;
 import flixel.addons.transition.FlxTransitionableState;
@@ -179,7 +178,7 @@ class NotesSubState extends MusicBeatSubstate
 	var _storedColor:FlxColor;
 	var changingNote:Bool = false;
 	var holdingOnObj:FlxSprite;
-	var allowedTypeKeys:FlxKeyManager<FlxKey, String> = [
+	var allowedTypeKeys:Map<FlxKey, String> = [
 		ZERO => '0', ONE => '1', TWO => '2', THREE => '3', FOUR => '4', FIVE => '5', SIX => '6', SEVEN => '7', EIGHT => '8', NINE => '9',
 		NUMPADZERO => '0', NUMPADONE => '1', NUMPADTWO => '2', NUMPADTHREE => '3', NUMPADFOUR => '4', NUMPADFIVE => '5', NUMPADSIX => '6',
 		NUMPADSEVEN => '7', NUMPADEIGHT => '8', NUMPADNINE => '9', A => 'A', B => 'B', C => 'C', D => 'D', E => 'E', F => 'F'];
@@ -259,18 +258,22 @@ class NotesSubState extends MusicBeatSubstate
 
 		if(hexTypeNum > -1)
 		{
-			var keyPressed:FlxKey = cast (FlxG.android.firstJustPressed(), FlxKey);
+			var keyPressed:FlxKey = cast (FlxG.keys.firstJustPressed(), FlxKey);
 			hexTypeVisibleTimer += elapsed;
 			var changed:Bool = false;
 			if(changed = FlxG.keys.justPressed.LEFT)
 				hexTypeNum--;
 			else if(changed = FlxG.keys.justPressed.RIGHT)
 				hexTypeNum++;
-			else if(allowedTypeKeys.exists(keyPressed))
-			{
+			else if(FlxG.keys.justPressed.ENTER)
+				hexTypeNum = -1;	
+		/*	else if(allowedTypeKeys.exists(keyPressed))
+			{*/
 				//trace('keyPressed: $keyPressed, lil str: ' + allowedTypeKeys.get(keyPressed));
+			
+			if (CheckAndroidPress())	
 				var curColor:String = alphabetHex.text;
-				var newColor:String = curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1);
+				var newColor:String = curColor.substring(0, hexTypeNum) + androidControlGet() + curColor.substring(hexTypeNum + 1);
 
 				var colorHex:FlxColor = FlxColor.fromString('#' + newColor);
 				setShaderColor(colorHex);
@@ -280,9 +283,8 @@ class NotesSubState extends MusicBeatSubstate
 				// move you to next letter
 				hexTypeNum++;
 				changed = true;
-			}
-			else if(FlxG.keys.justPressed.ENTER)
-				hexTypeNum = -1;
+			//}
+			
 			
 			var end:Bool = false;
 			if(changed)
@@ -714,4 +716,48 @@ class NotesSubState extends MusicBeatSubstate
 	function setShaderColor(value:FlxColor) dataArray[curSelectedNote][curSelectedMode] = value;
 	function getShaderColor() return dataArray[curSelectedNote][curSelectedMode];
 	function getShader() return Note.globalRgbShaders[curSelectedNote];
+	
+	function androidControlGet(){
+	if (FlxG.android.justPressed.ZERO) return '0';
+	if (FlxG.android.justPressed.ONE) return '1';
+	if (FlxG.android.justPressed.TWO) return '2';
+	if (FlxG.android.justPressed.THREE) return '3';
+	if (FlxG.android.justPressed.FOUR) return '4';
+	if (FlxG.android.justPressed.FIVE) return '5';
+	if (FlxG.android.justPressed.SIX) return '6';
+	if (FlxG.android.justPressed.SEVEN) return '7';
+	if (FlxG.android.justPressed.EIGHT) return '8';
+	if (FlxG.android.justPressed.NINE) return '9';
+	if (FlxG.android.justPressed.A) return 'A';
+	if (FlxG.android.justPressed.B) return 'B';
+	if (FlxG.android.justPressed.C) return 'C';
+	if (FlxG.android.justPressed.D) return 'D';
+	if (FlxG.android.justPressed.E) return 'E';
+	if (FlxG.android.justPressed.F) return 'F';
+	}
+	
+	function CheckAndroidPress():Bool
+	{
+	if (FlxG.android.justPressed.ZERO) return true;
+	if (FlxG.android.justPressed.ONE) return true;
+	if (FlxG.android.justPressed.TWO) return true;
+	if (FlxG.android.justPressed.THREE) return true;
+	if (FlxG.android.justPressed.FOUR) return true;
+	if (FlxG.android.justPressed.FIVE) return true;
+	if (FlxG.android.justPressed.SIX) return true;
+	if (FlxG.android.justPressed.SEVEN) return true;
+	if (FlxG.android.justPressed.EIGHT) return true;
+	if (FlxG.android.justPressed.NINE) return true;
+	if (FlxG.android.justPressed.A) return true;
+	if (FlxG.android.justPressed.B) return true;
+	if (FlxG.android.justPressed.C) return true;
+	if (FlxG.android.justPressed.D) return true;
+	if (FlxG.android.justPressed.E) return true;
+	if (FlxG.android.justPressed.F) return true;
+	return false;
+	
+	
+	}
+	
+	
 }
