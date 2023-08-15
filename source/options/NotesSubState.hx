@@ -169,7 +169,7 @@ class NotesSubState extends MusicBeatSubstate
 		_lastControllerMode = controls.controllerMode;
 		
 		
-		UI_songTitle = new FlxUIInputText(300, 10, 70, alphabetHex.text, 8);
+		UI_songTitle = new FlxUIInputText(300, 300, 50, '', 8);
 		UI_songTitle.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		//blockPressWhileTypingOn.push(UI_songTitle);
 		LengthCheck = UI_songTitle.text;
@@ -440,7 +440,7 @@ class NotesSubState extends MusicBeatSubstate
 			else if(pointerY() >= hexTypeLine.y && pointerY() < hexTypeLine.y + hexTypeLine.height &&
 					Math.abs(pointerX() - 1000) <= 84)
 			{
-			    FlxG.stage.window.textInputEnabled = true;
+			    //FlxG.stage.window.textInputEnabled = true;
 				hexTypeNum = 0;
 				for (letter in alphabetHex.letters)
 				{
