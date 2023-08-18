@@ -29,8 +29,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		// options
 
 		var noteSkins:Array<String> = [];
-		if(Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length > 0)
-			noteSkins = Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
+		if(Mods.mergeAllTextsNamed('images/noteSkins/list.txt', Paths.getPreloadPath()).length > 0)
+			noteSkins = Mods.mergeAllTextsNamed('images/noteSkins/list.txt', Paths.getPreloadPath());
 		else
 			noteSkins = CoolUtil.coolTextFile(Paths.getPreloadPath('shared/images/noteSkins/list.txt'));
 		if(noteSkins.length > 0)
@@ -50,8 +50,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		}
 		
 		var noteSplashes:Array<String> = [];
-		if(Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length > 0)
-			noteSplashes = Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
+		if(Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', Paths.getPreloadPath()).length > 0)
+			noteSplashes = Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', Paths.getPreloadPath());
 		else
 			noteSplashes = CoolUtil.coolTextFile(Paths.getPreloadPath('shared/images/noteSplashes/list.txt'));			
 		if(noteSplashes.length > 0)
