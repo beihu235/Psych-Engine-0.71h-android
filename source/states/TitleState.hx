@@ -82,10 +82,6 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		
-		
-		ClientPrefs.data.AndriodUpdateFirstCheck = true;
-	    ClientPrefs.saveSettings();
-		
 		//https://github.com/beihu235/AndroidDialogs
 		var lang:String = '';
 		if (DeviceLanguage.getLang() == 'zh') 
