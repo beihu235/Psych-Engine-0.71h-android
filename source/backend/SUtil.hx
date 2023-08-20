@@ -79,7 +79,7 @@ class SUtil
 					System.exit(0);
 				}
 				
-				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins') && !FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSplashes') && Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length == 0 && Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length == 0 && !ClientPrefs.data.AndriodUpdateFirstCheck)//make sure people use 0.71h assets not old shits
+				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins') && !FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSplashes') && !ClientPrefs.data.AndriodUpdateFirstCheck)//make sure people use 0.71h assets not old shits
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't update new assets to the .PsychEngine!\nPlease watch the tutorial by pressing OK.");
 					if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
