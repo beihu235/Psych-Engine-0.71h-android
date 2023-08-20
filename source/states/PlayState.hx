@@ -640,6 +640,13 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		callOnScripts('onCreatePost');
+		
+		if(startTimer.finished){
+		#if android
+		    MusicBeatState.androidc.visible = true;
+			if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+		    #end		
+		}   //fix mod use setProperty('startTimer.finished') android control cant change alpha
 
 		cacheCountdown();
 		cachePopUpScore();
@@ -2336,7 +2343,7 @@ class PlayState extends MusicBeatState
 					}
 					
 					#if android		
-                		MusicBeatState.androidc.visible = false;				
+                		MusicBeatState.androidc.y = 720;				
             		#end
             		
 					MusicBeatState.switchState(new StoryMenuState());
@@ -2368,7 +2375,7 @@ class PlayState extends MusicBeatState
 					cancelMusicFadeTween();
 					
 					#if android		
-                		MusicBeatState.androidc.visible = false;				
+                		MusicBeatState.androidc.y = 720;				
             		#end
             		
 					LoadingState.loadAndSwitchState(new PlayState());
@@ -2386,7 +2393,7 @@ class PlayState extends MusicBeatState
 				}
 				
 				#if android		
-                		MusicBeatState.androidc.visible = false;				
+                		MusicBeatState.androidc.y = 720;				
             	#end
 				
 				MusicBeatState.switchState(new FreeplayState());
