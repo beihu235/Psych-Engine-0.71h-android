@@ -78,11 +78,11 @@ class SaveVariables {
 	
 	
 	public var hitboxmode:String = 'New';  //it be deleted
-	public var hitboxExtend = true;
+	public var hitboxExtend:Bool = true;
 	public var hitboxLocation:String = 'Bottom';
 	public var hitboxalpha:Float = 0.2;
 	public var VirtualPadAlpha:Float = 0.75;
-    public var AndriodUpdateFirstCheck:Bool = false; //check for update new assets
+    
     
     
     

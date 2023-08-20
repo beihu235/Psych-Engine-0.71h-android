@@ -46,10 +46,6 @@ class SUtil
 		if (!Permissions.getGrantedPermissions().contains(PermissionsList.READ_EXTERNAL_STORAGE) || !Permissions.getGrantedPermissions().contains(PermissionsList.WRITE_EXTERNAL_STORAGE))
 		{
 			Permissions.requestPermissions([PermissionsList.READ_EXTERNAL_STORAGE, PermissionsList.WRITE_EXTERNAL_STORAGE]);
-			
-			ClientPrefs.data.AndriodUpdateFirstCheck = false;
-			ClientPrefs.saveSettings();
-			
 			SUtil.applicationAlert('Permissions', "if you acceptd the permissions all good if not expect a crash" + '\n' + 'Press Ok to see what happens');
 		}
 
@@ -83,12 +79,23 @@ class SUtil
 					System.exit(0);
 				}
 				
-				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins') && !FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSplashes') && Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length == 0 && Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length == 0 && !ClientPrefs.data.AndriodUpdateFirstCheck)//make sure people use 0.71h assets not old shits
+				if (!FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSkins') && !FileSystem.exists(SUtil.getPath() + 'assets/shared/images/noteSplashes') && Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared').length == 0 && Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared').length == 0)//make sure people use 0.71h assets not old shits
 				{
+				
+				    var lang:String = '';
+		            if (DeviceLanguage.getLang() == 'zh') 
+		            lang = '未检测到noteskin和noteSplashes文件夹\n设置里将不显示这两个选项';
+		            else
+		            lang = 'noteskin and noteSplashes folders not detected, these options will not appear in Settings.';
+		            AndroidDialogsExtend.OpenToast(lang,2);
+		
+		        
+		            /*
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't update new assets to the .PsychEngine!\n(Not found noteskin or noteSplashes files)\nPlease watch the tutorial by pressing OK.");
 					if (DeviceLanguage.getLang() == 'zh') CoolUtil.browserLoad('https://b23.tv/KqRRT8N');
 		            else CoolUtil.browserLoad('https://youtu.be/AmoNoYjJgHs?si=LvgXbRRn7eJlwL0w');
-					System.exit(0);
+				    System.exit(0);
+				    */
 				}
 			}
 		}
