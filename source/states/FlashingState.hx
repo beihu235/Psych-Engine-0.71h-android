@@ -54,10 +54,6 @@ class FlashingState extends MusicBeatState
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
-				
-				ClientPrefs.data.AndriodUpdateFirstCheck = true;
-				
-				
 				if(!back) {
 					ClientPrefs.data.flashing = true;
 					ClientPrefs.saveSettings();
