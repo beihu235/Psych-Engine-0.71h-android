@@ -641,6 +641,8 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		callOnScripts('onCreatePost');
 		
+		setOnScripts('portType', 'beihu'); //idk but someone tell that  use getProperty('portType') in lua
+		
 		if(startTimer.finished){
 		#if android
 		    MusicBeatState.androidc.visible = true;
