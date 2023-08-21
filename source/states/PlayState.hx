@@ -643,13 +643,14 @@ class PlayState extends MusicBeatState
 		
 		setOnScripts('portType', 'beihu'); //idk but someone tell that  use getProperty('portType') in lua
 		
-		if(startTimer.finished){
-		#if android
-		    MusicBeatState.androidc.visible = true;
-			if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
-		    #end		
-		}   //fix mod use setProperty('startTimer.finished') android control cant change alpha
-
+		if (startTimer != null){
+		    if(startTimer.finished){
+		    #if android
+    		    MusicBeatState.androidc.visible = true;
+    			if (MusicBeatState.checkHitbox != true) MusicBeatState.androidc.alpha = 1;
+    		    #end		
+    		}   //fix mod use setProperty('startTimer.finished') android control cant change alpha
+        }
 		cacheCountdown();
 		cachePopUpScore();
 		
