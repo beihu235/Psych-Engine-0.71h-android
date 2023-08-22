@@ -1847,7 +1847,7 @@ class ChartingState extends MusicBeatState
 				return;
 			}
 
-			if(FlxG.keys.justPressed.Z #if android || MusicBeatState._virtualpad.buttonV.justPressed #end && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if(FlxG.keys.justPressed.Z/* #if android || MusicBeatState._virtualpad.buttonV.justPressed #end*/ && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
 
