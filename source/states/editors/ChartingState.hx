@@ -3117,7 +3117,7 @@ class ChartingState extends MusicBeatState
 	}
 
 	var missingText:FlxText;
-	var missingTextTimer:FlxTimer;
+	var missingTextTimer:FlxTimer;	
 	function loadJson(song:String):Void
 	{
 		//make it look sexier if possible
@@ -3128,7 +3128,7 @@ class ChartingState extends MusicBeatState
 				else
 					PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + Difficulty.getString(), song.toLowerCase());
 			}
-			else PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			else PlayState.SONG = Song.loadFromJson(song.toLowerCase() + postfix, song.toLowerCase());
 			MusicBeatState.resetState();
 		}
 		catch(e)
