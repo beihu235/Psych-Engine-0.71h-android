@@ -1847,7 +1847,7 @@ class ChartingState extends MusicBeatState
 				return;
 			}
 
-			if(FlxG.keys.justPressed.Z/* #if android || MusicBeatState._virtualpad.buttonV.justPressed #end*/ && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
+			if((FlxG.keys.justPressed.Z #if android || MusicBeatState._virtualpad.buttonV.justPressed #end) && curZoom > 0 && !FlxG.keys.pressed.CONTROL) {
 				undo();
 			}
 
@@ -1898,7 +1898,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.R #if android || MusicBeatState._virtualpad.buttonV.justPressed #end)
+			if (!FlxG.keys.pressed.ALT && FlxG.keys.justPressed.R /*#if android || MusicBeatState._virtualpad.buttonV.justPressed #end*/)
 			{
 				if (FlxG.keys.pressed.SHIFT #if android || MusicBeatState._virtualpad.buttonC.pressed #end)
 					resetSection(true);
