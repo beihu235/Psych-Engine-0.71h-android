@@ -51,6 +51,7 @@ class NotesSubState extends MusicBeatSubstate
 	var tipTxt:FlxText;
 	
 	var AndroidColorGet:FlxUIInputText;
+	var underline_text_BG:FlxSprite;
     var LengthCheck:String = '';
     var ColorCheck:String = '';
 	public function new() {
@@ -173,7 +174,16 @@ class NotesSubState extends MusicBeatSubstate
 		AndroidColorGet = new FlxUIInputText(940, 20, 160, '', 30);
 		AndroidColorGet.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		LengthCheck = AndroidColorGet.text;
+		AndroidColorGet.backgroundColor = FlxColor.TRANSPARENT;
+		AndroidColorGet.fieldBorderColor = FlxColor.TRANSPARENT;
+		AndroidColorGet.font = Paths.font("vcr.ttf");
+		AndroidColorGet.antialiasing = ClientPrefs.data.antialiasing;
 		add(AndroidColorGet);
+		
+		underline_text_BG = new FlxSprite(940, 20 + 40).makeGraphic(160, 6, FlxColor.WHITE);
+		underline_text_BG.alpha = 0.6;
+		add(underline_text_BG);
+		
 		#if android
 		addVirtualPad(CHART_EDITOR, NOTESTATE);
 		#end
@@ -194,7 +204,7 @@ class NotesSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 	
-	LengthCheck = AndroidColorGet.text;
+	    LengthCheck = AndroidColorGet.text;
 	
 		if (FlxG.keys.justPressed.ESCAPE  #if android || MusicBeatSubstate._virtualpad.buttonB.justPressed #end ) {
 			FlxG.mouse.visible = false;
@@ -296,12 +306,13 @@ class NotesSubState extends MusicBeatSubstate
 				hexTypeNum++;
 			else if(FlxG.keys.justPressed.ENTER)
 				hexTypeNum = -1;	
+			/*	
 			else if(LengthCheck.length == 6)
 			{
 			    ColorCheck = LengthCheck;
 			
 				var curColor:String = alphabetHex.text;
-				var newColor:String = AndroidColorGet.text /*curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1)*/ ;
+				var newColor:String = AndroidColorGet.text //curColor.substring(0, hexTypeNum) + allowedTypeKeys.get(keyPressed) + curColor.substring(hexTypeNum + 1) ;
 
 				var colorHex:FlxColor = FlxColor.fromString('#' + newColor);
 				setShaderColor(colorHex);
@@ -312,6 +323,7 @@ class NotesSubState extends MusicBeatSubstate
 				//hexTypeNum++;
 				//changed = true;
 			}
+			*/
 			
 			
 			var end:Bool = false;
