@@ -37,16 +37,23 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 	public function new()
 	{
 		title = 'Hitbox Settings';
-		rpcTitle = 'Hitbox Settings Menu'; //hi, you can ask what is that, i will answer it's all what you needed lol.
+		rpcTitle = 'Hitbox Settings Menu'; 
 
 		var option:Option = new Option('Space Extend',
 			"Allow Extend Space Control --Made by NF|Beihu",
-			'hitboxExtend',
+			'spaceExtend',
 			'bool');
 		  addOption(option);
+		 
+		var option:Option = new Option('Shift Extend',
+			"Allow Extend Shift Control --Made by NF|Beihu",
+			'shiftExtend',
+			'bool');
+		  addOption(option);   
 		  
-		var option:Option = new Option('Space Location:',
-			"Choose Space Control Location",
+		  
+		var option:Option = new Option('Extend Location:',
+			"Choose Extend Control Location",
 			'hitboxLocation',
 			'string',
 			['Bottom', 'Middle', 'Top']);
@@ -63,7 +70,7 @@ class HitboxSettingsSubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 		
-		var option:Option = new Option('VirtualPad Alpha:', //mariomaster was here again
+		var option:Option = new Option('VirtualPad Alpha:',
 			'Changes VirtualPad Alpha',
 			'VirtualPadAlpha',
 			'float');
