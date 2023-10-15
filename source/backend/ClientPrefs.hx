@@ -76,9 +76,9 @@ class SaveVariables {
 	public var discordRPC:Bool = true;
 	
 	
-	
-	public var hitboxmode:String = 'New';  //it be deleted
-	public var hitboxExtend:Bool = true;
+	//hitbox and android controls
+	public var spaceExtend:Bool = true;
+	public var shiftExtend:Bool = true;
 	public var hitboxLocation:String = 'Bottom';
 	public var hitboxalpha:Float = 0.2;
 	public var VirtualPadAlpha:Float = 0.75;
