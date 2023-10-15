@@ -76,6 +76,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		CustomFadeTransition.nextCamera = camHUD;
 		
 		#if android 
     	TIP_TEXT_MAIN = 
@@ -177,6 +178,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		#end
 		
 		super.create();
+		CustomFadeTransition.nextCamera = camHUD;
 	}
 
 	var UI_typebox:FlxUITabMenu;
