@@ -219,7 +219,7 @@ class Note extends FlxSprite
 		if(noteData > -1) {
 			texture = '';
 			rgbShader = new RGBShaderReference(this, initializeGlobalRGBShader(noteData));
-			if(PlayState.SONG != null && PlayState.SONG.disableNoteRGB) rgbShader.enabled = false;
+			if(PlayState.SONG != null && (PlayState.SONG.disableNoteRGB || ClientPrefs.data.disableNoteRGB)) rgbShader.enabled = false;
 
 			x += swagWidth * (noteData);
 			if(!isSustainNote && noteData < colArray.length) { //Doing this 'if' check to fix the warnings on Senpai songs
@@ -273,7 +273,7 @@ class Note extends FlxSprite
 				scale.y *= PlayState.daPixelZoom;
 				updateHitbox();
 			}
-			earlyHitMult = 0;
+			earlyHitMult = 0.5;
 		}
 		else if(!isSustainNote)
 		{
@@ -314,7 +314,10 @@ class Note extends FlxSprite
 			skin = PlayState.SONG != null ? PlayState.SONG.arrowSkin : null;
 			if(skin == null || skin.length < 1)
 				skin = defaultNoteSkin + postfix;
+			if (Paths.fileExists('images/NOTE_assets.png', IMAGE) && ClientPrefs.data.noteSkin == ClientPrefs.defaultData.noteSkin) //fix for load old mods note assets
+		        skin = 'NOTE_assets'; 	
 		}
+		
 
 		var animName:String = null;
 		if(animation.curAnim != null) {
@@ -332,6 +335,7 @@ class Note extends FlxSprite
 			_lastValidChecked = customSkin;
 		}
 		else skinPostfix = '';
+		
 
 		if(PlayState.isPixelStage) {
 			if(isSustainNote) {
@@ -405,21 +409,32 @@ class Note extends FlxSprite
 
 		if (mustPress)
 		{
-			canBeHit = (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult) &&
+			canBeHit = ClientPrefs.data.playOpponent ? false : (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult) &&
 						strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult));
-
-			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+						
+			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult) && ClientPrefs.data.playOpponent)
+			{
+				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+					wasGoodHit = true;
+			}			
+		    
+			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit && !ClientPrefs.data.playOpponent)
 				tooLate = true;
 		}
 		else
 		{
-			canBeHit = false;
+			canBeHit = ClientPrefs.data.playOpponent ? (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult) &&
+						strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult)) : false;
 
-			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult) && !ClientPrefs.data.playOpponent)
 			{
 				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
 					wasGoodHit = true;
 			}
+			
+			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit && ClientPrefs.data.playOpponent)
+				tooLate = true;
+			
 		}
 
 		if (tooLate && !inEditor)
@@ -473,8 +488,13 @@ class Note extends FlxSprite
 	public function clipToStrumNote(myStrum:StrumNote)
 	{
 		var center:Float = myStrum.y + offsetY + Note.swagWidth / 2;
-		if(isSustainNote && (mustPress || !ignoreNote) &&
-			(!mustPress || (wasGoodHit || (prevNote.wasGoodHit && !canBeHit))))
+		if((isSustainNote && (mustPress || !ignoreNote) &&
+			(!mustPress || (wasGoodHit || (prevNote.wasGoodHit && !canBeHit)))
+			 && !ClientPrefs.data.playOpponent) || 
+		    (isSustainNote && (!mustPress || !ignoreNote) &&
+			(mustPress || (wasGoodHit || (prevNote.wasGoodHit && !canBeHit)))
+			 && ClientPrefs.data.playOpponent)
+	        )
 		{
 			var swagRect:FlxRect = clipRect;
 			if(swagRect == null) swagRect = new FlxRect(0, 0, frameWidth, frameHeight);
