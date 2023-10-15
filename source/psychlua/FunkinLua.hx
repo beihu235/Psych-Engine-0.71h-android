@@ -1786,12 +1786,12 @@ class FunkinLua {
 
 		Lua.close(lua);
 		lua = null;
-		#if (SScript >= "3.0.0")
+		#if SScript
 		if(hscript != null)
 		{
 			hscript.active = false;
-			#if (SScript >= "3.0.3")
-			hscript.destroy();
+			#if SScript
+			hscript.kill();
 			#end
 			hscript = null;
 		}
