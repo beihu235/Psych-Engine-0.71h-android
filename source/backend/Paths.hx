@@ -371,6 +371,9 @@ class Paths
 
 			if (FileSystem.exists(mods(Mods.currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))
 				return true;
+			
+				if (FileSystem.exists(SUtil.getPath() + 'assets/shared/' + key) || FileSystem.exists(SUtil.getPath() + 'assets/' + key))
+				return true;
 		}
 		#end
 		
@@ -438,9 +441,9 @@ class Paths
 
 	inline static public function formatToSongPath(path:String) {
 		var invalidChars = ~/[~&\\;:<>#]/;
-		var hideChars = ~/[.,'"%?!]/;
+		var hideChars = ~/[.,'"%?!]/; //'
 
-		var path = invalidChars.split(path.replace(' ', '-')).join("-");
+		var path = invalidChars.split(path.replace(' ', '-')).join("-"); 
 		return hideChars.split(path).join("").toLowerCase();
 	}
 
@@ -514,7 +517,14 @@ class Paths
 				return fileToCheck;
 
 		}
-		return SUtil.getPath() + 'mods/' + key;
+		    var fileToCheck:String = SUtil.getPath() + 'assets/' + key;
+			if(FileSystem.exists(fileToCheck)) 
+			return fileToCheck;
+		    
+		    var fileToCheck:String = SUtil.getPath() + 'assets/shared/' + key;
+			if(FileSystem.exists(fileToCheck)) 
+			return fileToCheck;
+		return SUtil.getPath() + 'mods/' + key;	
 	}
 	#end
 }
