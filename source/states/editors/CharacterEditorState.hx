@@ -80,6 +80,7 @@ class CharacterEditorState extends MusicBeatState
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camMenu, false);
 		FlxG.cameras.setDefaultDrawTarget(camEditor, true);
+		CustomFadeTransition.nextCamera = camMenu;
 
 		bgLayer = new FlxTypedGroup<FlxSprite>();
 		add(bgLayer);
@@ -207,6 +208,7 @@ class CharacterEditorState extends MusicBeatState
 		#end
 
 		super.create();
+		CustomFadeTransition.nextCamera = camMenu;
 	}
 
 	var onPixelBG:Bool = false;
