@@ -4,12 +4,10 @@ import flixel.FlxSubState;
 
 
 #if android
-//import flixel.input.actions.FlxActionInput;
 import android.AndroidControls.AndroidControls;
 import android.FlxVirtualPad;
 
 import flixel.group.FlxGroup;
-import android.FlxHitbox;
 import android.FlxNewHitbox;
 import android.FlxVirtualPad;
 import flixel.ui.FlxButton;
