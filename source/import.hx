@@ -23,9 +23,12 @@ import backend.Difficulty;
 import backend.Mods;
 import backend.SUtil;
 
+
+#if android
 import backend.AndroidDialogsExtend;
 import extension.devicelang.DeviceLanguage;
-
+#end
+  
 import objects.Alphabet;
 import objects.BGSprite;
 
