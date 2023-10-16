@@ -17,6 +17,8 @@ class SaveVariables {
 	public var antialiasing:Bool = true;
 	public var noteSkin:String = 'Default';
 	public var splashSkin:String = 'Psych';
+	public var disableNoteRGB:Bool = false;
+	public var disableSplashRGB:Bool = false;
 	public var splashAlpha:Float = 0.6;
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
