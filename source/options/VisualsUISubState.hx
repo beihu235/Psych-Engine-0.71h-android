@@ -103,6 +103,18 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
+		
+		var option:Option = new Option('Disable Note RGB',
+			'Easier to disableNoteRGB for Note.',
+			'disableNoteRGB',
+			'bool');
+		addOption(option);
+		
+		var option:Option = new Option('Disable Splash RGB',
+			'Easier to disableNoteRGB for Splash.',
+			'disableSplashRGB',
+			'bool');
+		addOption(option);
 
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
