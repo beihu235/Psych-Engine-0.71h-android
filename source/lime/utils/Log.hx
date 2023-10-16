@@ -77,7 +77,7 @@ class Log
 				catch (e:Dynamic)
 				{
 					#if (android && debug)
-					AndroidDialogsExtend.OpenToast("Error!\nClouldn't save the crash log because:\n" + e);
+					AndroidDialogsExtend.OpenToast("Error!\nClouldn't save the crash log because:\n" + e, 0);
 					#else
 					println("Error!\nClouldn't save the crash log because:\n" + e);
 					#end
