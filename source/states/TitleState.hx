@@ -83,6 +83,7 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		
 		//https://github.com/beihu235/AndroidDialogs
+		#if android
 		var lang:String = '';
 		if (DeviceLanguage.getLang() == 'zh') 
 		lang = 'psych0.71h 安卓端口测试\nb站-北狐丶逐梦移植\n禁止上传到任何资源网站';
@@ -94,6 +95,7 @@ class TitleState extends MusicBeatState
 		AndroidDialogsExtend.OpenToast(lang,2);
 		
 		}
+		#end
 		
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
